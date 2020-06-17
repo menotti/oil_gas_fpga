@@ -1,0 +1,6 @@
+[submodule "IPDPS-CRS-CMP-code"]
+	path = refs/IPDPS-CRS-CMP-code
+	url = https://github.com/hpg-cepetro/IPDPS-CRS-CMP-code.git
+[submodule "SYCL-OpenCL-OpenMP-Benchmark"]
+	path = refs/SYCL-OpenCL-OpenMP-Benchmark
+	url = https://github.com/herculeshcs/SYCL-OpenCL-OpenMP-Benchmark.git
