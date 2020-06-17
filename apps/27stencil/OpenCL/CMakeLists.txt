@@ -16,7 +16,15 @@ endif()
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -std=c++17 -DAPPLE -stdlib=libc++ -I ../../../Cpp_common -Wno-deprecated-declarations")
 
+IF (APPLE)
+
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework OpenCL")
+
+ELSE (APPLE)
+
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lOpenCL")
+
+ENDIF (APPLE)
 
 add_executable (27stencil src/27stencil.cpp cl/kernel.cl)
 
