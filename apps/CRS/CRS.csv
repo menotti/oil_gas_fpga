@@ -9,3 +9,8 @@ SYCL,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,5562.0
 SYCL,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,5519.0
 SYCL,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,5456.0
 SYCL,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,5507.0
+OpenCL,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,8793.0
+OpenCL,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,8678.0
+OpenCL,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,9675.0
+OpenCL,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,8891.0
+OpenCL,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,8643.0

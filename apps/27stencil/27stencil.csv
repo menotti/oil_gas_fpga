@@ -39,3 +39,13 @@ execution_time_ms,platform,version
 622.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
 514.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
 621.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
+6.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenCL
+5.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenCL
+6.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenCL
+7.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenCL
+6.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenCL
+6.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenCL
+6.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenCL
+6.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenCL
+6.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenCL
+5.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenCL
