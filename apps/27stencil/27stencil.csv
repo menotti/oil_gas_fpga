@@ -29,3 +29,13 @@ execution_time_ms,platform,version
 768.0,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,SYCL
 624.0,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,SYCL
 596.0,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,SYCL
+618.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
+662.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
+526.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
+514.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
+520.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
+545.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
+524.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
+622.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
+514.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
+621.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL

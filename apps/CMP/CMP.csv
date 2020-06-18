@@ -29,3 +29,33 @@ execution_time_ms,platform,version
 825.0,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,SYCL
 810.0,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,SYCL
 818.0,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,SYCL
+524.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
+467.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
+451.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
+449.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
+506.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
+432.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
+432.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
+436.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
+434.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
+432.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
+247.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
+216.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
+213.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
+216.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
+226.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
+219.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
+214.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
+217.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
+214.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
+223.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
+234.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
+216.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
+217.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
+230.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
+214.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
+215.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
+222.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
+216.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
+217.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
+215.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
