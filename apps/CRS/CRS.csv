@@ -1,0 +1,6 @@
+version,platform,execution_time_ms
+SYCL,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,58600.0
+SYCL,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,58609.0
+SYCL,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,59390.0
+SYCL,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,62158.0
+SYCL,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,58818.0
