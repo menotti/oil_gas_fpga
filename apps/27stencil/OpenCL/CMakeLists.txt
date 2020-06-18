@@ -1,35 +1,68 @@
-# required cmake version
-cmake_minimum_required(VERSION 3.5)
+################################################################################
+##
+#  @file CMakeLists.txt
+#  @date 2017-02-20
+#  @author Tiago Lobato Gimenes    (tlgimenes@gmail.com)
+## 
+################################################################################
+# Specify the minimum version for CMake
+cmake_minimum_required(VERSION 2.8)
 
-# CMakeLists.txt for 27stencil project
-project (27stencil)
+################################################################################
+# Project's name
+project(27stencil)
 
-set(CMAKE_CXX_COMPILER "clang++")
+################################################################################
+# Set CMAKE's variables
+set(CMAKE_PROJECT_DIR ${CMAKE_SOURCE_DIR}/src)
+#set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/bin)
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
+set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
+set(DESTDIR ${CMAKE_BINARY_DIR})
 
-# Set default build type to RelWithDebInfo if not specified
-if (NOT CMAKE_BUILD_TYPE)
-    message (STATUS "Default CMAKE_BUILD_TYPE not set using Release with Debug Info")
-    set (CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE
-        STRING "Choose the type of build, options are: None Debug Release RelWithDebInfo MinSizeRel"
-        FORCE)
+# Legacy cmake 
+if(CMAKE_MAJOR_VERSION LESS 3)
+  set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR})
 endif()
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -std=c++17 -DAPPLE -stdlib=libc++ -I ../../../Cpp_common -Wno-deprecated-declarations")
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -std=c++17")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -I ../../../Cpp_common")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -std=c++17")
 
-IF (APPLE)
+set(CL_SOURCE_DIR ${CMAKE_SOURCE_DIR}/cl)
 
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework OpenCL")
+################################################################################
+## Finds necessary packaged
+# Finds OpenCL
+FIND_PACKAGE(OpenCL REQUIRED)
+if(OPENCL_FOUND)
+  include_directories(${OpenCL_INCLUDE_DIRS})
+endif()
 
-ELSE (APPLE)
 
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lOpenCL")
+################################################################################
+# Config file generated automaticaly by CMake
+configure_file(config.h.in ${CMAKE_BINARY_DIR}/generated/config.h)
 
-ENDIF (APPLE)
+################################################################################
+# The following folder will be included
+include_directories(${PROJECT_SOURCE_DIR}/include)
+include_directories(${PROJECT_SOURCE_DIR}/cl)
+include_directories(${CMAKE_BINARY_DIR}/generated/ ) # config files
 
-add_executable (27stencil src/27stencil.cpp cl/kernel.cl)
+################################################################################
+# Add executables 
+add_executable(27stencil
+  ${CMAKE_PROJECT_DIR}/27stencil.cpp)
 
-add_custom_target (run 
-	COMMAND 27stencil --size 256 --iter 100 --device 0
-	WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
+################################################################################
+# Link project to system's libraries
+target_link_libraries(27stencil ${OpenCL_LIBRARIES} m)
+
+################################################################################
+
+add_custom_target (run
+	COMMAND 27stencil --size 256 --iter 100 --device 0 
 )
 

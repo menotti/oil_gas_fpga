@@ -3,16 +3,9 @@
  *   Author: Ricardo Menotti <menotti@ufscar.br>   *
  * * * * * * * * * * * * * * * * * * * * * * * * * */	
 
-#define __CL_ENABLE_EXCEPTIONS
-
-#ifdef __APPLE__
-#include "cl.hpp"
-#else
-#include <CL/cl.hpp>
-#endif
-
 #include "util.hpp" // utility library
 
+#include "config.h"
 #include <vector>
 #include <cstdio>
 #include <cstdlib>
@@ -22,9 +15,9 @@
 #include <fstream>
 
 // #include <chrono>
-// #include <cmath>
+#include <cmath>
 // #include <cstring>
-// #include <ctime>
+// #include <ctim
 // 
 // #ifndef DEVICE
 // #define DEVICE CL_DEVICE_TYPE_DEFAULT
@@ -179,7 +172,7 @@ int main(int argc, char* argv[]) {
         exit(1);
     }
   
-    cl::make_kernel<const int, cl::Buffer, cl::Buffer, const double> stencil(cl::Kernel(program, "stencil"));
+    cl::compatibility::make_kernel<const int, cl::Buffer, cl::Buffer, const double> stencil(cl::Kernel(program, "stencil"));
 
     // Compute the total size of grid
     nsize = size * size * size;
