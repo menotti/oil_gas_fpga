@@ -72,11 +72,13 @@ cl::Device get_device(int dev=-1) {
   if(devices.size() == 1) {
     device_str << devices[0];
     LOG(DEBUG, device_str.str());
+    std::cout << devices[0].getInfo<CL_DEVICE_NAME>() << ", "; 
     return devices[0];
   }
   else if(-1 < dev && dev < devices.size()) {
     device_str << devices[dev];
     LOG(DEBUG, device_str.str());
+    std::cout << devices[dev].getInfo<CL_DEVICE_NAME>() << ", "; 
     return devices[dev];
   }
 
@@ -279,6 +281,7 @@ int main(int argc, const char** argv) {
   stats += ": Kernel Execution Time: " + std::to_string(kernel_execution_time);
   stats += ": Kernel Giga-Semblances-Trace/s: " + std::to_string(kernel_stps);
   LOG(INFO, stats);
+  std::cout << (int)(total_exec_time*1000) << std::endl;
 
   // Delinearizes data and save it into a *.su file
   for(int i=0; i < ncdps; i++) {

@@ -23,7 +23,7 @@ endif()
 ################################################################################
 # Set CMAKE's variables
 set(CMAKE_PROJECT_DIR ${CMAKE_SOURCE_DIR}/src)
-set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/bin)
+#set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/bin)
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 set(DESTDIR ${CMAKE_BINARY_DIR})
@@ -57,5 +57,5 @@ set(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "") # disable gcc's -rdynamic
 target_link_libraries(cmp-omp2  m)
 
 ################################################################################
-add_custom_target(run COMMAND cmp-omp2 -aph 600 -c0 1.98e-7 -c1 1.77e-6 -i ../../../simple-synthetic.su -nc 15 -tau 0.002 -v 3)
+add_custom_target(run COMMAND cmp-omp2 -aph 600 -c0 1.98e-7 -c1 1.77e-6 -i ../../../../datasets/simple-synthetic.su -nc 5 -tau 0.002 -v 0)
 

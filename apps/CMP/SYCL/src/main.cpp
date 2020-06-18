@@ -100,9 +100,9 @@ void sycl_init_half(sycl::queue& q, sycl::buffer<real, 1> b_scalco, sycl::buffer
 
 			a_h[i] = 0.25 * (hx * hx + hy * hy) / FACTOR;
 		});
-		std::cout << "ttraces1: " << ttraces << std::endl;
+		//std::cout << "ttraces1: " << ttraces << std::endl;
 	});
-	std::cout << "ttraces2: " << ttraces << std::endl;
+	//std::cout << "ttraces2: " << ttraces << std::endl;
 	q.wait_and_throw();
 	end = std::chrono::high_resolution_clock::now();
 	kernel_execution_time += std::chrono::duration_cast<std::chrono::duration<double>>(end - beg).count();
@@ -234,11 +234,11 @@ void printTargetInfo(sycl::queue& q) {
   auto maxEUCount =
       device.get_info<sycl::info::device::max_compute_units>();
       
-  std::cout << " Running on " << device.get_info<sycl::info::device::name>()
-            << std::endl;
-  std::cout << " The Device Max Work Group Size is : " << maxBlockSize
-            << std::endl;
-  std::cout << " The Device Max Computer Units is : " << maxEUCount << std::endl;
+  std::cout << device.get_info<sycl::info::device::name>() << ", ";
+//            << std::endl;
+//  std::cout << " The Device Max Work Group Size is : " << maxBlockSize
+//            << std::endl;
+//  std::cout << " The Device Max Computer Units is : " << maxEUCount << std::endl;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -306,7 +306,7 @@ int main(int argc, const char** argv) {
 
 	LOG(DEBUG, "Starting SYCL devices");
 	// Define device selector as 'default'
-	sycl::default_selector device_selector;
+	sycl::cpu_selector device_selector;
 	//sycl::host_selector device_selector;
 
 	// exception handler
@@ -346,9 +346,9 @@ int main(int argc, const char** argv) {
 			main_beg = std::chrono::high_resolution_clock::now();
 			// Call the DpcppParallel with the required inputs and outputs
 			sycl_init_c(q, b_c, inc, c0, nc);
-			std::cout << "ncdps3: "<< ncdps  << std::endl;
+			//std::cout << "ncdps3: "<< ncdps  << std::endl;
 			sycl_init_half(q, b_scalco, b_gx, b_gy, b_sx, b_sy, b_h, ttraces);
-			std::cout << "ncdps4: "<< ncdps  << std::endl;
+			//std::cout << "ncdps4: "<< ncdps  << std::endl;
 
 			// Compute max semblances and get max C for each CDP
 			for(int cdp_id = 0; cdp_id < ncdps; cdp_id++) {
@@ -360,7 +360,7 @@ int main(int argc, const char** argv) {
 				memcpy(cdpsmpl, samples + t_id0*ns, stride*ns*sizeof(real));
 
 
-				std::cout << "cdp_id: "<< cdp_id  << std::endl;
+				//std::cout << "cdp_id: "<< cdp_id  << std::endl;
 				// Compute Semblances
 				sycl_compute_semblances(q, b_h, b_c, b_cdpsmpl, b_num, b_stt, t_id0, t_idf, idt, dt, tau, w, nc, ns);
 
@@ -392,6 +392,7 @@ int main(int argc, const char** argv) {
   stats += ": Kernel Execution Time: " + std::to_string(kernel_execution_time);
   stats += ": Kernel Giga-Semblances-Trace/s: " + std::to_string(kernel_stps);
   LOG(INFO, stats);
+  std::cout << (int)(total_exec_time*1000) << std::endl;
 
   // Delinearizes data and save it into a *.su file
   for(int i=0; i < ncdps; i++) {

@@ -239,6 +239,7 @@ int main(int argc, const char** argv) {
   double exec_time = std::chrono::duration_cast<std::chrono::duration<double>>(end - beg).count();
   double stps = ( ttraces / 1e9 ) * ns * nc / exec_time;
   LOG(INFO, "Execution Time: " + std::to_string(exec_time) + ", Semblances-Trace/s: " + std::to_string(stps));
+  std::cout << (int)(exec_time*1000) << std::endl; 
 
   // Delinearizes data and save it into a *.su file
   for(int i=0; i < ncdps; i++) {
