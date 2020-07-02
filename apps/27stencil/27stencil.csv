@@ -49,3 +49,13 @@ execution_time_ms,platform,version
 6.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenCL
 6.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenCL
 5.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenCL
+47.0,Intel(R) Gen8 HD Graphics NEO,OpenCL
+56.0,Intel(R) Gen8 HD Graphics NEO,OpenCL
+60.0,Intel(R) Gen8 HD Graphics NEO,OpenCL
+53.0,Intel(R) Gen8 HD Graphics NEO,OpenCL
+46.0,Intel(R) Gen8 HD Graphics NEO,OpenCL
+53.0,Intel(R) Gen8 HD Graphics NEO,OpenCL
+54.0,Intel(R) Gen8 HD Graphics NEO,OpenCL
+53.0,Intel(R) Gen8 HD Graphics NEO,OpenCL
+55.0,Intel(R) Gen8 HD Graphics NEO,OpenCL
+46.0,Intel(R) Gen8 HD Graphics NEO,OpenCL

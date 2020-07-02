@@ -34,6 +34,7 @@
 #include <cassert>
 #include <cstring>
 #include <chrono>
+#include <vector>
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -68,19 +69,26 @@ real4 * par;
 
 ////////////////////////////////////////////////////////////////////////////////
 // Evaluate Cs - linspace
-void sycl_init_par(sycl::queue& q, sycl::buffer<real4, 1> b_par, real a0, real b0, real c0, real inc_a, real inc_b,
-        real inc_c, int na, int nb, int nc)
+void sycl_init_par(sycl::queue& q, real4* par, real a0, real b0, real c0, real inc_a, real inc_b,
+        real inc_c, int na, int nb, int nc, int npar)
 {
+	sycl::buffer<real4, 1> b_par(par, sycl::range<1>(npar));
   	beg = std::chrono::high_resolution_clock::now();
   	// Submit Command group function object to the queue
 	q.submit([&](sycl::handler& cgh) {
 		// Accessors set as read_write mode
 		auto a_par = b_par.get_access<sycl::access::mode::read_write>(cgh);
-		cgh.parallel_for<class kernelA>(sycl::range<1>(npar), [=](sycl::id<1> i)  {
-			// Kernel code. Call the complex_mul function here.
-			a_par[i].a = a0 + inc_a*(i/(nc*nb));
-			a_par[i].b = b0 + inc_b*((i/nc)%nb);
-			a_par[i].c = c0 + inc_c*(i%nc);
+		cgh.parallel_for<class kernelA>(sycl::range<1>(npar), [=](sycl::id<1> it)  {
+			int i=it.get(0);
+
+			int ida = i/(nc*nb);
+			int idb = (i/nc)%nb;
+			int idc = i%nc;
+
+			//par[i] = (real4)(a0+ida*inc_a, b0+idb*inc_b, c0+idc*inc_c, 0.0);
+			a_par[i].a = (a0+ida*inc_a);
+			a_par[i].b = (b0+idb*inc_b);
+			a_par[i].c = (c0+idc*inc_c);
 		});
 	});
 	q.wait_and_throw();
@@ -90,10 +98,17 @@ void sycl_init_par(sycl::queue& q, sycl::buffer<real4, 1> b_par, real a0, real b
 
 ////////////////////////////////////////////////////////////////////////////////
 // Evaluate halfoffset points in x and y coordinates
-void sycl_init_mid(sycl::queue& q, sycl::buffer<real, 1> b_scalco, sycl::buffer<real, 1> b_gx, sycl::buffer<real, 1> b_gy,
-        sycl::buffer<real, 1> b_sx, sycl::buffer<real, 1> b_sy, sycl::buffer<real, 1> b_m0x,
-		sycl::buffer<real, 1> b_m0y, sycl::buffer<real, 1> b_h0)
+void sycl_init_mid(sycl::queue& q, real* scalco, real* gx, real* gy,
+        real* sx, real* sy, real* m0x, real* m0y, real* h0, int ttraces)
 {
+	sycl::buffer<real, 1> b_scalco(scalco, sycl::range<1>(ttraces));
+	sycl::buffer<real, 1> b_gx(gx, sycl::range<1>(ttraces));
+	sycl::buffer<real, 1> b_gy(gy, sycl::range<1>(ttraces));
+	sycl::buffer<real, 1> b_sx(sx, sycl::range<1>(ttraces));
+	sycl::buffer<real, 1> b_sy(sy, sycl::range<1>(ttraces));
+	sycl::buffer<real, 1> b_h0(h0, sycl::range<1>(ttraces));
+	sycl::buffer<real, 1> b_m0x(m0x, sycl::range<1>(ttraces));
+	sycl::buffer<real, 1> b_m0y(m0y, sycl::range<1>(ttraces));
 	beg = std::chrono::high_resolution_clock::now();
   	// Submit Command group function object to the queue
 	q.submit([&](sycl::handler& cgh) {
@@ -106,7 +121,8 @@ void sycl_init_mid(sycl::queue& q, sycl::buffer<real, 1> b_scalco, sycl::buffer<
 		auto a_m0x    = b_m0x.get_access<sycl::access::mode::read_write>(cgh);
 		auto a_m0y    = b_m0y.get_access<sycl::access::mode::read_write>(cgh);
 		auto a_h0    = b_h0.get_access<sycl::access::mode::read_write>(cgh);
-		cgh.parallel_for<class kernelB>(sycl::range<1>(ttraces), [=](sycl::id<1> i)  {
+		cgh.parallel_for<class kernelB>(sycl::range<1>(ttraces), [=](sycl::id<1> it)  {
+			int i=it.get(0);
 			// Kernel code. Call the complex_mul function here.
 			real _s = a_scalco[i];
 
@@ -129,22 +145,27 @@ void sycl_init_mid(sycl::queue& q, sycl::buffer<real, 1> b_scalco, sycl::buffer<
 
 ////////////////////////////////////////////////////////////////////////////////
 
-void sycl_compute_semblances(sycl::queue& q, sycl::buffer<real, 1> b_h, sycl::buffer<real, 1> b_m2, sycl::buffer<real, 1> b_m,
-		sycl::buffer<real4, 1> b_par, sycl::buffer<real, 1> b_samples, sycl::buffer<real, 1> b_num, sycl::buffer<real, 1> b_stt,
-        int size, real idt, real dt, int tau, int w, int npar, int ns )
-{
+void sycl_compute_semblances(sycl::queue& q, real* h, real* m2,	real* m, real* samples, real* num, real* stt,
+		real4* par, int size, real idt, real dt, int tau, int w, int npar, int ns, int ntrs, int max_gather)
+{	
+	sycl::buffer<real, 1> b_h(h, sycl::range<1>(ntrs * max_gather));
+	sycl::buffer<real, 1> b_m(m, sycl::range<1>(ntrs * max_gather));
+	sycl::buffer<real, 1> b_m2(m, sycl::range<1>(ntrs * max_gather));
+	sycl::buffer<real, 1> b_samples(samples, sycl::range<1>(ntrs * max_gather * ns));
+	sycl::buffer<real, 1> b_num(num, sycl::range<1>(ns * npar));
+	sycl::buffer<real, 1> b_stt(stt, sycl::range<1>(ns * npar));
+	sycl::buffer<real4, 1> b_par(par, sycl::range<1>(npar));
   	beg = std::chrono::high_resolution_clock::now();
   	// Submit Command group function object to the queue
-	sycl::buffer<real, 1> b_cdpsmpl(cdpsmpl, sycl::range<1>(ng*ntrs*max_gather));
 	q.submit([&](sycl::handler& cgh) {
 		// Accessors set as read_write mode
 		auto a_h       = b_h.get_access<sycl::access::mode::read_write>(cgh);
 		auto a_m2      = b_m2.get_access<sycl::access::mode::read_write>(cgh);
 		auto a_m       = b_m.get_access<sycl::access::mode::read_write>(cgh);
-		auto a_par     = b_par.get_access<sycl::access::mode::read_write>(cgh);
 		auto a_samples = b_samples.get_access<sycl::access::mode::read_write>(cgh);
 		auto a_num     = b_num.get_access<sycl::access::mode::read_write>(cgh);
 		auto a_stt     = b_stt.get_access<sycl::access::mode::read_write>(cgh);
+		auto a_par     = b_par.get_access<sycl::access::mode::read_write>(cgh);
 		cgh.parallel_for<class kernelC>(
 		sycl::nd_range<1>(ns*npar+NTHREADS-(ns*npar)%NTHREADS, NTHREADS), [=](sycl::nd_item<1> item)  {
 
@@ -217,9 +238,14 @@ void sycl_compute_semblances(sycl::queue& q, sycl::buffer<real, 1> b_h, sycl::bu
 
 ////////////////////////////////////////////////////////////////////////////////
 
-void sycl_redux_semblances(sycl::queue& q, sycl::buffer<real, 1> b_num, sycl::buffer<real, 1> b_stt, sycl::buffer<int, 1> b_ctr,
-		sycl::buffer<real, 1> b_str, sycl::buffer<real, 1> b_stk, int id, int cdp_id, int npar, int ns)
+void sycl_redux_semblances(sycl::queue& q, real* num, real* stt, int* ctr, real* str, real* stk,
+	int id, int cdp_id, int npar, int ns, int ncdps)
 {
+	sycl::buffer<real, 1> b_num(num, sycl::range<1>(ns * npar));
+	sycl::buffer<real, 1> b_stt(stt, sycl::range<1>(ns * npar));
+	sycl::buffer<int, 1> b_ctr(ctr, sycl::range<1>(ncdps*ns));
+	sycl::buffer<real, 1> b_str(str, sycl::range<1>(ncdps*ns));
+	sycl::buffer<real, 1> b_stk(stk, sycl::range<1>(ncdps*ns));
   	beg = std::chrono::high_resolution_clock::now();
   	// Submit Command group function object to the queue
 	q.submit([&](sycl::handler& cgh) {
@@ -229,7 +255,8 @@ void sycl_redux_semblances(sycl::queue& q, sycl::buffer<real, 1> b_num, sycl::bu
 		auto a_ctr = b_ctr.get_access<sycl::access::mode::read_write>(cgh);
 		auto a_str = b_str.get_access<sycl::access::mode::read_write>(cgh);
 		auto a_stk = b_stk.get_access<sycl::access::mode::read_write>(cgh);
-		cgh.parallel_for<class kernelD>(sycl::range<1>(npar), [=](sycl::id<1> t0)  {
+		cgh.parallel_for<class kernelD>(sycl::range<1>(ns), [=](sycl::id<1> ide)  {
+			int t0=ide.get(0);
 			real max_sem = 0.0f, _num;
 			int max_par = 0;
 
@@ -253,10 +280,17 @@ void sycl_redux_semblances(sycl::queue& q, sycl::buffer<real, 1> b_num, sycl::bu
 
 ////////////////////////////////////////////////////////////////////////////////
 
-void sycl_compute_points_for_gather(sycl::queue& q, sycl::buffer<real, 1> b_m0x, sycl::buffer<real, 1> b_m0y, sycl::buffer<real, 1> b_h0,
-         sycl::buffer<real, 1> b_h, sycl::buffer<real, 1> b_m2, sycl::buffer<real, 1> b_m, sycl::buffer<int, 1> b_ntraces_by_cdp_id,
-        real m0x_cdp_id, real m0y_cdp_id, int cdp0, int cdpf)
+void sycl_compute_points_for_gather(sycl::queue& q, real* h, real* m2, real* m,
+		real* m0x, real*  m0y, real* h0, int* ntraces_by_cdp_id, real m0x_cdp_id, real m0y_cdp_id,
+		int cdp0, int cdpf, int ntrs, int ttraces, int max_gather, int ncdps)
 {
+	sycl::buffer<real, 1> b_h(h, sycl::range<1>(ntrs * max_gather));
+	sycl::buffer<real, 1> b_m(m, sycl::range<1>(ntrs * max_gather));
+	sycl::buffer<real, 1> b_m2(m, sycl::range<1>(ntrs * max_gather));
+	sycl::buffer<real, 1> b_h0(h0, sycl::range<1>(ttraces));
+	sycl::buffer<real, 1> b_m0x(m0x, sycl::range<1>(ttraces));
+	sycl::buffer<real, 1> b_m0y(m0y, sycl::range<1>(ttraces));
+    sycl::buffer<int, 1> b_ntraces_by_cdp_id(ntraces_by_cdp_id, sycl::range<1>(ncdps));
   	beg = std::chrono::high_resolution_clock::now();
   	// Submit Command group function object to the queue
 	q.submit([&](sycl::handler& cgh) {
@@ -268,9 +302,10 @@ void sycl_compute_points_for_gather(sycl::queue& q, sycl::buffer<real, 1> b_m0x,
 		auto a_m2 = b_m2.get_access<sycl::access::mode::read_write>(cgh);
 		auto a_m = b_m.get_access<sycl::access::mode::read_write>(cgh);
 		auto a_ntraces_by_cdp_id = b_ntraces_by_cdp_id.get_access<sycl::access::mode::read_write>(cgh);
-		cgh.parallel_for<class kernelA>(sycl::range<1>(cdpf-cdp0+1), [=](sycl::id<1> i)  {
+		cgh.parallel_for<class kernelE>(sycl::range<1>(cdpf-cdp0+1), [=](sycl::id<1> it)  {
+			
 			real dx, dy, _m2;
-			int cdp = cdp0 + i;
+			int cdp = cdp0 + it.get(0);
 
 			if(cdp0 <= cdp && cdp <= cdpf)
 			{
@@ -365,15 +400,15 @@ int main(int argc, const char** argv) {
   h0   = new real [ ttraces ];    // One halfoffset per trace
   m0x  = new real [ ttraces ];    // One midpoint per trace
   m0y  = new real [ ttraces ];    // One midpoint per trace
-  num = new real [ ng * ns * npar ];    // nc nums per sample
+  num = new real [ ns * npar ];    // nc nums per sample
   stt = new real [ ng * ns * npar ];    // nc stts per sample
   ctr = new int  [ ncdps * ns ]; // ns Cs per cdp
   str = new real [ ncdps * ns ]; // ns semblance per cdp
   stk = new real [ ncdps * ns ]; // ns stacked values per cdp
-  cdpsmpl = new real [ ng * ns * ntrs * max_gather ]; // Samples for current cdp
-  m2 = new real [ ng * ntrs * max_gather ]; // Samples for current cdp
-  m  = new real [ ng * ntrs * max_gather ]; // Samples for current cdp
-  h  = new real [ ng * ntrs * max_gather ]; // Samples for current cdp
+  cdpsmpl = new real [ ns * ntrs * max_gather ]; // Samples for current cdp
+  m2 = new real [ ntrs * max_gather ]; // Samples for current cdp
+  m  = new real [ ntrs * max_gather ]; // Samples for current cdp
+  h  = new real [ ntrs * max_gather ]; // Samples for current cdp
 
   // Evaluate values for each cdp
   dt = dt / 1000000.0f;
@@ -381,11 +416,11 @@ int main(int argc, const char** argv) {
   tau = (int)( itau * idt) > 0 ? (int)( itau * idt)  : 0;
   w = (2 * tau) + 1;
 
-  LOG(DEBUG, "Starting SYCL devices");
+  	//LOG(DEBUG, "Starting SYCL devices");
 	// Define device selector as 'default'
-	sycl::cpu_selector device_selector;
+	sycl::default_selector device_selector;
 	//sycl::host_selector device_selector;
-  
+
 	// exception handler
 	auto exception_handler = [](sycl::exception_list exceptionList) {
 		for (std::exception_ptr const& e : exceptionList) {
@@ -400,47 +435,21 @@ int main(int argc, const char** argv) {
 	try{
 		// Create a device queue using DPC++ class queue
     	std::vector<sycl::queue> queues;
-		//sycl::queue q(device_selector, exception_handler);
+		sycl::queue q(device_selector, exception_handler);
 		// Alloc SYCL buffers
 		{
-			sycl::buffer<real, 1> b_gx(gx, sycl::range<1>(ttraces));
-			sycl::buffer<real, 1> b_gy(gy, sycl::range<1>(ttraces));
-			sycl::buffer<real, 1> b_sx(sx, sycl::range<1>(ttraces));
-			sycl::buffer<real, 1> b_sy(sy, sycl::range<1>(ttraces));
-			sycl::buffer<real, 1> b_scalco(scalco, sycl::range<1>(ttraces));
-			sycl::buffer<real, 1> b_h0(h0, sycl::range<1>(ttraces));
-			sycl::buffer<real, 1> b_str(str, sycl::range<1>(ncdps*ns));
-			sycl::buffer<real, 1> b_stk(stk, sycl::range<1>(ncdps*ns));
-			sycl::buffer<int, 1> b_ctr(ctr, sycl::range<1>(ncdps*nc));
-			sycl::buffer<real, 1> b_m0x(m0x, sycl::range<1>(ttraces));
-			sycl::buffer<real, 1> b_m0y(m0y, sycl::range<1>(ttraces));
-			sycl::buffer<real4, 1> b_par(par, sycl::range<1>(npar));
-    		sycl::buffer<int, 1> b_ntraces_by_cdp_id(ntraces_by_cdp_id, sycl::range<1>(ncdps));
-    		std::vector<sycl::buffer<real, 1>> m2s, ms, hs, cdpsmpls, nums, stts;
-
-			for(int i=0; i < ng; i++) {
-			  m2s     .push_back(sycl::buffer<real, 1>(m2, sycl::range<1>(ng * ntrs * max_gather)));
-			  ms      .push_back(sycl::buffer<real, 1>(m, sycl::range<1>(ng * ntrs * max_gather)));
-			  hs      .push_back(sycl::buffer<real, 1>(h, sycl::range<1>(ng * ntrs * max_gather)));
-			  nums    .push_back(sycl::buffer<real, 1>(num, sycl::range<1>(ng*ns*npar)));
-			  stts    .push_back(sycl::buffer<real, 1>(stt, sycl::range<1>(ng * ntrs * max_gather)));
-			  cdpsmpls.push_back(sycl::buffer<real, 1>(cdpsmpl, sycl::range<1>(ng*ntrs*max_gather)));
-			  queues  .push_back(sycl::queue(device_selector, exception_handler));
-			}
 			// Chronometer
 			main_beg = std::chrono::high_resolution_clock::now();
 
 			// Evaluate Cs - linspace
-			sycl_init_par(queues[0], b_par, a0, b0, c0, inc_a, inc_b, inc_c, na, nb, nc);
+			sycl_init_par(q, par, a0, b0, c0, inc_a, inc_b, inc_c, na, nb, nc, npar);
 
 			// Evaluate halfoffset points in x and y coordinates
-			sycl_init_mid(queues[0], b_scalco, b_gx, b_gy, b_sx, b_sy, b_m0x, b_m0y, b_h0);
-
+			sycl_init_mid(q, scalco, gx, gy, sx, sy, m0x, m0y, h0, ttraces);
 
     		// Compute max semblances and get max C for each CDP
 			for(int cdp_id=0; cdp_id < ncdps; cdp_id++) {
 				int id = (cdp_id)%ng;
-
 				real m0x_cdp_id = (cdp_id > 0) ? m0x[ntraces_by_cdp_id[cdp_id-1]] : 0;
 				real m0y_cdp_id = (cdp_id > 0) ? m0y[ntraces_by_cdp_id[cdp_id-1]] : 0;
 				int cdp0 = gather.cdps_by_cdp_id()[cdp_id].front();
@@ -449,17 +458,18 @@ int main(int argc, const char** argv) {
 				int t_idf = ntraces_by_cdp_id[cdpf];
 				int ntraces = t_idf - t_id0;
 
-      			sycl_compute_points_for_gather(queues[id], b_m0x, b_m0y, b_h0, hs[id], m2s[id], ms[id], b_ntraces_by_cdp_id,
-										m0x_cdp_id, m0y_cdp_id, cdp0, cdpf);
+				memcpy(cdpsmpl, samples + t_id0*ns, ntraces*ns*sizeof(real));
 
-				sycl_compute_semblances(queues[id], hs[id], m2s[id], ms[id], b_par, cdpsmpls[id], 
-										nums[id], stts[id], ntraces, idt, dt, tau, w, npar, ns);
+      			sycl_compute_points_for_gather(q, h, m2, m, m0x, m0y, h0, ntraces_by_cdp_id,
+										m0x_cdp_id, m0y_cdp_id, cdp0, cdpf, ntrs, ttraces, max_gather, ncdps);
 
-				sycl_redux_semblances(queues[id], nums[id], stts[id], b_ctr, b_str, b_stk, id, cdp_id, npar, ns);
+				sycl_compute_semblances(q, h, m2, m, cdpsmpl, num, stt, par, ntraces, idt, dt, tau, w, npar, ns, ntrs, max_gather);
+
+				sycl_redux_semblances(q, num, stt, ctr, str, stk, id, cdp_id, npar, ns, ncdps);
 
 				number_of_semblances += ntraces;
 
-				LOG(DEBUG, "SYCL Progress: " + std::to_string(cdp_id) + "/" + std::to_string(ncdps));
+				//LOG(DEBUG, "SYCL Progress: " + std::to_string(cdp_id) + "/" + std::to_string(ncdps));
 			}
 
 			// Gets time at end of computation
@@ -482,8 +492,7 @@ int main(int argc, const char** argv) {
   stats += ": Kernel Execution Time: " + std::to_string(kernel_execution_time);
   stats += ": Kernel Giga-Semblances-Trace/s: " + std::to_string(kernel_stps);
   LOG(INFO, stats);
-  std::cout << (int)(total_exec_time*1000) << std::endl;
-  
+
   // Delinearizes data and save it into a *.su file
   for(int i=0; i < ncdps; i++) {
     su_trace atr_t = gather[i].traces()[0];
