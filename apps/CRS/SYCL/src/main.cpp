@@ -1,7 +1,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 /**
  * @file main.cpp
- * @date 2017-03-04
+ * @date 2020-07-08
+ * @modified by João Vieira da Silva Neto	(jvieira850@gmail.com) 
  * @author Tiago Lobato Gimenes    (tlgimenes@gmail.com)
  *
  * @copyright

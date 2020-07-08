@@ -1,8 +1,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 /**
  * @file main.cpp
- * @date 2017-03-04
- * @author Tiago Lobato Gimenes    (tlgimenes@gmail.com)
+ * @date 2020-07-08
+ * @modified by João Vieira da Silva Neto	(jvieira850@gmail.com) 
+ * @author Tiago Lobato Gimenes			(tlgimenes@gmail.com)
  *
  * @copyright
  * This program is free software: you can redistribute it and/or modify
@@ -19,7 +20,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 ////////////////////////////////////////////////////////////////////////////////
-
 
 #include "log.hpp"
 #include "utils.hpp"
