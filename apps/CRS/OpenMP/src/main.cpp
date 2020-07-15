@@ -316,7 +316,7 @@ int main(int argc, const char** argv) {
     }
     number_of_semblances += size;
 
-    LOG(DEBUG, "OpenACC Progress: " + std::to_string(cdp_id) + "/" + std::to_string(ncdps));
+    LOG(DEBUG, "OpenMP Progress: " + std::to_string(cdp_id) + "/" + std::to_string(ncdps));
   }
 
   // Gets time at end of computation

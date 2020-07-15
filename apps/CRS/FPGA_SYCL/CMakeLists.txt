@@ -31,9 +31,9 @@ set(DESTDIR ${CMAKE_BINARY_DIR})
 # Legacy cmake 
 
 set(CMAKE_CXX_COMPILER "dpcpp")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -fsycl -std=c++11")
 
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsycl -DFPGA_EMULATOR")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lsycl -DFPGA_EMULATOR")
 
 ################################################################################
 # The following folder will be included

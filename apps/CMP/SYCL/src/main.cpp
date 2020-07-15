@@ -278,6 +278,7 @@ int main(int argc, const char** argv) {
   parser::add_argument("-tau", "Tau constant");
   parser::add_argument("-i", "Data path");
   parser::add_argument("-v", "Verbosity Level 0-3");
+  parser::add_argument("-d", "SYCL device number [1-n_dev]");
 
   parser::parse(argc, argv);
 
@@ -287,6 +288,7 @@ int main(int argc, const char** argv) {
   const real itau = std::stof(parser::get("-tau", true));
   const int nc = std::stoi(parser::get("-nc", true));
   const int aph = std::stoi(parser::get("-aph", true));
+  const int dev = std::stoi(parser::get("-d", false))-1;
   std::string path = parser::get("-i", true);
   logger::verbosity_level(std::stoi(parser::get("-v", false)));
 
@@ -326,11 +328,8 @@ int main(int argc, const char** argv) {
   real *h_stk  = new real[ncdps*ns];
 //--------------Begin of my code----------
 
-	//LOG(DEBUG, "Starting SYCL devices");
-	// Define device selector as 'default'
-	sycl::default_selector device_selector;
-	//sycl::host_selector device_selector;
-
+	LOG(DEBUG, "Starting SYCL devices");
+	//Define device selector as 'default'
 	// exception handler
 	auto exception_handler = [](sycl::exception_list exceptionList) {
 		for (std::exception_ptr const& e : exceptionList) {
@@ -342,19 +341,28 @@ int main(int argc, const char** argv) {
 		}
 	};
 
-
 	try {
 		// Create a device queue using DPC++ class queue
-		sycl::queue q(device_selector, exception_handler);
-		//printTargetInfo(q);
+		auto platfrom_list = sycl::platform::get_platforms();
+		// getting the list of devices from the platform
+		std::vector<sycl::queue> queues;
+		for (const auto &platform : platfrom_list) {
+			if(platform.get_info<sycl::info::platform::name>() != "NVIDIA CUDA"){
+				auto device_list = platform.get_devices();// looping over platforms
+				for (const auto &device : device_list) {
+					queues.push_back(sycl::queue(device));
+				}
+			}
+		}
+		
 		{
 
 			// Copies data to Compute Device
 			// Chronometer
 			main_beg = std::chrono::high_resolution_clock::now();
 			// Call the DpcppParallel with the required inputs and outputs
-			sycl_init_c(q, c, inc, c0, nc);
-			sycl_init_half(q, scalco, gx, gy, sx, sy, h, ttraces);
+			sycl_init_c(queues[dev], c, inc, c0, nc);
+			sycl_init_half(queues[dev], scalco, gx, gy, sx, sy, h, ttraces);
 
 			// Compute max semblances and get max C for each CDP
 			for(int cdp_id = 0; cdp_id < ncdps; cdp_id++) {
@@ -366,17 +374,18 @@ int main(int argc, const char** argv) {
 				memcpy(cdpsmpl, samples + t_id0*ns, stride*ns*sizeof(real));
 
 				// Compute Semblances
-				sycl_compute_semblances(q, h, c, cdpsmpl, num, stt, t_id0, t_idf, idt, dt, tau, w, nc, ns, ttraces, ntrs);
+				sycl_compute_semblances(queues[dev], h, c, cdpsmpl, num, stt, t_id0, t_idf, idt, dt, tau, w, nc, ns, ttraces, ntrs);
 
 				// Redux semblances
-				sycl_redux_semblances(q, num, stt, ctr, str, stk, nc, cdp_id, ns, ncdps);
+				sycl_redux_semblances(queues[dev], num, stt, ctr, str, stk, nc, cdp_id, ns, ncdps);
 
 				number_of_semblances += stride;
 
-      			//LOG(DEBUG, "SYCL Progress: " + std::to_string(cdp_id) + "/" + std::to_string(ncdps));
+      			LOG(DEBUG, "SYCL Progress: " + std::to_string(cdp_id) + "/" + std::to_string(ncdps));
 			}
 			// Gets time at end of computation
 			main_end = std::chrono::high_resolution_clock::now();
+			std::cout << queues[dev].get_device().get_info<sycl::info::device::name>();
 		}
 
 	} catch (...) {
@@ -391,11 +400,12 @@ int main(int argc, const char** argv) {
   double total_exec_time = std::chrono::duration_cast<std::chrono::duration<double>>(main_end - main_beg).count();
   double stps = (number_of_semblances / 1e9 ) * (ns * nc / total_exec_time);
   double kernel_stps = (number_of_semblances / 1e9 ) * (ns * nc / kernel_execution_time);
-  std::string stats = "Total Execution Time: " + std::to_string(total_exec_time);
-  stats += ": Giga-Semblances-Trace/s: " + std::to_string(stps);
-  stats += ": Kernel Execution Time: " + std::to_string(kernel_execution_time);
-  stats += ": Kernel Giga-Semblances-Trace/s: " + std::to_string(kernel_stps);
+  std::string stats = "Total Execution Time: " + std::to_string(total_exec_time)+"\n";
+  stats += ": Giga-Semblances-Trace/s: " + std::to_string(stps)+"\n";
+  stats += ": Kernel Execution Time: " + std::to_string(kernel_execution_time)+"\n";
+  stats += ": Kernel Giga-Semblances-Trace/s: " + std::to_string(kernel_stps)+"\n";
   LOG(INFO, stats);
+  std::cout << ", " << (int)(total_exec_time*1000) << std::endl;
 
   // Delinearizes data and save it into a *.su file
   for(int i=0; i < ncdps; i++) {

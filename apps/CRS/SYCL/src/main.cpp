@@ -360,6 +360,7 @@ int main(int argc, const char** argv) {
   parser::add_argument("-tau", "Tau constant");
   parser::add_argument("-i", "Data path");
   parser::add_argument("-v", "Verbosity Level 0-3");
+  parser::add_argument("-d", "OpenCL device number [1-n_dev]");
 
   parser::parse(argc, argv);
 
@@ -376,6 +377,7 @@ int main(int argc, const char** argv) {
   nc = std::stoi(parser::get("-nc", true));
   aph = std::stoi(parser::get("-aph", true));
   apm = std::stoi(parser::get("-apm", true));
+  const int dev = std::stoi(parser::get("-d", false))-1;
   ng = 1;
   std::string path = parser::get("-i", true);
   logger::verbosity_level(std::stoi(parser::get("-v", false)));
@@ -417,7 +419,7 @@ int main(int argc, const char** argv) {
   tau = (int)( itau * idt) > 0 ? (int)( itau * idt)  : 0;
   w = (2 * tau) + 1;
 
-  	//LOG(DEBUG, "Starting SYCL devices");
+  	LOG(DEBUG, "Starting SYCL devices");
 	// Define device selector as 'default'
 	sycl::default_selector device_selector;
 	//sycl::host_selector device_selector;
@@ -435,18 +437,27 @@ int main(int argc, const char** argv) {
 
 	try{
 		// Create a device queue using DPC++ class queue
-    	std::vector<sycl::queue> queues;
-		sycl::queue q(device_selector, exception_handler);
+		auto platfrom_list = sycl::platform::get_platforms();
+		// getting the list of devices from the platform
+		std::vector<sycl::queue> queues;
+		for (const auto &platform : platfrom_list) {
+			if(platform.get_info<sycl::info::platform::name>() != "NVIDIA CUDA"){
+				auto device_list = platform.get_devices();// looping over platforms
+				for (const auto &device : device_list) {
+					queues.push_back(sycl::queue(device));
+				}
+			}
+		}
 		// Alloc SYCL buffers
 		{
 			// Chronometer
 			main_beg = std::chrono::high_resolution_clock::now();
 
 			// Evaluate Cs - linspace
-			sycl_init_par(q, par, a0, b0, c0, inc_a, inc_b, inc_c, na, nb, nc, npar);
+			sycl_init_par(queues[dev], par, a0, b0, c0, inc_a, inc_b, inc_c, na, nb, nc, npar);
 
 			// Evaluate halfoffset points in x and y coordinates
-			sycl_init_mid(q, scalco, gx, gy, sx, sy, m0x, m0y, h0, ttraces);
+			sycl_init_mid(queues[dev], scalco, gx, gy, sx, sy, m0x, m0y, h0, ttraces);
 
     		// Compute max semblances and get max C for each CDP
 			for(int cdp_id=0; cdp_id < ncdps; cdp_id++) {
@@ -461,20 +472,21 @@ int main(int argc, const char** argv) {
 
 				memcpy(cdpsmpl, samples + t_id0*ns, ntraces*ns*sizeof(real));
 
-      			sycl_compute_points_for_gather(q, h, m2, m, m0x, m0y, h0, ntraces_by_cdp_id,
+      			sycl_compute_points_for_gather(queues[dev], h, m2, m, m0x, m0y, h0, ntraces_by_cdp_id,
 										m0x_cdp_id, m0y_cdp_id, cdp0, cdpf, ntrs, ttraces, max_gather, ncdps);
 
-				sycl_compute_semblances(q, h, m2, m, cdpsmpl, num, stt, par, ntraces, idt, dt, tau, w, npar, ns, ntrs, max_gather);
+				sycl_compute_semblances(queues[dev], h, m2, m, cdpsmpl, num, stt, par, ntraces, idt, dt, tau, w, npar, ns, ntrs, max_gather);
 
-				sycl_redux_semblances(q, num, stt, ctr, str, stk, id, cdp_id, npar, ns, ncdps);
+				sycl_redux_semblances(queues[dev], num, stt, ctr, str, stk, id, cdp_id, npar, ns, ncdps);
 
 				number_of_semblances += ntraces;
 
-				//LOG(DEBUG, "SYCL Progress: " + std::to_string(cdp_id) + "/" + std::to_string(ncdps));
+				LOG(DEBUG, "SYCL Progress: " + std::to_string(cdp_id) + "/" + std::to_string(ncdps));
 			}
 
 			// Gets time at end of computation
 			main_end = std::chrono::high_resolution_clock::now();
+			std::cout << queues[dev].get_device().get_info<sycl::info::device::name>();
 
 		}
 
@@ -493,6 +505,7 @@ int main(int argc, const char** argv) {
   stats += ": Kernel Execution Time: " + std::to_string(kernel_execution_time);
   stats += ": Kernel Giga-Semblances-Trace/s: " + std::to_string(kernel_stps);
   LOG(INFO, stats);
+  std::cout << ", " << (int)(total_exec_time*1000) << std::endl;
 
   // Delinearizes data and save it into a *.su file
   for(int i=0; i < ncdps; i++) {
