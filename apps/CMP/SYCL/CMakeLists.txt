@@ -52,7 +52,7 @@ add_executable(cmp-sycl2
 ################################################################################
 # Link project to system's libraries
 set(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "") # disable gcc's -rdynamic
-target_link_libraries(cmp-sycl2 ${SYCL_LIBRARIES} m)
+target_link_libraries(cmp-sycl2  m)
 
 ################################################################################
-add_custom_target(run COMMAND cmp-sycl2 -aph 600 -c0 1.98e-7 -d 1 -c1 1.77e-6 -i ../../../../datasets/simple-synthetic.su -nc 5 -tau 0.002 -v 0)
+add_custom_target(run COMMAND cmp-sycl2 -aph 600 -c0 1.98e-7 -d 3 -c1 1.77e-6 -i ../../../../datasets/simple-synthetic.su -nc 5 -tau 0.002 -v 0 -d 1)

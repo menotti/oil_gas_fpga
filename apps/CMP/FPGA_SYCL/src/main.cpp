@@ -137,11 +137,11 @@ int main(int argc, const char** argv) {
 			c[i] = c0 + inc*i;
 		}*/
 
-		//#ifdef FPGA_EMULATOR
-			sycl::intel::fpga_emulator_selector device_selector;
-		//#else
-			//sycl::intel::fpga_selector device_selector;
-		//#endif
+		#if defined(FPGA_EMULATOR)
+		  sycl::intel::fpga_emulator_selector device_selector;
+		#else
+		  sycl::intel::fpga_selector device_selector;
+		#endif
 
 		sycl::queue queue(device_selector, exception_handler);
 		sycl::buffer<real, 1> b_c(c, sycl::range<1>(nc));
@@ -161,17 +161,6 @@ int main(int argc, const char** argv) {
 		kernel_execution_time += std::chrono::duration_cast<std::chrono::duration<double>>(end - beg).count();
 
 		// Evaluate halfoffset points in x and y coordinates
-		/*for(int i=0; i < ttraces; i++) {
-			real _s = scalco[i];
-
-			if(-EPSILON < _s && _s < EPSILON) _s = 1.0;
-			else if(_s < 0) _s = 1.0f / _s;
-
-			real hx = (gx[i] - sx[i]) * _s;
-			real hy = (gy[i] - sy[i]) * _s;
-
-			h[i] = 0.25 * (hx * hx + hy * hy) / FACTOR;
-		}*/
 		sycl::buffer<real, 1> b_h(h, sycl::range<1>(ttraces));
 		sycl::buffer<real, 1> b_gx(gx, sycl::range<1>(ttraces));
 		sycl::buffer<real, 1> b_gy(gy, sycl::range<1>(ttraces));
@@ -208,77 +197,24 @@ int main(int argc, const char** argv) {
 		queue.wait_and_throw();
 		end = std::chrono::high_resolution_clock::now();
 		kernel_execution_time += std::chrono::duration_cast<std::chrono::duration<double>>(end - beg).count();
-
+		sycl::buffer<real, 1> b_cdpsmpl(cdpsmpl, sycl::range<1>(ntrs * ns));
+		sycl::buffer<real, 1> b_num(num, sycl::range<1>(ns * nc));
+		sycl::buffer<real, 1> b_stt(stt, sycl::range<1>(ns * nc));
+		sycl::buffer<real, 1> b_str(str, sycl::range<1>(ncdps * ns));
+		sycl::buffer<real, 1> b_stk(stk, sycl::range<1>(ncdps * ns));
+		sycl::buffer<int, 1> b_ctr(ctr, sycl::range<1>(ncdps * ns));
+		
+		
 		int t_id0 = 0;                    // id of first trace
 		int t_idf = ntraces_by_cdp_id[0]; // id of last trace
 		int stride = t_idf-t_id0;
 
-		// Copies data back to host
-		memcpy(cdpsmpl, samples + t_id0*ns, stride*ns*sizeof(real));
 
 		// Compute max semblances and get max C for each CDP
 		for(int cdp_id = 0; cdp_id < ncdps; ) {
 		assert(w <= MAX_W);
-
-			/*#pragma omp parallel for
-			for(int i=0; i < ns*nc; i++) {
-			  real _num[MAX_W], _ac_squared = 0, _ac_linear = 0, _den = 0, m = 0;
-			  int err = 0;
-
-			  int c_id = i % nc;
-			  int t0 = i / nc;
-
-			  real _c = c[c_id];
-			  real _t0 = dt * t0;
-			  _t0 = _t0 * _t0;
-
-			  // start _num with zeros
-			  for(int j=0; j < w; j++) _num[j] = 0.0f;
-
-			  for(int t_id=t_id0; t_id < t_idf; t_id++) {
-				// Evaluate t
-				real t = SQRT(_t0 + _c * h[t_id]) * idt;
-
-				int it = (int)( t );
-				int ittau = it - tau;
-				real x = t - (real)it;
-
-				if(ittau >= 0 && it + tau + 1 < ns) {
-				  int k1 = ittau + (t_id - t_id0)*ns;
-				  real sk1p1 = cdpsmpl[k1], sk1;
-
-				  for(int j=0; j < w; j++) {
-					k1++;
-					sk1 = sk1p1;
-					sk1p1 = cdpsmpl[k1];
-
-					// linear interpolation optmized for this problem
-					real v = (sk1p1 - sk1) * x + sk1;
-
-					_num[j] += v;
-					_den += v * v;
-					_ac_linear += v;
-				  }
-				  m++;
-				} else { err++; }
-			  }
-
-			  // Reduction for num
-			  for(int j=0; j < w; j++) _ac_squared += _num[j] * _num[j];
-
-			  // Evaluate semblances
-			  if(_den > EPSILON && m > EPSILON && w > EPSILON && err < 2) {
-				num[i] = _ac_squared / (_den * m);
-				stt[i] = _ac_linear  / (w   * m);
-			  }
-			  else {
-				num[i] = -1.0f;
-				stt[i] = -1.0f;
-			  }
-			}*/
-			sycl::buffer<real, 1> b_cdpsmpl(cdpsmpl, sycl::range<1>(ntrs * ns));
-			sycl::buffer<real, 1> b_num(num, sycl::range<1>(ns * nc));
-			sycl::buffer<real, 1> b_stt(stt, sycl::range<1>(ns * nc));
+		// Copies data back to host
+		memcpy(cdpsmpl, samples + t_id0*ns, stride*ns*sizeof(real));
 		  	beg = std::chrono::high_resolution_clock::now();
 			// Submit Command group function object to the queue
 			queue.submit([&](sycl::handler& cgh) {
@@ -356,25 +292,6 @@ int main(int argc, const char** argv) {
 			kernel_execution_time += std::chrono::duration_cast<std::chrono::duration<double>>(end - beg).count();
 
 			// Get max C for max semblance for each sample on this cdp
-			/*#pragma omp parallel for
-			for(int t0=0; t0 < ns; t0++) {
-			  real max_sem = 0.0f;
-			  int max_c = -1;
-
-			  for(int it=t0*nc; it < (t0+1)*nc ; it++) {
-				if(num[it] > max_sem) {
-				  max_sem = num[it];
-				  max_c = it;
-				}
-			  }
-
-			  ctr[cdp_id*ns + t0] = max_c % nc;
-			  str[cdp_id*ns + t0] = max_sem;
-			  stk[cdp_id*ns + t0] = max_c > -1 ? stt[max_c] : 0.0f;
-			}*/
-			sycl::buffer<real, 1> b_str(str, sycl::range<1>(ncdps * ns));
-			sycl::buffer<real, 1> b_stk(stk, sycl::range<1>(ncdps * ns));
-			sycl::buffer<int, 1> b_ctr(ctr, sycl::range<1>(ncdps * ns));
 		  	beg = std::chrono::high_resolution_clock::now();
 			// Submit Command group function object to the queue
 			queue.submit([&](sycl::handler& cgh) {
@@ -420,6 +337,7 @@ int main(int argc, const char** argv) {
 			// Gets time at end of computation
 			main_end = std::chrono::high_resolution_clock::now();
 		}
+		std::cout << queue.get_device().get_info<sycl::info::device::name>() << ", ";
 
 	} catch (cl::sycl::exception const &e) {
 		std::cout << "Caught a synchronous SYCL exception: " << e.what() << "\n";
@@ -440,6 +358,7 @@ int main(int argc, const char** argv) {
 	stats += ": Kernel Execution Time: " + std::to_string(kernel_execution_time);
 	stats += ": Kernel Giga-Semblances-Trace/s: " + std::to_string(kernel_stps);
 	LOG(INFO, stats);
+	std::cout << (int)(total_exec_time*1000) << std::endl;
 
   // Delinearizes data and save it into a *.su file
   for(int i=0; i < ncdps; i++) {
