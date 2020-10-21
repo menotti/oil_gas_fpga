@@ -127,22 +127,17 @@ int main(int argc, const char** argv) {
 
 		LOG(DEBUG, "Starting SYCL devices");
 
-		// Copies data to Compute Device
-		// Chronometer
-		main_beg = std::chrono::high_resolution_clock::now();
-
-		// Evaluate Cs - linspace
-		/*#pragma omp parallel for
-		for(int i=0; i < nc; i++) {
-			c[i] = c0 + inc*i;
-		}*/
-
 		#if defined(FPGA_EMULATOR)
 		  sycl::intel::fpga_emulator_selector device_selector;
 		#else
 		  sycl::intel::fpga_selector device_selector;
 		#endif
+		
+		// Copies data to Compute Device
+		// Chronometer
+		main_beg = std::chrono::high_resolution_clock::now();
 
+		
 		sycl::queue queue(device_selector, exception_handler);
 		sycl::buffer<real, 1> b_c(c, sycl::range<1>(nc));
 		beg = std::chrono::high_resolution_clock::now();
@@ -152,7 +147,7 @@ int main(int argc, const char** argv) {
 			auto a_c = b_c.get_access<sycl::access::mode::read_write>(cgh);
 			cgh.single_task([=](){
 				for(int i=0; i < nc; i++) {
-					c[i] = c0 + inc*i;
+					a_c[i] = c0 + inc*i;
 				}
 			});
 		});

@@ -10,7 +10,7 @@ cmake_minimum_required(VERSION 2.8)
 
 ################################################################################
 # Project's name
-project(crs-fpga-sycl2)################################################################################
+project(crs-sycl2)################################################################################
 # Find OpenMP
 #find_package(SYCL)
 #if (SYCL_FOUND)
@@ -37,7 +37,7 @@ set(CMAKE_CXX_COMPILER "dpcpp")
 # The following folder will be included
 include_directories(${PROJECT_SOURCE_DIR}/include)
 ################################################################################
-set(TARGET_NAME crs-fpga-sycl2)
+set(TARGET_NAME crs-sycl2)
 
 set(EMULATOR_TARGET ${TARGET_NAME}.fpga_emu)
 set(FPGA_TARGET ${TARGET_NAME}.fpga)
@@ -69,7 +69,7 @@ set(HARDWARE_COMPILE_FLAGS "-fintelfpga")
 # use cmake -D USER_HARDWARE_FLAGS=<flags> to set extra flags for FPGA backend compilation
 set(HARDWARE_LINK_FLAGS "-fintelfpga -Xshardware -Xsboard=${_FPGA_BOARD} ${USER_HARDWARE_FLAGS}")
 
-set(EMULATOR_COMPILE_FLAGS "-fintelfpga -DFPGA_EMULATOR ")
+set(EMULATOR_COMPILE_FLAGS "-fintelfpga -DFPGA_EMULATOR -Xshardware -Xsprofile")
 set(EMULATOR_LINK_FLAGS "-fintelfpga ")
 
 # fpga emulator
@@ -89,9 +89,9 @@ else()
 	${CMAKE_PROJECT_DIR}/su_cdp.cpp
 	${CMAKE_PROJECT_DIR}/parser.cpp
 	${CMAKE_PROJECT_DIR}/main.cpp)
-    add_custom_target(fpga_emu DEPENDS ${EMULATOR_TARGET})
     set_target_properties(${EMULATOR_TARGET} PROPERTIES COMPILE_FLAGS ${EMULATOR_COMPILE_FLAGS})
     set_target_properties(${EMULATOR_TARGET} PROPERTIES LINK_FLAGS ${EMULATOR_LINK_FLAGS})
+    add_custom_target(run_emu COMMAND ${EMULATOR_TARGET} -a0 -0.7e-3 -a1 0.7e-3 -na 5 -c0 1.98e-7 -c1 1.77e-6 -nc 5 -b0 -1e-7 -b1 1e-7 -nb 5 -aph 600 -apm 50 -tau 0.002 -v 0 -i ~/TCC/simple-synthetic.su)
 endif()
 
 # fpga
@@ -106,9 +106,9 @@ else()
 	${CMAKE_PROJECT_DIR}/su_cdp.cpp
 	${CMAKE_PROJECT_DIR}/parser.cpp
 	${CMAKE_PROJECT_DIR}/main.cpp)
-    add_custom_target(fpga DEPENDS ${FPGA_TARGET})
     set_target_properties(${FPGA_TARGET} PROPERTIES COMPILE_FLAGS ${HARDWARE_COMPILE_FLAGS})
     set_target_properties(${FPGA_TARGET} PROPERTIES LINK_FLAGS ${HARDWARE_LINK_FLAGS})
+    add_custom_target(run COMMAND ${FPGA_TARGET} -a0 -0.7e-3 -a1 0.7e-3 -na 5 -c0 1.98e-7 -c1 1.77e-6 -nc 5 -b0 -1e-7 -b1 1e-7 -nb 5 -aph 600 -apm 50 -tau 0.002 -v 0 -i ~/TCC/simple-synthetic.su)
 endif()
 
 # generate report
@@ -148,4 +148,4 @@ endif()
 #target_link_libraries(cmp-fpga-sycl2 ${SYCL_LIBRARIES} m)
 
 ################################################################################
-add_custom_target(run COMMAND crs-fpga-sycl2 -a0 -0.7e-3 -a1 0.7e-3 -na 5 -c0 1.98e-7 -c1 1.77e-6 -nc 5 -b0 -1e-7 -b1 1e-7 -nb 5 -aph 600 -apm 50 -tau 0.002 -v 0 -i ~/TCC/simple-synthetic.su)
+#add_custom_target(run COMMAND crs-fpga-sycl2 -a0 -0.7e-3 -a1 0.7e-3 -na 5 -c0 1.98e-7 -c1 1.77e-6 -nc 5 -b0 -1e-7 -b1 1e-7 -nb 5 -aph 600 -apm 50 -tau 0.002 -v 0 -i ~/TCC/simple-synthetic.su)

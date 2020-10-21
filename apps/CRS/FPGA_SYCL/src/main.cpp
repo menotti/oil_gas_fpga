@@ -60,6 +60,7 @@ struct real4_t {
 
 using real4 = struct real4_t;
 
+namespace sycl = cl::sycl;
 ////////////////////////////////////////////////////////////////////////////////
 
 int aph, apm, ng, ttraces, ncdps, ns, ntrs, max_gather, w, tau;
@@ -432,9 +433,14 @@ int main(int argc, const char** argv) {
 		}
 
 	} catch (...) {
-		// some other exception detected
-		std::cout << "Failure" << std::endl;
-		std::terminate();
+		std::cout << "Caught a synchronous SYCL exception: " << e.what() << "\n";
+		std::cout << "   If you are targeting an FPGA hardware, "
+				     "ensure that your system is plugged to an FPGA board that is "
+				     "set up correctly\n";
+		std::cout << "   If you are targeting the FPGA emulator, compile with "
+				     "-DFPGA_EMULATOR\n";
+		std::cout << "   This design is not supported on CPU targets.\n";
+		return 1;
 	}
 
   // Logs stats (exec time and semblance-traces per second)

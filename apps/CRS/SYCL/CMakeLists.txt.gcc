@@ -52,7 +52,7 @@ add_executable(crs-sycl2
 ################################################################################
 # Link project to system's libraries
 set(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "") # disable gcc's -rdynamic
-target_link_libraries(crs-sycl2  m)
+target_link_libraries(crs-sycl2 ${SYCL_LIBRARIES} m)
 
 ################################################################################
 
