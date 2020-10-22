@@ -432,7 +432,7 @@ int main(int argc, const char** argv) {
 
 		}
 
-	} catch (...) {
+	} catch (cl::sycl::exception const &e) {
 		std::cout << "Caught a synchronous SYCL exception: " << e.what() << "\n";
 		std::cout << "   If you are targeting an FPGA hardware, "
 				     "ensure that your system is plugged to an FPGA board that is "
