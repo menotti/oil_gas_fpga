@@ -1,0 +1,396 @@
+// ------------------------------------------------------------------------- 
+// High Level Design Compiler for Intel(R) FPGAs Version 20.3 (Release Build #72)
+// 
+// Legal Notice: Copyright 2020 Intel Corporation.  All rights reserved.
+// Your use of  Intel Corporation's design tools,  logic functions and other
+// software and  tools, and its AMPP partner logic functions, and any output
+// files any  of the foregoing (including  device programming  or simulation
+// files), and  any associated  documentation  or information  are expressly
+// subject  to the terms and  conditions of the  Intel FPGA Software License
+// Agreement, Intel MegaCore Function License Agreement, or other applicable
+// license agreement,  including,  without limitation,  that your use is for
+// the  sole  purpose of  programming  logic devices  manufactured by  Intel
+// and  sold by Intel  or its authorized  distributors. Please refer  to the
+// applicable agreement for further details.
+// ---------------------------------------------------------------------------
+
+// SystemVerilog created from k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280000clES2_EUlvE289_22_B1
+// SystemVerilog created on Thu Oct 22 21:57:46 2020
+
+
+(* altera_attribute = "-name AUTO_SHIFT_REGISTER_RECOGNITION OFF; -name MESSAGE_DISABLE 10036; -name MESSAGE_DISABLE 10037; -name MESSAGE_DISABLE 14130; -name MESSAGE_DISABLE 14320; -name MESSAGE_DISABLE 15400; -name MESSAGE_DISABLE 14130; -name MESSAGE_DISABLE 10036; -name MESSAGE_DISABLE 12020; -name MESSAGE_DISABLE 12030; -name MESSAGE_DISABLE 12010; -name MESSAGE_DISABLE 12110; -name MESSAGE_DISABLE 14320; -name MESSAGE_DISABLE 13410; -name MESSAGE_DISABLE 113007; -name MESSAGE_DISABLE 10958" *)
+module k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280000clES2_EUlvE289_22_B1 (
+    input wire [0:0] in_feedback_in_10,
+    input wire [0:0] in_feedback_in_11,
+    input wire [0:0] in_feedback_in_12,
+    input wire [0:0] in_feedback_in_9,
+    output wire [0:0] out_feedback_stall_out_10,
+    output wire [0:0] out_feedback_stall_out_11,
+    output wire [0:0] out_feedback_stall_out_12,
+    output wire [0:0] out_feedback_stall_out_9,
+    input wire [0:0] in_feedback_valid_in_10,
+    input wire [0:0] in_feedback_valid_in_11,
+    input wire [0:0] in_feedback_valid_in_12,
+    input wire [0:0] in_feedback_valid_in_9,
+    output wire [31:0] out_acl_1,
+    output wire [0:0] out_c0_exe2,
+    output wire [0:0] out_c0_exe3,
+    output wire [0:0] out_exiting_stall_out,
+    output wire [0:0] out_exiting_valid_out,
+    output wire [32:0] out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_address,
+    output wire [4:0] out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_burstcount,
+    output wire [63:0] out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_byteenable,
+    output wire [0:0] out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_enable,
+    output wire [0:0] out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_read,
+    output wire [0:0] out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_write,
+    output wire [511:0] out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_writedata,
+    output wire [32:0] out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_address,
+    output wire [4:0] out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_burstcount,
+    output wire [63:0] out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_byteenable,
+    output wire [0:0] out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_enable,
+    output wire [0:0] out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_read,
+    output wire [0:0] out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_write,
+    output wire [511:0] out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_writedata,
+    output wire [0:0] out_memdep_phi34_pop7,
+    output wire [0:0] out_memdep_phi39_pop9,
+    output wire [0:0] out_memdep_phi45_pop10,
+    output wire [0:0] out_memdep_phi61_or,
+    output wire [0:0] out_memdep_phi61_pop12,
+    output wire [0:0] out_stall_out_0,
+    output wire [0:0] out_stall_out_1,
+    output wire [0:0] out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_2210,
+    output wire [32:0] out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_2211,
+    output wire [31:0] out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_228,
+    output wire [0:0] out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_229,
+    output wire [0:0] out_valid_in_0,
+    output wire [0:0] out_valid_in_1,
+    output wire [0:0] out_valid_out_0,
+    input wire [0:0] in_pipeline_stall_in,
+    output wire [0:0] out_pipeline_valid_out,
+    input wire [63:0] in_arg10,
+    input wire [63:0] in_arg11,
+    input wire [63:0] in_arg15,
+    input wire [63:0] in_arg16,
+    input wire [63:0] in_arg20,
+    input wire [63:0] in_arg24,
+    input wire [63:0] in_arg28,
+    input wire [63:0] in_arg6,
+    input wire [0:0] in_flush,
+    input wire [0:0] in_forked_0,
+    input wire [0:0] in_forked_1,
+    input wire [63:0] in_intel_reserved_ffwd_0_0,
+    input wire [0:0] in_intel_reserved_ffwd_1_0,
+    input wire [0:0] in_intel_reserved_ffwd_2_0,
+    input wire [31:0] in_intel_reserved_ffwd_3_0,
+    input wire [0:0] in_intel_reserved_ffwd_4_0,
+    input wire [32:0] in_intel_reserved_ffwd_5_0,
+    input wire [31:0] in_intel_reserved_ffwd_6_0,
+    input wire [511:0] in_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_readdata,
+    input wire [0:0] in_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_readdatavalid,
+    input wire [0:0] in_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_waitrequest,
+    input wire [0:0] in_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_writeack,
+    input wire [511:0] in_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_readdata,
+    input wire [0:0] in_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_readdatavalid,
+    input wire [0:0] in_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_waitrequest,
+    input wire [0:0] in_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_writeack,
+    input wire [0:0] in_stall_in_0,
+    input wire [0:0] in_valid_in_0,
+    input wire [0:0] in_valid_in_1,
+    input wire [63:0] in_arg14_0_tpl,
+    input wire [63:0] in_arg19_0_tpl,
+    input wire [63:0] in_arg23_0_tpl,
+    input wire [63:0] in_arg27_0_tpl,
+    input wire [63:0] in_arg31_0_tpl,
+    input wire [63:0] in_arg9_0_tpl,
+    input wire clock,
+    input wire resetn
+    );
+
+    wire [31:0] ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_acl_1;
+    wire [0:0] ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_c0_exe2;
+    wire [0:0] ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_c0_exe3;
+    wire [0:0] ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_memdep_phi34_pop7;
+    wire [0:0] ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_memdep_phi39_pop9;
+    wire [0:0] ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_memdep_phi45_pop10;
+    wire [0:0] ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_memdep_phi61_or;
+    wire [0:0] ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_memdep_phi61_pop12;
+    wire [0:0] ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_stall_out;
+    wire [0:0] ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_2210;
+    wire [32:0] ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_2211;
+    wire [31:0] ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_228;
+    wire [0:0] ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_229;
+    wire [0:0] ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_valid_out_0;
+    wire [0:0] ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_merge_out_forked;
+    wire [0:0] ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_merge_out_stall_out_0;
+    wire [0:0] ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_merge_out_stall_out_1;
+    wire [0:0] ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_merge_out_valid_out;
+    wire [31:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_acl_1;
+    wire [0:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_aclp_to_limiter_i_llvm_fpga_pipeline_keep_going20_k2_ztszz4mainenkulrn2cl4sycl7handleree280_14cles2_eulve289_222_exiting_stall_out;
+    wire [0:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_aclp_to_limiter_i_llvm_fpga_pipeline_keep_going20_k2_ztszz4mainenkulrn2cl4sycl7handleree280_14cles2_eulve289_222_exiting_valid_out;
+    wire [0:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_c0_exe2;
+    wire [0:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_c0_exe3;
+    wire [0:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_feedback_stall_out_10;
+    wire [0:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_feedback_stall_out_11;
+    wire [0:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_feedback_stall_out_12;
+    wire [0:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_feedback_stall_out_9;
+    wire [32:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_address;
+    wire [4:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_burstcount;
+    wire [63:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_byteenable;
+    wire [0:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_enable;
+    wire [0:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_read;
+    wire [0:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_write;
+    wire [511:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_writedata;
+    wire [32:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_address;
+    wire [4:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_burstcount;
+    wire [63:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_byteenable;
+    wire [0:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_enable;
+    wire [0:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_read;
+    wire [0:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_write;
+    wire [511:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_writedata;
+    wire [0:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memdep_phi34_pop7;
+    wire [0:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memdep_phi39_pop9;
+    wire [0:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memdep_phi45_pop10;
+    wire [0:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memdep_phi61_or;
+    wire [0:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memdep_phi61_pop12;
+    wire [0:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_pipeline_valid_out;
+    wire [0:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_stall_out;
+    wire [0:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_2210;
+    wire [32:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_2211;
+    wire [31:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_228;
+    wire [0:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_229;
+    wire [0:0] bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_valid_out;
+
+
+    // ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch(BLACKBOX,2)
+    k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280000UlvE289_22_B1_branch theZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch (
+        .in_acl_1(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_acl_1),
+        .in_c0_exe2(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_c0_exe2),
+        .in_c0_exe3(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_c0_exe3),
+        .in_memdep_phi34_pop7(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memdep_phi34_pop7),
+        .in_memdep_phi39_pop9(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memdep_phi39_pop9),
+        .in_memdep_phi45_pop10(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memdep_phi45_pop10),
+        .in_memdep_phi61_or(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memdep_phi61_or),
+        .in_memdep_phi61_pop12(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memdep_phi61_pop12),
+        .in_stall_in_0(in_stall_in_0),
+        .in_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_2210(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_2210),
+        .in_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_2211(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_2211),
+        .in_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_228(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_228),
+        .in_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_229(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_229),
+        .in_valid_in(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_valid_out),
+        .out_acl_1(ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_acl_1),
+        .out_c0_exe2(ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_c0_exe2),
+        .out_c0_exe3(ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_c0_exe3),
+        .out_memdep_phi34_pop7(ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_memdep_phi34_pop7),
+        .out_memdep_phi39_pop9(ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_memdep_phi39_pop9),
+        .out_memdep_phi45_pop10(ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_memdep_phi45_pop10),
+        .out_memdep_phi61_or(ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_memdep_phi61_or),
+        .out_memdep_phi61_pop12(ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_memdep_phi61_pop12),
+        .out_stall_out(ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_stall_out),
+        .out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_2210(ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_2210),
+        .out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_2211(ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_2211),
+        .out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_228(ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_228),
+        .out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_229(ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_229),
+        .out_valid_out_0(ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_valid_out_0),
+        .clock(clock),
+        .resetn(resetn)
+    );
+
+    // ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_merge(BLACKBOX,3)
+    k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280000EUlvE289_22_B1_merge theZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_merge (
+        .in_forked_0(in_forked_0),
+        .in_forked_1(in_forked_1),
+        .in_stall_in(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_stall_out),
+        .in_valid_in_0(in_valid_in_0),
+        .in_valid_in_1(in_valid_in_1),
+        .out_forked(ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_merge_out_forked),
+        .out_stall_out_0(ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_merge_out_stall_out_0),
+        .out_stall_out_1(ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_merge_out_stall_out_1),
+        .out_valid_out(ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_merge_out_valid_out),
+        .clock(clock),
+        .resetn(resetn)
+    );
+
+    // bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region(BLACKBOX,4)
+    k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE2800009_22_B1_stall_region thebb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region (
+        .in_feedback_in_10(in_feedback_in_10),
+        .in_feedback_in_11(in_feedback_in_11),
+        .in_feedback_in_12(in_feedback_in_12),
+        .in_feedback_in_9(in_feedback_in_9),
+        .in_feedback_valid_in_10(in_feedback_valid_in_10),
+        .in_feedback_valid_in_11(in_feedback_valid_in_11),
+        .in_feedback_valid_in_12(in_feedback_valid_in_12),
+        .in_feedback_valid_in_9(in_feedback_valid_in_9),
+        .in_flush(in_flush),
+        .in_forked(ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_merge_out_forked),
+        .in_intel_reserved_ffwd_0_0(in_intel_reserved_ffwd_0_0),
+        .in_intel_reserved_ffwd_1_0(in_intel_reserved_ffwd_1_0),
+        .in_intel_reserved_ffwd_2_0(in_intel_reserved_ffwd_2_0),
+        .in_intel_reserved_ffwd_3_0(in_intel_reserved_ffwd_3_0),
+        .in_intel_reserved_ffwd_4_0(in_intel_reserved_ffwd_4_0),
+        .in_intel_reserved_ffwd_5_0(in_intel_reserved_ffwd_5_0),
+        .in_intel_reserved_ffwd_6_0(in_intel_reserved_ffwd_6_0),
+        .in_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_readdata(in_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_readdata),
+        .in_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_readdatavalid(in_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_readdatavalid),
+        .in_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_waitrequest(in_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_waitrequest),
+        .in_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_writeack(in_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_writeack),
+        .in_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_readdata(in_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_readdata),
+        .in_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_readdatavalid(in_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_readdatavalid),
+        .in_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_waitrequest(in_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_waitrequest),
+        .in_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_writeack(in_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_writeack),
+        .in_pipeline_stall_in(in_pipeline_stall_in),
+        .in_stall_in(ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_stall_out),
+        .in_valid_in(ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_merge_out_valid_out),
+        .out_acl_1(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_acl_1),
+        .out_aclp_to_limiter_i_llvm_fpga_pipeline_keep_going20_k2_ztszz4mainenkulrn2cl4sycl7handleree280_14cles2_eulve289_222_exiting_stall_out(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_aclp_to_limiter_i_llvm_fpga_pipeline_keep_going20_k2_ztszz4mainenkulrn2cl4sycl7handleree280_14cles2_eulve289_222_exiting_stall_out),
+        .out_aclp_to_limiter_i_llvm_fpga_pipeline_keep_going20_k2_ztszz4mainenkulrn2cl4sycl7handleree280_14cles2_eulve289_222_exiting_valid_out(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_aclp_to_limiter_i_llvm_fpga_pipeline_keep_going20_k2_ztszz4mainenkulrn2cl4sycl7handleree280_14cles2_eulve289_222_exiting_valid_out),
+        .out_c0_exe2(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_c0_exe2),
+        .out_c0_exe3(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_c0_exe3),
+        .out_feedback_stall_out_10(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_feedback_stall_out_10),
+        .out_feedback_stall_out_11(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_feedback_stall_out_11),
+        .out_feedback_stall_out_12(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_feedback_stall_out_12),
+        .out_feedback_stall_out_9(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_feedback_stall_out_9),
+        .out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_address(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_address),
+        .out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_burstcount(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_burstcount),
+        .out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_byteenable(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_byteenable),
+        .out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_enable(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_enable),
+        .out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_read(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_read),
+        .out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_write(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_write),
+        .out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_writedata(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_writedata),
+        .out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_address(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_address),
+        .out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_burstcount(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_burstcount),
+        .out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_byteenable(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_byteenable),
+        .out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_enable(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_enable),
+        .out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_read(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_read),
+        .out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_write(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_write),
+        .out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_writedata(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_writedata),
+        .out_memdep_phi34_pop7(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memdep_phi34_pop7),
+        .out_memdep_phi39_pop9(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memdep_phi39_pop9),
+        .out_memdep_phi45_pop10(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memdep_phi45_pop10),
+        .out_memdep_phi61_or(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memdep_phi61_or),
+        .out_memdep_phi61_pop12(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memdep_phi61_pop12),
+        .out_pipeline_valid_out(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_pipeline_valid_out),
+        .out_stall_out(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_stall_out),
+        .out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_2210(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_2210),
+        .out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_2211(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_2211),
+        .out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_228(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_228),
+        .out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_229(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_229),
+        .out_valid_out(bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_valid_out),
+        .clock(clock),
+        .resetn(resetn)
+    );
+
+    // feedback_stall_out_10_sync(GPOUT,9)
+    assign out_feedback_stall_out_10 = bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_feedback_stall_out_10;
+
+    // feedback_stall_out_11_sync(GPOUT,10)
+    assign out_feedback_stall_out_11 = bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_feedback_stall_out_11;
+
+    // feedback_stall_out_12_sync(GPOUT,11)
+    assign out_feedback_stall_out_12 = bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_feedback_stall_out_12;
+
+    // feedback_stall_out_9_sync(GPOUT,12)
+    assign out_feedback_stall_out_9 = bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_feedback_stall_out_9;
+
+    // out_acl_1(GPOUT,17)
+    assign out_acl_1 = ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_acl_1;
+
+    // out_c0_exe2(GPOUT,18)
+    assign out_c0_exe2 = ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_c0_exe2;
+
+    // out_c0_exe3(GPOUT,19)
+    assign out_c0_exe3 = ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_c0_exe3;
+
+    // out_exiting_stall_out(GPOUT,20)
+    assign out_exiting_stall_out = bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_aclp_to_limiter_i_llvm_fpga_pipeline_keep_going20_k2_ztszz4mainenkulrn2cl4sycl7handleree280_14cles2_eulve289_222_exiting_stall_out;
+
+    // out_exiting_valid_out(GPOUT,21)
+    assign out_exiting_valid_out = bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_aclp_to_limiter_i_llvm_fpga_pipeline_keep_going20_k2_ztszz4mainenkulrn2cl4sycl7handleree280_14cles2_eulve289_222_exiting_valid_out;
+
+    // out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_address(GPOUT,22)
+    assign out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_address = bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_address;
+
+    // out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_burstcount(GPOUT,23)
+    assign out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_burstcount = bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_burstcount;
+
+    // out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_byteenable(GPOUT,24)
+    assign out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_byteenable = bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_byteenable;
+
+    // out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_enable(GPOUT,25)
+    assign out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_enable = bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_enable;
+
+    // out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_read(GPOUT,26)
+    assign out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_read = bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_read;
+
+    // out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_write(GPOUT,27)
+    assign out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_write = bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_write;
+
+    // out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_writedata(GPOUT,28)
+    assign out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_writedata = bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_lm_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_writedata;
+
+    // out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_address(GPOUT,29)
+    assign out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_address = bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_address;
+
+    // out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_burstcount(GPOUT,30)
+    assign out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_burstcount = bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_burstcount;
+
+    // out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_byteenable(GPOUT,31)
+    assign out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_byteenable = bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_byteenable;
+
+    // out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_enable(GPOUT,32)
+    assign out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_enable = bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_enable;
+
+    // out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_read(GPOUT,33)
+    assign out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_read = bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_read;
+
+    // out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_write(GPOUT,34)
+    assign out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_write = bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_write;
+
+    // out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_writedata(GPOUT,35)
+    assign out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_writedata = bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_memcoalesce_load_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_fpgaunique_0_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_avm_writedata;
+
+    // out_memdep_phi34_pop7(GPOUT,36)
+    assign out_memdep_phi34_pop7 = ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_memdep_phi34_pop7;
+
+    // out_memdep_phi39_pop9(GPOUT,37)
+    assign out_memdep_phi39_pop9 = ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_memdep_phi39_pop9;
+
+    // out_memdep_phi45_pop10(GPOUT,38)
+    assign out_memdep_phi45_pop10 = ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_memdep_phi45_pop10;
+
+    // out_memdep_phi61_or(GPOUT,39)
+    assign out_memdep_phi61_or = ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_memdep_phi61_or;
+
+    // out_memdep_phi61_pop12(GPOUT,40)
+    assign out_memdep_phi61_pop12 = ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_memdep_phi61_pop12;
+
+    // out_stall_out_0(GPOUT,41)
+    assign out_stall_out_0 = ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_merge_out_stall_out_0;
+
+    // out_stall_out_1(GPOUT,42)
+    assign out_stall_out_1 = ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_merge_out_stall_out_1;
+
+    // out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_2210(GPOUT,43)
+    assign out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_2210 = ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_2210;
+
+    // out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_2211(GPOUT,44)
+    assign out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_2211 = ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_2211;
+
+    // out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_228(GPOUT,45)
+    assign out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_228 = ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_228;
+
+    // out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_229(GPOUT,46)
+    assign out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_229 = ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_unnamed_k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_229;
+
+    // out_valid_in_0(GPOUT,47)
+    assign out_valid_in_0 = in_valid_in_0;
+
+    // out_valid_in_1(GPOUT,48)
+    assign out_valid_in_1 = in_valid_in_1;
+
+    // out_valid_out_0(GPOUT,49)
+    assign out_valid_out_0 = ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_branch_out_valid_out_0;
+
+    // pipeline_valid_out_sync(GPOUT,51)
+    assign out_pipeline_valid_out = bb_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22_B1_stall_region_out_pipeline_valid_out;
+
+endmodule

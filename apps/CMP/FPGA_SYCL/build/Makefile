@@ -124,19 +124,6 @@ cmp-sycl2.fpga_emu/fast:
 .PHONY : cmp-sycl2.fpga_emu/fast
 
 #=============================================================================
-# Target rules for targets named fpga
-
-# Build rule for target.
-fpga: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 fpga
-.PHONY : fpga
-
-# fast build rule for target.
-fpga/fast:
-	$(MAKE) -f CMakeFiles/fpga.dir/build.make CMakeFiles/fpga.dir/build
-.PHONY : fpga/fast
-
-#=============================================================================
 # Target rules for targets named run_emu
 
 # Build rule for target.
@@ -163,17 +150,17 @@ cmp-sycl2.fpga/fast:
 .PHONY : cmp-sycl2.fpga/fast
 
 #=============================================================================
-# Target rules for targets named report
+# Target rules for targets named fpga_emu_repo
 
 # Build rule for target.
-report: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 report
-.PHONY : report
+fpga_emu_repo: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 fpga_emu_repo
+.PHONY : fpga_emu_repo
 
 # fast build rule for target.
-report/fast:
-	$(MAKE) -f CMakeFiles/report.dir/build.make CMakeFiles/report.dir/build
-.PHONY : report/fast
+fpga_emu_repo/fast:
+	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/build
+.PHONY : fpga_emu_repo/fast
 
 #=============================================================================
 # Target rules for targets named run
@@ -196,6 +183,7 @@ src/log.o: src/log.cpp.o
 src/log.cpp.o:
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga_emu.dir/build.make CMakeFiles/cmp-sycl2.fpga_emu.dir/src/log.cpp.o
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga.dir/build.make CMakeFiles/cmp-sycl2.fpga.dir/src/log.cpp.o
+	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/log.cpp.o
 .PHONY : src/log.cpp.o
 
 src/log.i: src/log.cpp.i
@@ -206,6 +194,7 @@ src/log.i: src/log.cpp.i
 src/log.cpp.i:
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga_emu.dir/build.make CMakeFiles/cmp-sycl2.fpga_emu.dir/src/log.cpp.i
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga.dir/build.make CMakeFiles/cmp-sycl2.fpga.dir/src/log.cpp.i
+	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/log.cpp.i
 .PHONY : src/log.cpp.i
 
 src/log.s: src/log.cpp.s
@@ -216,6 +205,7 @@ src/log.s: src/log.cpp.s
 src/log.cpp.s:
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga_emu.dir/build.make CMakeFiles/cmp-sycl2.fpga_emu.dir/src/log.cpp.s
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga.dir/build.make CMakeFiles/cmp-sycl2.fpga.dir/src/log.cpp.s
+	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/log.cpp.s
 .PHONY : src/log.cpp.s
 
 src/main.o: src/main.cpp.o
@@ -226,6 +216,7 @@ src/main.o: src/main.cpp.o
 src/main.cpp.o:
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga_emu.dir/build.make CMakeFiles/cmp-sycl2.fpga_emu.dir/src/main.cpp.o
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga.dir/build.make CMakeFiles/cmp-sycl2.fpga.dir/src/main.cpp.o
+	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/main.cpp.o
 .PHONY : src/main.cpp.o
 
 src/main.i: src/main.cpp.i
@@ -236,6 +227,7 @@ src/main.i: src/main.cpp.i
 src/main.cpp.i:
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga_emu.dir/build.make CMakeFiles/cmp-sycl2.fpga_emu.dir/src/main.cpp.i
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga.dir/build.make CMakeFiles/cmp-sycl2.fpga.dir/src/main.cpp.i
+	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/main.cpp.i
 .PHONY : src/main.cpp.i
 
 src/main.s: src/main.cpp.s
@@ -246,6 +238,7 @@ src/main.s: src/main.cpp.s
 src/main.cpp.s:
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga_emu.dir/build.make CMakeFiles/cmp-sycl2.fpga_emu.dir/src/main.cpp.s
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga.dir/build.make CMakeFiles/cmp-sycl2.fpga.dir/src/main.cpp.s
+	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
 src/parser.o: src/parser.cpp.o
@@ -256,6 +249,7 @@ src/parser.o: src/parser.cpp.o
 src/parser.cpp.o:
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga_emu.dir/build.make CMakeFiles/cmp-sycl2.fpga_emu.dir/src/parser.cpp.o
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga.dir/build.make CMakeFiles/cmp-sycl2.fpga.dir/src/parser.cpp.o
+	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/parser.cpp.o
 .PHONY : src/parser.cpp.o
 
 src/parser.i: src/parser.cpp.i
@@ -266,6 +260,7 @@ src/parser.i: src/parser.cpp.i
 src/parser.cpp.i:
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga_emu.dir/build.make CMakeFiles/cmp-sycl2.fpga_emu.dir/src/parser.cpp.i
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga.dir/build.make CMakeFiles/cmp-sycl2.fpga.dir/src/parser.cpp.i
+	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/parser.cpp.i
 .PHONY : src/parser.cpp.i
 
 src/parser.s: src/parser.cpp.s
@@ -276,6 +271,7 @@ src/parser.s: src/parser.cpp.s
 src/parser.cpp.s:
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga_emu.dir/build.make CMakeFiles/cmp-sycl2.fpga_emu.dir/src/parser.cpp.s
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga.dir/build.make CMakeFiles/cmp-sycl2.fpga.dir/src/parser.cpp.s
+	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/parser.cpp.s
 .PHONY : src/parser.cpp.s
 
 src/su_cdp.o: src/su_cdp.cpp.o
@@ -286,6 +282,7 @@ src/su_cdp.o: src/su_cdp.cpp.o
 src/su_cdp.cpp.o:
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga_emu.dir/build.make CMakeFiles/cmp-sycl2.fpga_emu.dir/src/su_cdp.cpp.o
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga.dir/build.make CMakeFiles/cmp-sycl2.fpga.dir/src/su_cdp.cpp.o
+	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/su_cdp.cpp.o
 .PHONY : src/su_cdp.cpp.o
 
 src/su_cdp.i: src/su_cdp.cpp.i
@@ -296,6 +293,7 @@ src/su_cdp.i: src/su_cdp.cpp.i
 src/su_cdp.cpp.i:
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga_emu.dir/build.make CMakeFiles/cmp-sycl2.fpga_emu.dir/src/su_cdp.cpp.i
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga.dir/build.make CMakeFiles/cmp-sycl2.fpga.dir/src/su_cdp.cpp.i
+	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/su_cdp.cpp.i
 .PHONY : src/su_cdp.cpp.i
 
 src/su_cdp.s: src/su_cdp.cpp.s
@@ -306,6 +304,7 @@ src/su_cdp.s: src/su_cdp.cpp.s
 src/su_cdp.cpp.s:
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga_emu.dir/build.make CMakeFiles/cmp-sycl2.fpga_emu.dir/src/su_cdp.cpp.s
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga.dir/build.make CMakeFiles/cmp-sycl2.fpga.dir/src/su_cdp.cpp.s
+	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/su_cdp.cpp.s
 .PHONY : src/su_cdp.cpp.s
 
 src/su_gather.o: src/su_gather.cpp.o
@@ -316,6 +315,7 @@ src/su_gather.o: src/su_gather.cpp.o
 src/su_gather.cpp.o:
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga_emu.dir/build.make CMakeFiles/cmp-sycl2.fpga_emu.dir/src/su_gather.cpp.o
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga.dir/build.make CMakeFiles/cmp-sycl2.fpga.dir/src/su_gather.cpp.o
+	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/su_gather.cpp.o
 .PHONY : src/su_gather.cpp.o
 
 src/su_gather.i: src/su_gather.cpp.i
@@ -326,6 +326,7 @@ src/su_gather.i: src/su_gather.cpp.i
 src/su_gather.cpp.i:
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga_emu.dir/build.make CMakeFiles/cmp-sycl2.fpga_emu.dir/src/su_gather.cpp.i
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga.dir/build.make CMakeFiles/cmp-sycl2.fpga.dir/src/su_gather.cpp.i
+	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/su_gather.cpp.i
 .PHONY : src/su_gather.cpp.i
 
 src/su_gather.s: src/su_gather.cpp.s
@@ -336,6 +337,7 @@ src/su_gather.s: src/su_gather.cpp.s
 src/su_gather.cpp.s:
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga_emu.dir/build.make CMakeFiles/cmp-sycl2.fpga_emu.dir/src/su_gather.cpp.s
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga.dir/build.make CMakeFiles/cmp-sycl2.fpga.dir/src/su_gather.cpp.s
+	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/su_gather.cpp.s
 .PHONY : src/su_gather.cpp.s
 
 src/su_trace.o: src/su_trace.cpp.o
@@ -346,6 +348,7 @@ src/su_trace.o: src/su_trace.cpp.o
 src/su_trace.cpp.o:
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga_emu.dir/build.make CMakeFiles/cmp-sycl2.fpga_emu.dir/src/su_trace.cpp.o
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga.dir/build.make CMakeFiles/cmp-sycl2.fpga.dir/src/su_trace.cpp.o
+	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/su_trace.cpp.o
 .PHONY : src/su_trace.cpp.o
 
 src/su_trace.i: src/su_trace.cpp.i
@@ -356,6 +359,7 @@ src/su_trace.i: src/su_trace.cpp.i
 src/su_trace.cpp.i:
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga_emu.dir/build.make CMakeFiles/cmp-sycl2.fpga_emu.dir/src/su_trace.cpp.i
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga.dir/build.make CMakeFiles/cmp-sycl2.fpga.dir/src/su_trace.cpp.i
+	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/su_trace.cpp.i
 .PHONY : src/su_trace.cpp.i
 
 src/su_trace.s: src/su_trace.cpp.s
@@ -366,6 +370,7 @@ src/su_trace.s: src/su_trace.cpp.s
 src/su_trace.cpp.s:
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga_emu.dir/build.make CMakeFiles/cmp-sycl2.fpga_emu.dir/src/su_trace.cpp.s
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga.dir/build.make CMakeFiles/cmp-sycl2.fpga.dir/src/su_trace.cpp.s
+	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/su_trace.cpp.s
 .PHONY : src/su_trace.cpp.s
 
 # Help Target
@@ -375,13 +380,12 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... edit_cache"
 	@echo "... cmp-sycl2.fpga_emu"
-	@echo "... fpga"
 	@echo "... run_emu"
 	@echo "... cmp-sycl2.fpga"
-	@echo "... report"
+	@echo "... fpga_emu_repo"
 	@echo "... run"
+	@echo "... edit_cache"
 	@echo "... src/log.o"
 	@echo "... src/log.i"
 	@echo "... src/log.s"

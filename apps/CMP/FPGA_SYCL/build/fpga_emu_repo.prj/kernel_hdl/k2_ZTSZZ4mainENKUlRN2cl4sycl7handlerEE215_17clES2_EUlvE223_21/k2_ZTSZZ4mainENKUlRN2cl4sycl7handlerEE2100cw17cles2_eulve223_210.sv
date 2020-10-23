@@ -1,0 +1,154 @@
+// ------------------------------------------------------------------------- 
+// High Level Design Compiler for Intel(R) FPGAs Version 20.3 (Release Build #72)
+// 
+// Legal Notice: Copyright 2020 Intel Corporation.  All rights reserved.
+// Your use of  Intel Corporation's design tools,  logic functions and other
+// software and  tools, and its AMPP partner logic functions, and any output
+// files any  of the foregoing (including  device programming  or simulation
+// files), and  any associated  documentation  or information  are expressly
+// subject  to the terms and  conditions of the  Intel FPGA Software License
+// Agreement, Intel MegaCore Function License Agreement, or other applicable
+// license agreement,  including,  without limitation,  that your use is for
+// the  sole  purpose of  programming  logic devices  manufactured by  Intel
+// and  sold by Intel  or its authorized  distributors. Please refer  to the
+// applicable agreement for further details.
+// ---------------------------------------------------------------------------
+
+// SystemVerilog created from k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE2100cw17cles2_eulve223_210
+// SystemVerilog created on Thu Oct 22 21:45:52 2020
+
+
+(* altera_attribute = "-name AUTO_SHIFT_REGISTER_RECOGNITION OFF; -name MESSAGE_DISABLE 10036; -name MESSAGE_DISABLE 10037; -name MESSAGE_DISABLE 14130; -name MESSAGE_DISABLE 14320; -name MESSAGE_DISABLE 15400; -name MESSAGE_DISABLE 14130; -name MESSAGE_DISABLE 10036; -name MESSAGE_DISABLE 12020; -name MESSAGE_DISABLE 12030; -name MESSAGE_DISABLE 12010; -name MESSAGE_DISABLE 12110; -name MESSAGE_DISABLE 14320; -name MESSAGE_DISABLE 13410; -name MESSAGE_DISABLE 113007; -name MESSAGE_DISABLE 10958" *)
+module k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE2100cw17cles2_eulve223_210 (
+    input wire [0:0] in_feedback_stall_in_103,
+    output wire [223:0] out_feedback_out_103,
+    output wire [0:0] out_feedback_valid_out_103,
+    input wire [0:0] in_stall_in,
+    output wire [0:0] out_stall_out,
+    input wire [31:0] in_data_in_0_tpl,
+    input wire [31:0] in_data_in_1_tpl,
+    input wire [31:0] in_data_in_2_tpl,
+    input wire [31:0] in_data_in_3_tpl,
+    input wire [31:0] in_data_in_4_tpl,
+    input wire [31:0] in_data_in_5_tpl,
+    input wire [31:0] in_data_in_6_tpl,
+    input wire [0:0] in_keep_going_fanout_adaptor825,
+    input wire [0:0] in_valid_in,
+    output wire [31:0] out_data_out_0_tpl,
+    output wire [31:0] out_data_out_1_tpl,
+    output wire [31:0] out_data_out_2_tpl,
+    output wire [31:0] out_data_out_3_tpl,
+    output wire [31:0] out_data_out_4_tpl,
+    output wire [31:0] out_data_out_5_tpl,
+    output wire [31:0] out_data_out_6_tpl,
+    output wire [0:0] out_valid_out,
+    input wire clock,
+    input wire resetn
+    );
+
+    wire [0:0] GND_q;
+    wire [223:0] dsdk_ip_adapt_bitjoin2_q;
+    wire [223:0] i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_data_in;
+    wire [0:0] i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_dir;
+    wire i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_dir_bitsignaltemp;
+    wire [0:0] i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_feedback_stall_in;
+    wire i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_feedback_stall_in_bitsignaltemp;
+    wire [0:0] i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_predicate;
+    wire i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_predicate_bitsignaltemp;
+    wire [0:0] i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_stall_in;
+    wire i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_stall_in_bitsignaltemp;
+    wire [0:0] i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_valid_in;
+    wire i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_valid_in_bitsignaltemp;
+    wire [223:0] i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_data_out;
+    wire [223:0] i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_feedback_out;
+    wire [0:0] i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_feedback_valid_out;
+    wire i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_feedback_valid_out_bitsignaltemp;
+    wire [0:0] i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_stall_out;
+    wire i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_stall_out_bitsignaltemp;
+    wire [0:0] i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_valid_out;
+    wire i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_valid_out_bitsignaltemp;
+    wire [31:0] ip_dsdk_adapt_bitselect19_merged_bit_select_b;
+    wire [31:0] ip_dsdk_adapt_bitselect19_merged_bit_select_c;
+    wire [31:0] ip_dsdk_adapt_bitselect19_merged_bit_select_d;
+    wire [31:0] ip_dsdk_adapt_bitselect19_merged_bit_select_e;
+    wire [31:0] ip_dsdk_adapt_bitselect19_merged_bit_select_f;
+    wire [31:0] ip_dsdk_adapt_bitselect19_merged_bit_select_g;
+    wire [31:0] ip_dsdk_adapt_bitselect19_merged_bit_select_h;
+
+
+    // GND(CONSTANT,0)
+    assign GND_q = $unsigned(1'b0);
+
+    // dsdk_ip_adapt_bitjoin2(BITJOIN,17)@2
+    assign dsdk_ip_adapt_bitjoin2_q = {in_data_in_6_tpl, in_data_in_5_tpl, in_data_in_4_tpl, in_data_in_3_tpl, in_data_in_2_tpl, in_data_in_1_tpl, in_data_in_0_tpl};
+
+    // i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211(EXTIFACE,20)@2
+    assign i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_data_in = dsdk_ip_adapt_bitjoin2_q;
+    assign i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_dir = in_keep_going_fanout_adaptor825;
+    assign i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_feedback_stall_in = in_feedback_stall_in_103;
+    assign i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_predicate = GND_q;
+    assign i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_stall_in = in_stall_in;
+    assign i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_valid_in = in_valid_in;
+    assign i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_dir_bitsignaltemp = i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_dir[0];
+    assign i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_feedback_stall_in_bitsignaltemp = i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_feedback_stall_in[0];
+    assign i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_predicate_bitsignaltemp = i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_predicate[0];
+    assign i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_stall_in_bitsignaltemp = i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_stall_in[0];
+    assign i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_valid_in_bitsignaltemp = i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_valid_in[0];
+    assign i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_feedback_valid_out[0] = i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_feedback_valid_out_bitsignaltemp;
+    assign i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_stall_out[0] = i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_stall_out_bitsignaltemp;
+    assign i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_valid_out[0] = i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_valid_out_bitsignaltemp;
+    acl_push #(
+        .FIFO_DEPTH(1),
+        .INF_LOOP(0),
+        .INF_LOOP_INITIALIZATION(224'b00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000),
+        .MIN_FIFO_LATENCY(1),
+        .STYLE("REGULAR"),
+        .ASYNC_RESET(1),
+        .DATA_WIDTH(224),
+        .ENABLED(0),
+        .RAM_FIFO_DEPTH_INC(0),
+        .STALLFREE(1),
+        .SYNCHRONIZE_RESET(0)
+    ) thei_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211 (
+        .data_in(dsdk_ip_adapt_bitjoin2_q),
+        .dir(i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_dir_bitsignaltemp),
+        .feedback_stall_in(i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_feedback_stall_in_bitsignaltemp),
+        .predicate(i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_predicate_bitsignaltemp),
+        .stall_in(i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_stall_in_bitsignaltemp),
+        .valid_in(i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_valid_in_bitsignaltemp),
+        .data_out(i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_data_out),
+        .feedback_out(i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_feedback_out),
+        .feedback_valid_out(i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_feedback_valid_out_bitsignaltemp),
+        .stall_out(i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_stall_out_bitsignaltemp),
+        .valid_out(i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_valid_out_bitsignaltemp),
+        .clock(clock),
+        .resetn(resetn)
+    );
+
+    // feedback_sync_out(GPOUT,19)
+    assign out_feedback_out_103 = i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_feedback_out;
+    assign out_feedback_valid_out_103 = i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_feedback_valid_out;
+
+    // sync_out(GPOUT,36)@2
+    assign out_stall_out = i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_stall_out;
+
+    // ip_dsdk_adapt_bitselect19_merged_bit_select(BITSELECT,39)@2
+    assign ip_dsdk_adapt_bitselect19_merged_bit_select_b = i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_data_out[31:0];
+    assign ip_dsdk_adapt_bitselect19_merged_bit_select_c = i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_data_out[63:32];
+    assign ip_dsdk_adapt_bitselect19_merged_bit_select_d = i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_data_out[95:64];
+    assign ip_dsdk_adapt_bitselect19_merged_bit_select_e = i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_data_out[127:96];
+    assign ip_dsdk_adapt_bitselect19_merged_bit_select_f = i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_data_out[159:128];
+    assign ip_dsdk_adapt_bitselect19_merged_bit_select_g = i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_data_out[191:160];
+    assign ip_dsdk_adapt_bitselect19_merged_bit_select_h = i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_data_out[223:192];
+
+    // dupName_0_sync_out_aunroll_x(GPOUT,38)@2
+    assign out_data_out_0_tpl = ip_dsdk_adapt_bitselect19_merged_bit_select_b;
+    assign out_data_out_1_tpl = ip_dsdk_adapt_bitselect19_merged_bit_select_c;
+    assign out_data_out_2_tpl = ip_dsdk_adapt_bitselect19_merged_bit_select_d;
+    assign out_data_out_3_tpl = ip_dsdk_adapt_bitselect19_merged_bit_select_e;
+    assign out_data_out_4_tpl = ip_dsdk_adapt_bitselect19_merged_bit_select_f;
+    assign out_data_out_5_tpl = ip_dsdk_adapt_bitselect19_merged_bit_select_g;
+    assign out_data_out_6_tpl = ip_dsdk_adapt_bitselect19_merged_bit_select_h;
+    assign out_valid_out = i_llvm_fpga_push_s_case_assign_struct_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_21_fpgaunique_3s_case_assign318115_push103_k2_ztszz4mainenkulrn2cl4sycl7handleree215_17cles2_eulve223_211_valid_out;
+
+endmodule

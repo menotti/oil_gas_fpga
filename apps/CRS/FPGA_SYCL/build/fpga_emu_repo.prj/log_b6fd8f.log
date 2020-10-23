@@ -1,0 +1,3 @@
+Compiler Command: aoc -o /tmp/log-b6fd8f.aocr /tmp/log-de11a8.spv -sycl -rtl -dep-files=/tmp/log.cpp-f7192c.d,/tmp/su_trace.cpp-492207.d,/tmp/su_gather.cpp-57fb3b.d,/tmp/su_cdp.cpp-125bb4.d,/tmp/parser.cpp-58269c.d,/tmp/main.cpp-e84f26.d -output-report-folder=fpga_emu_repo.prj -g -hardware
+System name: log_b6fd8f
+

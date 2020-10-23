@@ -1,0 +1,586 @@
+{
+  "name":"loop_attributes"
+  , "id":4294967295
+  , "nodes":
+  [
+    {
+      "name":"k0_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE189_13clES2_EUlvE192_21"
+      , "id":3292238160
+      , "clk":"No"
+      , "fmax":"240.00"
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE189_13clES2_EUlvE192_21.B0"
+          , "id":3291396624
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"2.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"n/a"
+          , "type":"bb"
+        }
+        , {
+          "name":"_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE189_13clES2_EUlvE192_21.B1"
+          , "id":3300102160
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"121.000000"
+          , "mi":"1"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/home/joao/TCC/oil_gas_fpga/apps/CRS/FPGA_SYCL/src/main.cpp"
+                , "line":193
+              }
+            ]
+          ]
+          , "type":"loop"
+        }
+        , {
+          "name":"_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE189_13clES2_EUlvE192_21.B2"
+          , "id":3300300368
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"1.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"n/a"
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"k1_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE221_13clES2_EUlvE231_21"
+      , "id":3291469216
+      , "clk":"No"
+      , "fmax":"240.00"
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE221_13clES2_EUlvE231_21.B0"
+          , "id":3304449648
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"2.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"n/a"
+          , "type":"bb"
+        }
+        , {
+          "name":"_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE221_13clES2_EUlvE231_21.B1"
+          , "id":3305965840
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"982"
+          , "ll":"1"
+          , "lt":"1965.000000"
+          , "mi":"1"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/home/joao/TCC/oil_gas_fpga/apps/CRS/FPGA_SYCL/src/main.cpp"
+                , "line":232
+              }
+            ]
+          ]
+          , "type":"loop"
+        }
+        , {
+          "name":"_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE221_13clES2_EUlvE231_21.B2"
+          , "id":3305968032
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"1.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"n/a"
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"k2_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22"
+      , "id":3291357008
+      , "clk":"No"
+      , "fmax":"240.00"
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22.B0"
+          , "id":3383773440
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"2.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"n/a"
+          , "type":"bb"
+        }
+        , {
+          "name":"_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22.B1"
+          , "id":3382872720
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"396.000000"
+          , "mi":"1"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/home/joao/TCC/oil_gas_fpga/apps/CRS/FPGA_SYCL/src/main.cpp"
+                , "line":290
+              }
+            ]
+          ]
+          , "type":"loop"
+          , "children":
+          [
+            {
+              "name":"_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22.B3"
+              , "id":3379488896
+              , "af":"240.00"
+              , "br":"1"
+              , "ci":"0"
+              , "ii":"1117"
+              , "ll":"2"
+              , "lt":"2238.000000"
+              , "mi":"1"
+              , "pl":"Yes"
+              , "tc":"0"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/home/joao/TCC/oil_gas_fpga/apps/CRS/FPGA_SYCL/src/main.cpp"
+                    , "line":296
+                  }
+                ]
+              ]
+              , "type":"loop"
+            }
+          ]
+        }
+        , {
+          "name":"_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22.B2"
+          , "id":3383273776
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"0.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"n/a"
+          , "type":"bb"
+        }
+        , {
+          "name":"_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE280_14clES2_EUlvE289_22.B4"
+          , "id":3382233056
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"1.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"n/a"
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"k3_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE316_14clES2_EUlvE325_22"
+      , "id":3291399760
+      , "clk":"No"
+      , "fmax":"240.00"
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE316_14clES2_EUlvE325_22.B0"
+          , "id":3414423072
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"6.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"n/a"
+          , "type":"bb"
+        }
+        , {
+          "name":"_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE316_14clES2_EUlvE325_22.B1"
+          , "id":3416291984
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"23.000000"
+          , "mi":"1"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/home/joao/TCC/oil_gas_fpga/apps/CRS/FPGA_SYCL/src/main.cpp"
+                , "line":326
+              }
+            ]
+          ]
+          , "type":"loop"
+          , "children":
+          [
+            {
+              "name":"_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE316_14clES2_EUlvE325_22.B3"
+              , "id":3395872608
+              , "af":"240.00"
+              , "br":"0"
+              , "ci":"0"
+              , "ii":"1"
+              , "ll":"2"
+              , "lt":"220.000000"
+              , "mi":"1"
+              , "pl":"Yes"
+              , "tc":"0"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/home/joao/TCC/oil_gas_fpga/apps/CRS/FPGA_SYCL/src/main.cpp"
+                    , "line":327
+                  }
+                ]
+              ]
+              , "type":"loop"
+              , "children":
+              [
+                {
+                  "name":"_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE316_14clES2_EUlvE325_22.B5"
+                  , "id":3387043328
+                  , "af":"240.00"
+                  , "br":"1"
+                  , "ci":"0"
+                  , "ii":"1"
+                  , "ll":"3"
+                  , "lt":"9.000000"
+                  , "mi":"1"
+                  , "pl":"Yes"
+                  , "tc":"0"
+                  , "debug":
+                  [
+                    [
+                      {
+                        "filename":"/home/joao/TCC/oil_gas_fpga/apps/CRS/FPGA_SYCL/src/main.cpp"
+                        , "line":339
+                      }
+                    ]
+                  ]
+                  , "type":"loop"
+                }
+                , {
+                  "name":"_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE316_14clES2_EUlvE325_22.B4"
+                  , "id":3395986400
+                  , "af":"240.00"
+                  , "br":"0"
+                  , "ci":"0"
+                  , "ii":"1"
+                  , "ll":"3"
+                  , "lt":"1.000000"
+                  , "mi":"n/a"
+                  , "pl":"Yes"
+                  , "tc":"n/a"
+                  , "type":"bb"
+                }
+                , {
+                  "name":"_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE316_14clES2_EUlvE325_22.B7"
+                  , "id":3420707408
+                  , "af":"240.00"
+                  , "br":"0"
+                  , "ci":"0"
+                  , "ii":"12"
+                  , "ll":"3"
+                  , "lt":"567.000000"
+                  , "mi":"12"
+                  , "pl":"Yes"
+                  , "tc":"0"
+                  , "debug":
+                  [
+                    [
+                      {
+                        "filename":"/home/joao/TCC/oil_gas_fpga/apps/CRS/FPGA_SYCL/src/main.cpp"
+                        , "line":341
+                      }
+                    ]
+                  ]
+                  , "type":"loop"
+                  , "children":
+                  [
+                    {
+                      "name":"_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE316_14clES2_EUlvE325_22.B9"
+                      , "id":3432508432
+                      , "af":"240.00"
+                      , "br":"1"
+                      , "ci":"0"
+                      , "ii":"13"
+                      , "ll":"4"
+                      , "lt":"284.000000"
+                      , "mi":"1"
+                      , "pl":"Yes"
+                      , "tc":"0"
+                      , "debug":
+                      [
+                        [
+                          {
+                            "filename":"/home/joao/TCC/oil_gas_fpga/apps/CRS/FPGA_SYCL/src/main.cpp"
+                            , "line":356
+                          }
+                        ]
+                      ]
+                      , "type":"loop"
+                    }
+                  ]
+                }
+                , {
+                  "name":"_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE316_14clES2_EUlvE325_22.B8"
+                  , "id":3400603344
+                  , "af":"240.00"
+                  , "br":"1"
+                  , "ci":"0"
+                  , "ii":"1"
+                  , "ll":"3"
+                  , "lt":"2.000000"
+                  , "mi":"n/a"
+                  , "pl":"Yes"
+                  , "tc":"n/a"
+                  , "type":"bb"
+                }
+                , {
+                  "name":"_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE316_14clES2_EUlvE325_22.B6"
+                  , "id":3339524672
+                  , "af":"240.00"
+                  , "br":"0"
+                  , "ci":"0"
+                  , "ii":"1"
+                  , "ll":"3"
+                  , "lt":"1.000000"
+                  , "mi":"n/a"
+                  , "pl":"Yes"
+                  , "tc":"n/a"
+                  , "type":"bb"
+                }
+                , {
+                  "name":"_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE316_14clES2_EUlvE325_22.B11"
+                  , "id":3436706416
+                  , "af":"240.00"
+                  , "br":"1"
+                  , "ci":"0"
+                  , "ii":"12"
+                  , "ll":"3"
+                  , "lt":"33.000000"
+                  , "mi":"1"
+                  , "pl":"Yes"
+                  , "tc":"0"
+                  , "debug":
+                  [
+                    [
+                      {
+                        "filename":"/home/joao/TCC/oil_gas_fpga/apps/CRS/FPGA_SYCL/src/main.cpp"
+                        , "line":372
+                      }
+                    ]
+                  ]
+                  , "type":"loop"
+                }
+              ]
+            }
+            , {
+              "name":"_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE316_14clES2_EUlvE325_22.B10"
+              , "id":3433137456
+              , "af":"240.00"
+              , "br":"1"
+              , "ci":"0"
+              , "ii":"1"
+              , "ll":"2"
+              , "lt":"157.000000"
+              , "mi":"n/a"
+              , "pl":"Yes"
+              , "tc":"n/a"
+              , "type":"bb"
+            }
+          ]
+        }
+        , {
+          "name":"_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE316_14clES2_EUlvE325_22.B2"
+          , "id":3415702992
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"0.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"n/a"
+          , "type":"bb"
+        }
+        , {
+          "name":"_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE316_14clES2_EUlvE325_22.B12"
+          , "id":3436973024
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"1.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"n/a"
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"k4_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE394_14clES2_EUlvE401_22"
+      , "id":3291065744
+      , "clk":"No"
+      , "fmax":"240.00"
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE394_14clES2_EUlvE401_22.B0"
+          , "id":3525805664
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"2.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"n/a"
+          , "type":"bb"
+        }
+        , {
+          "name":"_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE394_14clES2_EUlvE401_22.B1"
+          , "id":3522321360
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"9.000000"
+          , "mi":"1"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/home/joao/TCC/oil_gas_fpga/apps/CRS/FPGA_SYCL/src/main.cpp"
+                , "line":402
+              }
+            ]
+          ]
+          , "type":"loop"
+          , "children":
+          [
+            {
+              "name":"_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE394_14clES2_EUlvE401_22.B3"
+              , "id":3535551216
+              , "af":"240.00"
+              , "br":"1"
+              , "ci":"0"
+              , "ii":"1"
+              , "ll":"2"
+              , "lt":"256.000000"
+              , "mi":"1"
+              , "pl":"Yes"
+              , "tc":"0"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/home/joao/TCC/oil_gas_fpga/apps/CRS/FPGA_SYCL/src/main.cpp"
+                    , "line":406
+                  }
+                ]
+              ]
+              , "type":"loop"
+            }
+          ]
+        }
+        , {
+          "name":"_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE394_14clES2_EUlvE401_22.B2"
+          , "id":3507219456
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"392"
+          , "ll":"1"
+          , "lt":"543.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"n/a"
+          , "type":"bb"
+        }
+        , {
+          "name":"_ZTSZZ4mainENKUlRN2cl4sycl7handlerEE394_14clES2_EUlvE401_22.B4"
+          , "id":3538433968
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"1.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"n/a"
+          , "type":"bb"
+        }
+      ]
+    }
+  ]
+}

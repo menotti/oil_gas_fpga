@@ -1,8 +1,7 @@
 /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/rebuild_cache.dir
-/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/edit_cache.dir
 /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/cmp-sycl2.fpga_emu.dir
-/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/fpga.dir
 /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/run_emu.dir
 /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/cmp-sycl2.fpga.dir
-/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/report.dir
+/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/fpga_emu_repo.dir
 /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/run.dir
+/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/edit_cache.dir

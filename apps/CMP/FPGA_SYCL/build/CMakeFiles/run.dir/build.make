@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build
 include CMakeFiles/run.dir/progress.make
 
 CMakeFiles/run:
-	./cmp-sycl2.fpga_emu -aph 600 -c0 1.98e-7 -c1 1.77e-6 -i ../../../../datasets/simple-synthetic.su -nc 5 -tau 0.002 -v 0
+	./cmp-sycl2.fpga -aph 600 -c0 1.98e-7 -c1 1.77e-6 -i ../../../../datasets/simple-synthetic.su -nc 5 -tau 0.002 -v 0
 
 run: CMakeFiles/run
 run: CMakeFiles/run.dir/build.make
