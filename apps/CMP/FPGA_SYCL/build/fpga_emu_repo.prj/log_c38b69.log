@@ -1,3 +1,0 @@
-Compiler Command: aoc -o /tmp/log-c38b69.aocr /tmp/log-9b7704.spv -sycl -rtl -dep-files=/tmp/log.cpp-563acf.d,/tmp/su_trace.cpp-adf218.d,/tmp/su_gather.cpp-d3fce7.d,/tmp/su_cdp.cpp-cbe19c.d,/tmp/parser.cpp-e285a8.d,/tmp/main.cpp-9fed9b.d -output-report-folder=fpga_emu_repo.prj -g -hardware
-System name: log_c38b69
-

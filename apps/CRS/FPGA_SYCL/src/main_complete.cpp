@@ -167,23 +167,22 @@ int main(int argc, const char** argv) {
 		}
 		
 		Kernel 3{
-			cdp0=
-			cdpf=
+			ttraces= 6000
 		}
 				
 		Kernel 4{
-			npar=npar
+			nc=nc
 			ns=2502
-			ntraces=15
+			ntrs=15
 			w=3
 			idt=500
 			tau=1
 			nc*ns=12510
-			ntraces*ns=37530
+			ntrs*ns=37530
 		}
 		
 		Kernel 5{
-			npar=npar
+			nc=nc
 			ns=ns
 			ntcdps=428
 			ntcdps*ns=10070856
@@ -195,20 +194,6 @@ int main(int argc, const char** argv) {
 	#else
 	  sycl::intel::fpga_selector device_selector;
 	#endif
-	
-	std::cout << "nc: " << nc << std::endl;
-	std::cout << "npar: " << nc << std::endl;
-	std::cout << "inc_a: " << nc << std::endl;
-	std::cout << "inc_b: " << nc << std::endl;
-	std::cout << "inc_c: " << nc << std::endl;
-	std::cout << "ttraces: " << nc << std::endl;
-	std::cout << "cdp0: " << gather.cdps_by_cdp_id()[cdp_id].front() << std::endl;
-	std::cout << "cdpf: " << gather.cdps_by_cdp_id()[cdp_id].back() << std::endl;
-	std::cout << "ns: " << ns << std::endl;
-	std::cout << "w: " << _w << std::endl;
-	std::cout << "idt: " << _idt << std::endl;
-	std::cout << "itau: " << _itau << std::endl;
-	std::cout << "ncdps: " << ncdps << std::endl;
 
 	// exception handler
 	auto exception_handler = [](sycl::exception_list exceptionList) {

@@ -60,13 +60,45 @@ CMAKE_SOURCE_DIR = /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL
 CMAKE_BINARY_DIR = /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build
 
 #=============================================================================
+# Target rules for target CMakeFiles/run.dir
+
+# All Build rule for target.
+CMakeFiles/run.dir/all: CMakeFiles/cmp-sycl2.fpga.dir/all
+	$(MAKE) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/depend
+	$(MAKE) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles --progress-num= "Built target run"
+.PHONY : CMakeFiles/run.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/run.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles 7
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/run.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles 0
+.PHONY : CMakeFiles/run.dir/rule
+
+# Convenience name for target.
+run: CMakeFiles/run.dir/rule
+
+.PHONY : run
+
+# clean rule for target.
+CMakeFiles/run.dir/clean:
+	$(MAKE) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/clean
+.PHONY : CMakeFiles/run.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/run.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/cmp-sycl2.fpga_emu.dir
 
 # All Build rule for target.
 CMakeFiles/cmp-sycl2.fpga_emu.dir/all:
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga_emu.dir/build.make CMakeFiles/cmp-sycl2.fpga_emu.dir/depend
 	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga_emu.dir/build.make CMakeFiles/cmp-sycl2.fpga_emu.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles --progress-num=8,9,10,11,12,13,14 "Built target cmp-sycl2.fpga_emu"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles --progress-num=15,16,17,18,19,20,21 "Built target cmp-sycl2.fpga_emu"
 .PHONY : CMakeFiles/cmp-sycl2.fpga_emu.dir/all
 
 # Include target in all.
@@ -93,6 +125,75 @@ CMakeFiles/cmp-sycl2.fpga_emu.dir/clean:
 
 # clean rule for target.
 clean: CMakeFiles/cmp-sycl2.fpga_emu.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/cmp-sycl2.fpga_comp_emu.dir
+
+# All Build rule for target.
+CMakeFiles/cmp-sycl2.fpga_comp_emu.dir/all:
+	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga_comp_emu.dir/build.make CMakeFiles/cmp-sycl2.fpga_comp_emu.dir/depend
+	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga_comp_emu.dir/build.make CMakeFiles/cmp-sycl2.fpga_comp_emu.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles --progress-num=8,9,10,11,12,13,14 "Built target cmp-sycl2.fpga_comp_emu"
+.PHONY : CMakeFiles/cmp-sycl2.fpga_comp_emu.dir/all
+
+# Include target in all.
+all: CMakeFiles/cmp-sycl2.fpga_comp_emu.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/cmp-sycl2.fpga_comp_emu.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles 7
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/cmp-sycl2.fpga_comp_emu.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles 0
+.PHONY : CMakeFiles/cmp-sycl2.fpga_comp_emu.dir/rule
+
+# Convenience name for target.
+cmp-sycl2.fpga_comp_emu: CMakeFiles/cmp-sycl2.fpga_comp_emu.dir/rule
+
+.PHONY : cmp-sycl2.fpga_comp_emu
+
+# clean rule for target.
+CMakeFiles/cmp-sycl2.fpga_comp_emu.dir/clean:
+	$(MAKE) -f CMakeFiles/cmp-sycl2.fpga_comp_emu.dir/build.make CMakeFiles/cmp-sycl2.fpga_comp_emu.dir/clean
+.PHONY : CMakeFiles/cmp-sycl2.fpga_comp_emu.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/cmp-sycl2.fpga_comp_emu.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/run_comp_emu.dir
+
+# All Build rule for target.
+CMakeFiles/run_comp_emu.dir/all: CMakeFiles/cmp-sycl2.fpga_comp_emu.dir/all
+	$(MAKE) -f CMakeFiles/run_comp_emu.dir/build.make CMakeFiles/run_comp_emu.dir/depend
+	$(MAKE) -f CMakeFiles/run_comp_emu.dir/build.make CMakeFiles/run_comp_emu.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles --progress-num= "Built target run_comp_emu"
+.PHONY : CMakeFiles/run_comp_emu.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/run_comp_emu.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles 7
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/run_comp_emu.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles 0
+.PHONY : CMakeFiles/run_comp_emu.dir/rule
+
+# Convenience name for target.
+run_comp_emu: CMakeFiles/run_comp_emu.dir/rule
+
+.PHONY : run_comp_emu
+
+# clean rule for target.
+CMakeFiles/run_comp_emu.dir/clean:
+	$(MAKE) -f CMakeFiles/run_comp_emu.dir/build.make CMakeFiles/run_comp_emu.dir/clean
+.PHONY : CMakeFiles/run_comp_emu.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/run_comp_emu.dir/clean
 
 .PHONY : clean
 
@@ -167,7 +268,7 @@ clean: CMakeFiles/cmp-sycl2.fpga.dir/clean
 CMakeFiles/fpga_emu_repo.dir/all:
 	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/depend
 	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles --progress-num=15,16,17,18,19,20,21 "Built target fpga_emu_repo"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles --progress-num=22,23,24,25,26,27,28 "Built target fpga_emu_repo"
 .PHONY : CMakeFiles/fpga_emu_repo.dir/all
 
 # Include target in all.
@@ -194,38 +295,6 @@ CMakeFiles/fpga_emu_repo.dir/clean:
 
 # clean rule for target.
 clean: CMakeFiles/fpga_emu_repo.dir/clean
-
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/run.dir
-
-# All Build rule for target.
-CMakeFiles/run.dir/all: CMakeFiles/cmp-sycl2.fpga.dir/all
-	$(MAKE) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/depend
-	$(MAKE) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles --progress-num= "Built target run"
-.PHONY : CMakeFiles/run.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/run.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles 7
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/run.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles 0
-.PHONY : CMakeFiles/run.dir/rule
-
-# Convenience name for target.
-run: CMakeFiles/run.dir/rule
-
-.PHONY : run
-
-# clean rule for target.
-CMakeFiles/run.dir/clean:
-	$(MAKE) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/clean
-.PHONY : CMakeFiles/run.dir/clean
-
-# clean rule for target.
-clean: CMakeFiles/run.dir/clean
 
 .PHONY : clean
 
