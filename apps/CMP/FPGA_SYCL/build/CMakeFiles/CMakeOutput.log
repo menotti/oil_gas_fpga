@@ -28,28 +28,28 @@ The CXX compiler identification is GNU, found in "/home/joao/TCC/oil_gas_fpga/ap
 Determining if the C compiler works passed with the following output:
 Change Dir: /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_820ef/fast"
-/usr/bin/make -f CMakeFiles/cmTC_820ef.dir/build.make CMakeFiles/cmTC_820ef.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_1d2ba/fast"
+/usr/bin/make -f CMakeFiles/cmTC_1d2ba.dir/build.make CMakeFiles/cmTC_1d2ba.dir/build
 make[1]: Entering directory '/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_820ef.dir/testCCompiler.c.o
-/usr/bin/cc    -o CMakeFiles/cmTC_820ef.dir/testCCompiler.c.o   -c /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp/testCCompiler.c
-Linking C executable cmTC_820ef
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_820ef.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_820ef.dir/testCCompiler.c.o  -o cmTC_820ef 
+Building C object CMakeFiles/cmTC_1d2ba.dir/testCCompiler.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_1d2ba.dir/testCCompiler.c.o   -c /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTC_1d2ba
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1d2ba.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_1d2ba.dir/testCCompiler.c.o  -o cmTC_1d2ba 
 make[1]: Leaving directory '/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp'
 
 
 Detecting C compiler ABI info compiled with the following output:
 Change Dir: /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_59ce7/fast"
-/usr/bin/make -f CMakeFiles/cmTC_59ce7.dir/build.make CMakeFiles/cmTC_59ce7.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_2a069/fast"
+/usr/bin/make -f CMakeFiles/cmTC_2a069.dir/build.make CMakeFiles/cmTC_2a069.dir/build
 make[1]: Entering directory '/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_59ce7.dir/CMakeCCompilerABI.c.o
-/usr/bin/cc    -o CMakeFiles/cmTC_59ce7.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.10/Modules/CMakeCCompilerABI.c
-Linking C executable cmTC_59ce7
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_59ce7.dir/link.txt --verbose=1
-/usr/bin/cc     -v -rdynamic CMakeFiles/cmTC_59ce7.dir/CMakeCCompilerABI.c.o  -o cmTC_59ce7 
+Building C object CMakeFiles/cmTC_2a069.dir/CMakeCCompilerABI.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_2a069.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.10/Modules/CMakeCCompilerABI.c
+Linking C executable cmTC_2a069
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2a069.dir/link.txt --verbose=1
+/usr/bin/cc     -v -rdynamic CMakeFiles/cmTC_2a069.dir/CMakeCCompilerABI.c.o  -o cmTC_2a069 
 Using built-in specs.
 COLLECT_GCC=/usr/bin/cc
 COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper
@@ -60,10 +60,10 @@ Configured with: ../src/configure -v --with-pkgversion='Ubuntu 7.5.0-3ubuntu1~18
 Thread model: posix
 gcc version 7.5.0 (Ubuntu 7.5.0-3ubuntu1~18.04) 
 COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/
-LIBRARY_PATH=/opt/intel/oneapi/vpl/2021.1-beta10/lib/../lib/:/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib/../lib/:/opt/intel/oneapi/mpi/2021.1-beta10//libfabric/lib/../lib/:/opt/intel/oneapi/mpi/2021.1-beta10//lib/../lib/:/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/opt/intel/oneapi/ipp/2021.1-beta09/lib/intel64/:/opt/intel/oneapi/clck/2021.1-beta10/lib/intel64/:/opt/intel/oneapi/vpl/2021.1-beta10/lib/:/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib/:/opt/intel/oneapi/ccl/2021.1-beta10/lib/cpu_gpu_dpcpp/:/opt/intel/oneapi/mkl/2021.1-beta10/lib/intel64/:/opt/intel/oneapi/dal/2021.1-beta10/lib/intel64/:/opt/intel/oneapi/tbb/2021.1-beta10/env/../lib/intel64/gcc4.8/:/opt/intel/oneapi/ippcp/2021.1-beta09/lib/intel64/:/opt/intel/oneapi/mpi/2021.1-beta10//libfabric/lib/:/opt/intel/oneapi/mpi/2021.1-beta10//lib/release/:/opt/intel/oneapi/mpi/2021.1-beta10//lib/:/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_59ce7' '-mtune=generic' '-march=x86-64'
- /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccd22xg7.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_59ce7 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/opt/intel/oneapi/vpl/2021.1-beta10/lib/../lib -L/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib/../lib -L/opt/intel/oneapi/mpi/2021.1-beta10//libfabric/lib/../lib -L/opt/intel/oneapi/mpi/2021.1-beta10//lib/../lib -L/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/opt/intel/oneapi/ipp/2021.1-beta09/lib/intel64 -L/opt/intel/oneapi/clck/2021.1-beta10/lib/intel64 -L/opt/intel/oneapi/vpl/2021.1-beta10/lib -L/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib -L/opt/intel/oneapi/ccl/2021.1-beta10/lib/cpu_gpu_dpcpp -L/opt/intel/oneapi/mkl/2021.1-beta10/lib/intel64 -L/opt/intel/oneapi/dal/2021.1-beta10/lib/intel64 -L/opt/intel/oneapi/tbb/2021.1-beta10/env/../lib/intel64/gcc4.8 -L/opt/intel/oneapi/ippcp/2021.1-beta09/lib/intel64 -L/opt/intel/oneapi/mpi/2021.1-beta10//libfabric/lib -L/opt/intel/oneapi/mpi/2021.1-beta10//lib/release -L/opt/intel/oneapi/mpi/2021.1-beta10//lib -L/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_59ce7.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
-COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_59ce7' '-mtune=generic' '-march=x86-64'
+LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_2a069' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccRT5e4C.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_2a069 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_2a069.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_2a069' '-mtune=generic' '-march=x86-64'
 make[1]: Leaving directory '/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp'
 
 
@@ -71,14 +71,14 @@ Parsed C implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
   ignore line: [Change Dir: /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_59ce7/fast"]
-  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_59ce7.dir/build.make CMakeFiles/cmTC_59ce7.dir/build]
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_2a069/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_2a069.dir/build.make CMakeFiles/cmTC_2a069.dir/build]
   ignore line: [make[1]: Entering directory '/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp']
-  ignore line: [Building C object CMakeFiles/cmTC_59ce7.dir/CMakeCCompilerABI.c.o]
-  ignore line: [/usr/bin/cc    -o CMakeFiles/cmTC_59ce7.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.10/Modules/CMakeCCompilerABI.c]
-  ignore line: [Linking C executable cmTC_59ce7]
-  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_59ce7.dir/link.txt --verbose=1]
-  ignore line: [/usr/bin/cc     -v -rdynamic CMakeFiles/cmTC_59ce7.dir/CMakeCCompilerABI.c.o  -o cmTC_59ce7 ]
+  ignore line: [Building C object CMakeFiles/cmTC_2a069.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/bin/cc    -o CMakeFiles/cmTC_2a069.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.10/Modules/CMakeCCompilerABI.c]
+  ignore line: [Linking C executable cmTC_2a069]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2a069.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/cc     -v -rdynamic CMakeFiles/cmTC_2a069.dir/CMakeCCompilerABI.c.o  -o cmTC_2a069 ]
   ignore line: [Using built-in specs.]
   ignore line: [COLLECT_GCC=/usr/bin/cc]
   ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper]
@@ -89,14 +89,14 @@ Parsed C implicit link information from above output:
   ignore line: [Thread model: posix]
   ignore line: [gcc version 7.5.0 (Ubuntu 7.5.0-3ubuntu1~18.04) ]
   ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/]
-  ignore line: [LIBRARY_PATH=/opt/intel/oneapi/vpl/2021.1-beta10/lib/../lib/:/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib/../lib/:/opt/intel/oneapi/mpi/2021.1-beta10//libfabric/lib/../lib/:/opt/intel/oneapi/mpi/2021.1-beta10//lib/../lib/:/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/opt/intel/oneapi/ipp/2021.1-beta09/lib/intel64/:/opt/intel/oneapi/clck/2021.1-beta10/lib/intel64/:/opt/intel/oneapi/vpl/2021.1-beta10/lib/:/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib/:/opt/intel/oneapi/ccl/2021.1-beta10/lib/cpu_gpu_dpcpp/:/opt/intel/oneapi/mkl/2021.1-beta10/lib/intel64/:/opt/intel/oneapi/dal/2021.1-beta10/lib/intel64/:/opt/intel/oneapi/tbb/2021.1-beta10/env/../lib/intel64/gcc4.8/:/opt/intel/oneapi/ippcp/2021.1-beta09/lib/intel64/:/opt/intel/oneapi/mpi/2021.1-beta10//libfabric/lib/:/opt/intel/oneapi/mpi/2021.1-beta10//lib/release/:/opt/intel/oneapi/mpi/2021.1-beta10//lib/:/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_59ce7' '-mtune=generic' '-march=x86-64']
-  link line: [ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccd22xg7.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_59ce7 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/opt/intel/oneapi/vpl/2021.1-beta10/lib/../lib -L/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib/../lib -L/opt/intel/oneapi/mpi/2021.1-beta10//libfabric/lib/../lib -L/opt/intel/oneapi/mpi/2021.1-beta10//lib/../lib -L/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/opt/intel/oneapi/ipp/2021.1-beta09/lib/intel64 -L/opt/intel/oneapi/clck/2021.1-beta10/lib/intel64 -L/opt/intel/oneapi/vpl/2021.1-beta10/lib -L/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib -L/opt/intel/oneapi/ccl/2021.1-beta10/lib/cpu_gpu_dpcpp -L/opt/intel/oneapi/mkl/2021.1-beta10/lib/intel64 -L/opt/intel/oneapi/dal/2021.1-beta10/lib/intel64 -L/opt/intel/oneapi/tbb/2021.1-beta10/env/../lib/intel64/gcc4.8 -L/opt/intel/oneapi/ippcp/2021.1-beta09/lib/intel64 -L/opt/intel/oneapi/mpi/2021.1-beta10//libfabric/lib -L/opt/intel/oneapi/mpi/2021.1-beta10//lib/release -L/opt/intel/oneapi/mpi/2021.1-beta10//lib -L/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_59ce7.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_2a069' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccRT5e4C.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_2a069 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_2a069.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o]
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/collect2] ==> ignore
     arg [-plugin] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so] ==> ignore
     arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper] ==> ignore
-    arg [-plugin-opt=-fresolution=/tmp/ccd22xg7.res] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccRT5e4C.res] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -115,15 +115,10 @@ Parsed C implicit link information from above output:
     arg [-znow] ==> ignore
     arg [-zrelro] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_59ce7] ==> ignore
+    arg [cmTC_2a069] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o] ==> ignore
-    arg [-L/opt/intel/oneapi/vpl/2021.1-beta10/lib/../lib] ==> dir [/opt/intel/oneapi/vpl/2021.1-beta10/lib/../lib]
-    arg [-L/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib/../lib] ==> dir [/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib/../lib]
-    arg [-L/opt/intel/oneapi/mpi/2021.1-beta10//libfabric/lib/../lib] ==> dir [/opt/intel/oneapi/mpi/2021.1-beta10//libfabric/lib/../lib]
-    arg [-L/opt/intel/oneapi/mpi/2021.1-beta10//lib/../lib] ==> dir [/opt/intel/oneapi/mpi/2021.1-beta10//lib/../lib]
-    arg [-L/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib/../lib] ==> dir [/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib/../lib]
     arg [-L/usr/lib/gcc/x86_64-linux-gnu/7] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7]
     arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu]
     arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib]
@@ -131,21 +126,8 @@ Parsed C implicit link information from above output:
     arg [-L/lib/../lib] ==> dir [/lib/../lib]
     arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
     arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
-    arg [-L/opt/intel/oneapi/ipp/2021.1-beta09/lib/intel64] ==> dir [/opt/intel/oneapi/ipp/2021.1-beta09/lib/intel64]
-    arg [-L/opt/intel/oneapi/clck/2021.1-beta10/lib/intel64] ==> dir [/opt/intel/oneapi/clck/2021.1-beta10/lib/intel64]
-    arg [-L/opt/intel/oneapi/vpl/2021.1-beta10/lib] ==> dir [/opt/intel/oneapi/vpl/2021.1-beta10/lib]
-    arg [-L/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib] ==> dir [/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib]
-    arg [-L/opt/intel/oneapi/ccl/2021.1-beta10/lib/cpu_gpu_dpcpp] ==> dir [/opt/intel/oneapi/ccl/2021.1-beta10/lib/cpu_gpu_dpcpp]
-    arg [-L/opt/intel/oneapi/mkl/2021.1-beta10/lib/intel64] ==> dir [/opt/intel/oneapi/mkl/2021.1-beta10/lib/intel64]
-    arg [-L/opt/intel/oneapi/dal/2021.1-beta10/lib/intel64] ==> dir [/opt/intel/oneapi/dal/2021.1-beta10/lib/intel64]
-    arg [-L/opt/intel/oneapi/tbb/2021.1-beta10/env/../lib/intel64/gcc4.8] ==> dir [/opt/intel/oneapi/tbb/2021.1-beta10/env/../lib/intel64/gcc4.8]
-    arg [-L/opt/intel/oneapi/ippcp/2021.1-beta09/lib/intel64] ==> dir [/opt/intel/oneapi/ippcp/2021.1-beta09/lib/intel64]
-    arg [-L/opt/intel/oneapi/mpi/2021.1-beta10//libfabric/lib] ==> dir [/opt/intel/oneapi/mpi/2021.1-beta10//libfabric/lib]
-    arg [-L/opt/intel/oneapi/mpi/2021.1-beta10//lib/release] ==> dir [/opt/intel/oneapi/mpi/2021.1-beta10//lib/release]
-    arg [-L/opt/intel/oneapi/mpi/2021.1-beta10//lib] ==> dir [/opt/intel/oneapi/mpi/2021.1-beta10//lib]
-    arg [-L/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib] ==> dir [/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib]
     arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../..]
-    arg [CMakeFiles/cmTC_59ce7.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [CMakeFiles/cmTC_2a069.dir/CMakeCCompilerABI.c.o] ==> ignore
     arg [-lgcc] ==> lib [gcc]
     arg [--push-state] ==> ignore
     arg [--as-needed] ==> ignore
@@ -159,11 +141,6 @@ Parsed C implicit link information from above output:
     arg [--pop-state] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o] ==> ignore
-  collapse library dir [/opt/intel/oneapi/vpl/2021.1-beta10/lib/../lib] ==> [/opt/intel/oneapi/vpl/2021.1-beta10/lib]
-  collapse library dir [/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib/../lib] ==> [/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib]
-  collapse library dir [/opt/intel/oneapi/mpi/2021.1-beta10//libfabric/lib/../lib] ==> [/opt/intel/oneapi/mpi/2021.1-beta10/libfabric/lib]
-  collapse library dir [/opt/intel/oneapi/mpi/2021.1-beta10//lib/../lib] ==> [/opt/intel/oneapi/mpi/2021.1-beta10/lib]
-  collapse library dir [/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib/../lib] ==> [/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib]
   collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7] ==> [/usr/lib/gcc/x86_64-linux-gnu/7]
   collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
   collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib] ==> [/usr/lib]
@@ -171,22 +148,9 @@ Parsed C implicit link information from above output:
   collapse library dir [/lib/../lib] ==> [/lib]
   collapse library dir [/usr/lib/x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
   collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
-  collapse library dir [/opt/intel/oneapi/ipp/2021.1-beta09/lib/intel64] ==> [/opt/intel/oneapi/ipp/2021.1-beta09/lib/intel64]
-  collapse library dir [/opt/intel/oneapi/clck/2021.1-beta10/lib/intel64] ==> [/opt/intel/oneapi/clck/2021.1-beta10/lib/intel64]
-  collapse library dir [/opt/intel/oneapi/vpl/2021.1-beta10/lib] ==> [/opt/intel/oneapi/vpl/2021.1-beta10/lib]
-  collapse library dir [/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib] ==> [/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib]
-  collapse library dir [/opt/intel/oneapi/ccl/2021.1-beta10/lib/cpu_gpu_dpcpp] ==> [/opt/intel/oneapi/ccl/2021.1-beta10/lib/cpu_gpu_dpcpp]
-  collapse library dir [/opt/intel/oneapi/mkl/2021.1-beta10/lib/intel64] ==> [/opt/intel/oneapi/mkl/2021.1-beta10/lib/intel64]
-  collapse library dir [/opt/intel/oneapi/dal/2021.1-beta10/lib/intel64] ==> [/opt/intel/oneapi/dal/2021.1-beta10/lib/intel64]
-  collapse library dir [/opt/intel/oneapi/tbb/2021.1-beta10/env/../lib/intel64/gcc4.8] ==> [/opt/intel/oneapi/tbb/2021.1-beta10/lib/intel64/gcc4.8]
-  collapse library dir [/opt/intel/oneapi/ippcp/2021.1-beta09/lib/intel64] ==> [/opt/intel/oneapi/ippcp/2021.1-beta09/lib/intel64]
-  collapse library dir [/opt/intel/oneapi/mpi/2021.1-beta10//libfabric/lib] ==> [/opt/intel/oneapi/mpi/2021.1-beta10/libfabric/lib]
-  collapse library dir [/opt/intel/oneapi/mpi/2021.1-beta10//lib/release] ==> [/opt/intel/oneapi/mpi/2021.1-beta10/lib/release]
-  collapse library dir [/opt/intel/oneapi/mpi/2021.1-beta10//lib] ==> [/opt/intel/oneapi/mpi/2021.1-beta10/lib]
-  collapse library dir [/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib] ==> [/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib]
   collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../..] ==> [/usr/lib]
   implicit libs: [gcc;gcc_s;c;gcc;gcc_s]
-  implicit dirs: [/opt/intel/oneapi/vpl/2021.1-beta10/lib;/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib;/opt/intel/oneapi/mpi/2021.1-beta10/libfabric/lib;/opt/intel/oneapi/mpi/2021.1-beta10/lib;/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib;/usr/lib/gcc/x86_64-linux-gnu/7;/usr/lib/x86_64-linux-gnu;/usr/lib;/lib/x86_64-linux-gnu;/lib;/opt/intel/oneapi/ipp/2021.1-beta09/lib/intel64;/opt/intel/oneapi/clck/2021.1-beta10/lib/intel64;/opt/intel/oneapi/ccl/2021.1-beta10/lib/cpu_gpu_dpcpp;/opt/intel/oneapi/mkl/2021.1-beta10/lib/intel64;/opt/intel/oneapi/dal/2021.1-beta10/lib/intel64;/opt/intel/oneapi/tbb/2021.1-beta10/lib/intel64/gcc4.8;/opt/intel/oneapi/ippcp/2021.1-beta09/lib/intel64;/opt/intel/oneapi/mpi/2021.1-beta10/lib/release]
+  implicit dirs: [/usr/lib/gcc/x86_64-linux-gnu/7;/usr/lib/x86_64-linux-gnu;/usr/lib;/lib/x86_64-linux-gnu;/lib]
   implicit fwks: []
 
 
@@ -195,14 +159,14 @@ Parsed C implicit link information from above output:
 Detecting C [-std=c11] compiler features compiled with the following output:
 Change Dir: /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_dd580/fast"
-/usr/bin/make -f CMakeFiles/cmTC_dd580.dir/build.make CMakeFiles/cmTC_dd580.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_87367/fast"
+/usr/bin/make -f CMakeFiles/cmTC_87367.dir/build.make CMakeFiles/cmTC_87367.dir/build
 make[1]: Entering directory '/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_dd580.dir/feature_tests.c.o
-/usr/bin/cc   -std=c11 -o CMakeFiles/cmTC_dd580.dir/feature_tests.c.o   -c /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/feature_tests.c
-Linking C executable cmTC_dd580
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_dd580.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_dd580.dir/feature_tests.c.o  -o cmTC_dd580 
+Building C object CMakeFiles/cmTC_87367.dir/feature_tests.c.o
+/usr/bin/cc   -std=c11 -o CMakeFiles/cmTC_87367.dir/feature_tests.c.o   -c /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/feature_tests.c
+Linking C executable cmTC_87367
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_87367.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_87367.dir/feature_tests.c.o  -o cmTC_87367 
 make[1]: Leaving directory '/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp'
 
 
@@ -215,14 +179,14 @@ make[1]: Leaving directory '/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build
 Detecting C [-std=c99] compiler features compiled with the following output:
 Change Dir: /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_88947/fast"
-/usr/bin/make -f CMakeFiles/cmTC_88947.dir/build.make CMakeFiles/cmTC_88947.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_667eb/fast"
+/usr/bin/make -f CMakeFiles/cmTC_667eb.dir/build.make CMakeFiles/cmTC_667eb.dir/build
 make[1]: Entering directory '/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_88947.dir/feature_tests.c.o
-/usr/bin/cc   -std=c99 -o CMakeFiles/cmTC_88947.dir/feature_tests.c.o   -c /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/feature_tests.c
-Linking C executable cmTC_88947
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_88947.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_88947.dir/feature_tests.c.o  -o cmTC_88947 
+Building C object CMakeFiles/cmTC_667eb.dir/feature_tests.c.o
+/usr/bin/cc   -std=c99 -o CMakeFiles/cmTC_667eb.dir/feature_tests.c.o   -c /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/feature_tests.c
+Linking C executable cmTC_667eb
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_667eb.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_667eb.dir/feature_tests.c.o  -o cmTC_667eb 
 make[1]: Leaving directory '/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp'
 
 
@@ -235,14 +199,14 @@ make[1]: Leaving directory '/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build
 Detecting C [-std=c90] compiler features compiled with the following output:
 Change Dir: /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_a349e/fast"
-/usr/bin/make -f CMakeFiles/cmTC_a349e.dir/build.make CMakeFiles/cmTC_a349e.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_64f63/fast"
+/usr/bin/make -f CMakeFiles/cmTC_64f63.dir/build.make CMakeFiles/cmTC_64f63.dir/build
 make[1]: Entering directory '/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_a349e.dir/feature_tests.c.o
-/usr/bin/cc   -std=c90 -o CMakeFiles/cmTC_a349e.dir/feature_tests.c.o   -c /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/feature_tests.c
-Linking C executable cmTC_a349e
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a349e.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_a349e.dir/feature_tests.c.o  -o cmTC_a349e 
+Building C object CMakeFiles/cmTC_64f63.dir/feature_tests.c.o
+/usr/bin/cc   -std=c90 -o CMakeFiles/cmTC_64f63.dir/feature_tests.c.o   -c /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/feature_tests.c
+Linking C executable cmTC_64f63
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_64f63.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_64f63.dir/feature_tests.c.o  -o cmTC_64f63 
 make[1]: Leaving directory '/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp'
 
 
@@ -253,28 +217,28 @@ make[1]: Leaving directory '/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build
 Determining if the CXX compiler works passed with the following output:
 Change Dir: /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_5abe7/fast"
-/usr/bin/make -f CMakeFiles/cmTC_5abe7.dir/build.make CMakeFiles/cmTC_5abe7.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_ca811/fast"
+/usr/bin/make -f CMakeFiles/cmTC_ca811.dir/build.make CMakeFiles/cmTC_ca811.dir/build
 make[1]: Entering directory '/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_5abe7.dir/testCXXCompiler.cxx.o
-/usr/bin/c++     -o CMakeFiles/cmTC_5abe7.dir/testCXXCompiler.cxx.o -c /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
-Linking CXX executable cmTC_5abe7
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5abe7.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_5abe7.dir/testCXXCompiler.cxx.o  -o cmTC_5abe7 
+Building CXX object CMakeFiles/cmTC_ca811.dir/testCXXCompiler.cxx.o
+/usr/bin/c++     -o CMakeFiles/cmTC_ca811.dir/testCXXCompiler.cxx.o -c /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+Linking CXX executable cmTC_ca811
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ca811.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_ca811.dir/testCXXCompiler.cxx.o  -o cmTC_ca811 
 make[1]: Leaving directory '/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp'
 
 
 Detecting CXX compiler ABI info compiled with the following output:
 Change Dir: /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_feef3/fast"
-/usr/bin/make -f CMakeFiles/cmTC_feef3.dir/build.make CMakeFiles/cmTC_feef3.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_1c9ac/fast"
+/usr/bin/make -f CMakeFiles/cmTC_1c9ac.dir/build.make CMakeFiles/cmTC_1c9ac.dir/build
 make[1]: Entering directory '/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_feef3.dir/CMakeCXXCompilerABI.cpp.o
-/usr/bin/c++     -o CMakeFiles/cmTC_feef3.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp
-Linking CXX executable cmTC_feef3
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_feef3.dir/link.txt --verbose=1
-/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_feef3.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_feef3 
+Building CXX object CMakeFiles/cmTC_1c9ac.dir/CMakeCXXCompilerABI.cpp.o
+/usr/bin/c++     -o CMakeFiles/cmTC_1c9ac.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp
+Linking CXX executable cmTC_1c9ac
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1c9ac.dir/link.txt --verbose=1
+/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_1c9ac.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_1c9ac 
 Using built-in specs.
 COLLECT_GCC=/usr/bin/c++
 COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper
@@ -285,10 +249,10 @@ Configured with: ../src/configure -v --with-pkgversion='Ubuntu 7.5.0-3ubuntu1~18
 Thread model: posix
 gcc version 7.5.0 (Ubuntu 7.5.0-3ubuntu1~18.04) 
 COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/
-LIBRARY_PATH=/opt/intel/oneapi/vpl/2021.1-beta10/lib/../lib/:/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib/../lib/:/opt/intel/oneapi/mpi/2021.1-beta10//libfabric/lib/../lib/:/opt/intel/oneapi/mpi/2021.1-beta10//lib/../lib/:/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/opt/intel/oneapi/ipp/2021.1-beta09/lib/intel64/:/opt/intel/oneapi/clck/2021.1-beta10/lib/intel64/:/opt/intel/oneapi/vpl/2021.1-beta10/lib/:/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib/:/opt/intel/oneapi/ccl/2021.1-beta10/lib/cpu_gpu_dpcpp/:/opt/intel/oneapi/mkl/2021.1-beta10/lib/intel64/:/opt/intel/oneapi/dal/2021.1-beta10/lib/intel64/:/opt/intel/oneapi/tbb/2021.1-beta10/env/../lib/intel64/gcc4.8/:/opt/intel/oneapi/ippcp/2021.1-beta09/lib/intel64/:/opt/intel/oneapi/mpi/2021.1-beta10//libfabric/lib/:/opt/intel/oneapi/mpi/2021.1-beta10//lib/release/:/opt/intel/oneapi/mpi/2021.1-beta10//lib/:/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_feef3' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
- /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccXkiYxC.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_feef3 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/opt/intel/oneapi/vpl/2021.1-beta10/lib/../lib -L/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib/../lib -L/opt/intel/oneapi/mpi/2021.1-beta10//libfabric/lib/../lib -L/opt/intel/oneapi/mpi/2021.1-beta10//lib/../lib -L/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/opt/intel/oneapi/ipp/2021.1-beta09/lib/intel64 -L/opt/intel/oneapi/clck/2021.1-beta10/lib/intel64 -L/opt/intel/oneapi/vpl/2021.1-beta10/lib -L/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib -L/opt/intel/oneapi/ccl/2021.1-beta10/lib/cpu_gpu_dpcpp -L/opt/intel/oneapi/mkl/2021.1-beta10/lib/intel64 -L/opt/intel/oneapi/dal/2021.1-beta10/lib/intel64 -L/opt/intel/oneapi/tbb/2021.1-beta10/env/../lib/intel64/gcc4.8 -L/opt/intel/oneapi/ippcp/2021.1-beta09/lib/intel64 -L/opt/intel/oneapi/mpi/2021.1-beta10//libfabric/lib -L/opt/intel/oneapi/mpi/2021.1-beta10//lib/release -L/opt/intel/oneapi/mpi/2021.1-beta10//lib -L/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_feef3.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
-COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_feef3' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_1c9ac' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccCjbQf3.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_1c9ac /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_1c9ac.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_1c9ac' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
 make[1]: Leaving directory '/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp'
 
 
@@ -296,14 +260,14 @@ Parsed CXX implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
   ignore line: [Change Dir: /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_feef3/fast"]
-  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_feef3.dir/build.make CMakeFiles/cmTC_feef3.dir/build]
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_1c9ac/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_1c9ac.dir/build.make CMakeFiles/cmTC_1c9ac.dir/build]
   ignore line: [make[1]: Entering directory '/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp']
-  ignore line: [Building CXX object CMakeFiles/cmTC_feef3.dir/CMakeCXXCompilerABI.cpp.o]
-  ignore line: [/usr/bin/c++     -o CMakeFiles/cmTC_feef3.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp]
-  ignore line: [Linking CXX executable cmTC_feef3]
-  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_feef3.dir/link.txt --verbose=1]
-  ignore line: [/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_feef3.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_feef3 ]
+  ignore line: [Building CXX object CMakeFiles/cmTC_1c9ac.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [/usr/bin/c++     -o CMakeFiles/cmTC_1c9ac.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [Linking CXX executable cmTC_1c9ac]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1c9ac.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_1c9ac.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_1c9ac ]
   ignore line: [Using built-in specs.]
   ignore line: [COLLECT_GCC=/usr/bin/c++]
   ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper]
@@ -314,14 +278,14 @@ Parsed CXX implicit link information from above output:
   ignore line: [Thread model: posix]
   ignore line: [gcc version 7.5.0 (Ubuntu 7.5.0-3ubuntu1~18.04) ]
   ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/]
-  ignore line: [LIBRARY_PATH=/opt/intel/oneapi/vpl/2021.1-beta10/lib/../lib/:/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib/../lib/:/opt/intel/oneapi/mpi/2021.1-beta10//libfabric/lib/../lib/:/opt/intel/oneapi/mpi/2021.1-beta10//lib/../lib/:/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/opt/intel/oneapi/ipp/2021.1-beta09/lib/intel64/:/opt/intel/oneapi/clck/2021.1-beta10/lib/intel64/:/opt/intel/oneapi/vpl/2021.1-beta10/lib/:/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib/:/opt/intel/oneapi/ccl/2021.1-beta10/lib/cpu_gpu_dpcpp/:/opt/intel/oneapi/mkl/2021.1-beta10/lib/intel64/:/opt/intel/oneapi/dal/2021.1-beta10/lib/intel64/:/opt/intel/oneapi/tbb/2021.1-beta10/env/../lib/intel64/gcc4.8/:/opt/intel/oneapi/ippcp/2021.1-beta09/lib/intel64/:/opt/intel/oneapi/mpi/2021.1-beta10//libfabric/lib/:/opt/intel/oneapi/mpi/2021.1-beta10//lib/release/:/opt/intel/oneapi/mpi/2021.1-beta10//lib/:/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_feef3' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
-  link line: [ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccXkiYxC.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_feef3 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/opt/intel/oneapi/vpl/2021.1-beta10/lib/../lib -L/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib/../lib -L/opt/intel/oneapi/mpi/2021.1-beta10//libfabric/lib/../lib -L/opt/intel/oneapi/mpi/2021.1-beta10//lib/../lib -L/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/opt/intel/oneapi/ipp/2021.1-beta09/lib/intel64 -L/opt/intel/oneapi/clck/2021.1-beta10/lib/intel64 -L/opt/intel/oneapi/vpl/2021.1-beta10/lib -L/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib -L/opt/intel/oneapi/ccl/2021.1-beta10/lib/cpu_gpu_dpcpp -L/opt/intel/oneapi/mkl/2021.1-beta10/lib/intel64 -L/opt/intel/oneapi/dal/2021.1-beta10/lib/intel64 -L/opt/intel/oneapi/tbb/2021.1-beta10/env/../lib/intel64/gcc4.8 -L/opt/intel/oneapi/ippcp/2021.1-beta09/lib/intel64 -L/opt/intel/oneapi/mpi/2021.1-beta10//libfabric/lib -L/opt/intel/oneapi/mpi/2021.1-beta10//lib/release -L/opt/intel/oneapi/mpi/2021.1-beta10//lib -L/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_feef3.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_1c9ac' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccCjbQf3.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_1c9ac /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_1c9ac.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o]
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/collect2] ==> ignore
     arg [-plugin] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so] ==> ignore
     arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper] ==> ignore
-    arg [-plugin-opt=-fresolution=/tmp/ccXkiYxC.res] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccCjbQf3.res] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -340,15 +304,10 @@ Parsed CXX implicit link information from above output:
     arg [-znow] ==> ignore
     arg [-zrelro] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_feef3] ==> ignore
+    arg [cmTC_1c9ac] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o] ==> ignore
-    arg [-L/opt/intel/oneapi/vpl/2021.1-beta10/lib/../lib] ==> dir [/opt/intel/oneapi/vpl/2021.1-beta10/lib/../lib]
-    arg [-L/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib/../lib] ==> dir [/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib/../lib]
-    arg [-L/opt/intel/oneapi/mpi/2021.1-beta10//libfabric/lib/../lib] ==> dir [/opt/intel/oneapi/mpi/2021.1-beta10//libfabric/lib/../lib]
-    arg [-L/opt/intel/oneapi/mpi/2021.1-beta10//lib/../lib] ==> dir [/opt/intel/oneapi/mpi/2021.1-beta10//lib/../lib]
-    arg [-L/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib/../lib] ==> dir [/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib/../lib]
     arg [-L/usr/lib/gcc/x86_64-linux-gnu/7] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7]
     arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu]
     arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib]
@@ -356,21 +315,8 @@ Parsed CXX implicit link information from above output:
     arg [-L/lib/../lib] ==> dir [/lib/../lib]
     arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
     arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
-    arg [-L/opt/intel/oneapi/ipp/2021.1-beta09/lib/intel64] ==> dir [/opt/intel/oneapi/ipp/2021.1-beta09/lib/intel64]
-    arg [-L/opt/intel/oneapi/clck/2021.1-beta10/lib/intel64] ==> dir [/opt/intel/oneapi/clck/2021.1-beta10/lib/intel64]
-    arg [-L/opt/intel/oneapi/vpl/2021.1-beta10/lib] ==> dir [/opt/intel/oneapi/vpl/2021.1-beta10/lib]
-    arg [-L/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib] ==> dir [/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib]
-    arg [-L/opt/intel/oneapi/ccl/2021.1-beta10/lib/cpu_gpu_dpcpp] ==> dir [/opt/intel/oneapi/ccl/2021.1-beta10/lib/cpu_gpu_dpcpp]
-    arg [-L/opt/intel/oneapi/mkl/2021.1-beta10/lib/intel64] ==> dir [/opt/intel/oneapi/mkl/2021.1-beta10/lib/intel64]
-    arg [-L/opt/intel/oneapi/dal/2021.1-beta10/lib/intel64] ==> dir [/opt/intel/oneapi/dal/2021.1-beta10/lib/intel64]
-    arg [-L/opt/intel/oneapi/tbb/2021.1-beta10/env/../lib/intel64/gcc4.8] ==> dir [/opt/intel/oneapi/tbb/2021.1-beta10/env/../lib/intel64/gcc4.8]
-    arg [-L/opt/intel/oneapi/ippcp/2021.1-beta09/lib/intel64] ==> dir [/opt/intel/oneapi/ippcp/2021.1-beta09/lib/intel64]
-    arg [-L/opt/intel/oneapi/mpi/2021.1-beta10//libfabric/lib] ==> dir [/opt/intel/oneapi/mpi/2021.1-beta10//libfabric/lib]
-    arg [-L/opt/intel/oneapi/mpi/2021.1-beta10//lib/release] ==> dir [/opt/intel/oneapi/mpi/2021.1-beta10//lib/release]
-    arg [-L/opt/intel/oneapi/mpi/2021.1-beta10//lib] ==> dir [/opt/intel/oneapi/mpi/2021.1-beta10//lib]
-    arg [-L/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib] ==> dir [/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib]
     arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../..]
-    arg [CMakeFiles/cmTC_feef3.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [CMakeFiles/cmTC_1c9ac.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
     arg [-lstdc++] ==> lib [stdc++]
     arg [-lm] ==> lib [m]
     arg [-lgcc_s] ==> lib [gcc_s]
@@ -380,11 +326,6 @@ Parsed CXX implicit link information from above output:
     arg [-lgcc] ==> lib [gcc]
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o] ==> ignore
-  collapse library dir [/opt/intel/oneapi/vpl/2021.1-beta10/lib/../lib] ==> [/opt/intel/oneapi/vpl/2021.1-beta10/lib]
-  collapse library dir [/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib/../lib] ==> [/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib]
-  collapse library dir [/opt/intel/oneapi/mpi/2021.1-beta10//libfabric/lib/../lib] ==> [/opt/intel/oneapi/mpi/2021.1-beta10/libfabric/lib]
-  collapse library dir [/opt/intel/oneapi/mpi/2021.1-beta10//lib/../lib] ==> [/opt/intel/oneapi/mpi/2021.1-beta10/lib]
-  collapse library dir [/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib/../lib] ==> [/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib]
   collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7] ==> [/usr/lib/gcc/x86_64-linux-gnu/7]
   collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
   collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib] ==> [/usr/lib]
@@ -392,22 +333,9 @@ Parsed CXX implicit link information from above output:
   collapse library dir [/lib/../lib] ==> [/lib]
   collapse library dir [/usr/lib/x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
   collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
-  collapse library dir [/opt/intel/oneapi/ipp/2021.1-beta09/lib/intel64] ==> [/opt/intel/oneapi/ipp/2021.1-beta09/lib/intel64]
-  collapse library dir [/opt/intel/oneapi/clck/2021.1-beta10/lib/intel64] ==> [/opt/intel/oneapi/clck/2021.1-beta10/lib/intel64]
-  collapse library dir [/opt/intel/oneapi/vpl/2021.1-beta10/lib] ==> [/opt/intel/oneapi/vpl/2021.1-beta10/lib]
-  collapse library dir [/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib] ==> [/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib]
-  collapse library dir [/opt/intel/oneapi/ccl/2021.1-beta10/lib/cpu_gpu_dpcpp] ==> [/opt/intel/oneapi/ccl/2021.1-beta10/lib/cpu_gpu_dpcpp]
-  collapse library dir [/opt/intel/oneapi/mkl/2021.1-beta10/lib/intel64] ==> [/opt/intel/oneapi/mkl/2021.1-beta10/lib/intel64]
-  collapse library dir [/opt/intel/oneapi/dal/2021.1-beta10/lib/intel64] ==> [/opt/intel/oneapi/dal/2021.1-beta10/lib/intel64]
-  collapse library dir [/opt/intel/oneapi/tbb/2021.1-beta10/env/../lib/intel64/gcc4.8] ==> [/opt/intel/oneapi/tbb/2021.1-beta10/lib/intel64/gcc4.8]
-  collapse library dir [/opt/intel/oneapi/ippcp/2021.1-beta09/lib/intel64] ==> [/opt/intel/oneapi/ippcp/2021.1-beta09/lib/intel64]
-  collapse library dir [/opt/intel/oneapi/mpi/2021.1-beta10//libfabric/lib] ==> [/opt/intel/oneapi/mpi/2021.1-beta10/libfabric/lib]
-  collapse library dir [/opt/intel/oneapi/mpi/2021.1-beta10//lib/release] ==> [/opt/intel/oneapi/mpi/2021.1-beta10/lib/release]
-  collapse library dir [/opt/intel/oneapi/mpi/2021.1-beta10//lib] ==> [/opt/intel/oneapi/mpi/2021.1-beta10/lib]
-  collapse library dir [/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib] ==> [/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib]
   collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../..] ==> [/usr/lib]
   implicit libs: [stdc++;m;gcc_s;gcc;c;gcc_s;gcc]
-  implicit dirs: [/opt/intel/oneapi/vpl/2021.1-beta10/lib;/opt/intel/oneapi/dnnl/2021.1-beta10/cpu_dpcpp_gpu_dpcpp/lib;/opt/intel/oneapi/mpi/2021.1-beta10/libfabric/lib;/opt/intel/oneapi/mpi/2021.1-beta10/lib;/opt/intel/oneapi/compiler/2021.1-beta10/linux/lib;/usr/lib/gcc/x86_64-linux-gnu/7;/usr/lib/x86_64-linux-gnu;/usr/lib;/lib/x86_64-linux-gnu;/lib;/opt/intel/oneapi/ipp/2021.1-beta09/lib/intel64;/opt/intel/oneapi/clck/2021.1-beta10/lib/intel64;/opt/intel/oneapi/ccl/2021.1-beta10/lib/cpu_gpu_dpcpp;/opt/intel/oneapi/mkl/2021.1-beta10/lib/intel64;/opt/intel/oneapi/dal/2021.1-beta10/lib/intel64;/opt/intel/oneapi/tbb/2021.1-beta10/lib/intel64/gcc4.8;/opt/intel/oneapi/ippcp/2021.1-beta09/lib/intel64;/opt/intel/oneapi/mpi/2021.1-beta10/lib/release]
+  implicit dirs: [/usr/lib/gcc/x86_64-linux-gnu/7;/usr/lib/x86_64-linux-gnu;/usr/lib;/lib/x86_64-linux-gnu;/lib]
   implicit fwks: []
 
 
@@ -416,14 +344,14 @@ Parsed CXX implicit link information from above output:
 Detecting CXX [-std=c++1z] compiler features compiled with the following output:
 Change Dir: /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_66ef9/fast"
-/usr/bin/make -f CMakeFiles/cmTC_66ef9.dir/build.make CMakeFiles/cmTC_66ef9.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_f4ccb/fast"
+/usr/bin/make -f CMakeFiles/cmTC_f4ccb.dir/build.make CMakeFiles/cmTC_f4ccb.dir/build
 make[1]: Entering directory '/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_66ef9.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++1z -o CMakeFiles/cmTC_66ef9.dir/feature_tests.cxx.o -c /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_66ef9
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_66ef9.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_66ef9.dir/feature_tests.cxx.o  -o cmTC_66ef9 
+Building CXX object CMakeFiles/cmTC_f4ccb.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++1z -o CMakeFiles/cmTC_f4ccb.dir/feature_tests.cxx.o -c /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_f4ccb
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f4ccb.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_f4ccb.dir/feature_tests.cxx.o  -o cmTC_f4ccb 
 make[1]: Leaving directory '/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp'
 
 
@@ -489,14 +417,14 @@ make[1]: Leaving directory '/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build
 Detecting CXX [-std=c++14] compiler features compiled with the following output:
 Change Dir: /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_4e2f1/fast"
-/usr/bin/make -f CMakeFiles/cmTC_4e2f1.dir/build.make CMakeFiles/cmTC_4e2f1.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_9bb27/fast"
+/usr/bin/make -f CMakeFiles/cmTC_9bb27.dir/build.make CMakeFiles/cmTC_9bb27.dir/build
 make[1]: Entering directory '/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_4e2f1.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++14 -o CMakeFiles/cmTC_4e2f1.dir/feature_tests.cxx.o -c /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_4e2f1
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4e2f1.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_4e2f1.dir/feature_tests.cxx.o  -o cmTC_4e2f1 
+Building CXX object CMakeFiles/cmTC_9bb27.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++14 -o CMakeFiles/cmTC_9bb27.dir/feature_tests.cxx.o -c /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_9bb27
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9bb27.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_9bb27.dir/feature_tests.cxx.o  -o cmTC_9bb27 
 make[1]: Leaving directory '/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp'
 
 
@@ -562,14 +490,14 @@ make[1]: Leaving directory '/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build
 Detecting CXX [-std=c++11] compiler features compiled with the following output:
 Change Dir: /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_5c29a/fast"
-/usr/bin/make -f CMakeFiles/cmTC_5c29a.dir/build.make CMakeFiles/cmTC_5c29a.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_5c359/fast"
+/usr/bin/make -f CMakeFiles/cmTC_5c359.dir/build.make CMakeFiles/cmTC_5c359.dir/build
 make[1]: Entering directory '/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_5c29a.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++11 -o CMakeFiles/cmTC_5c29a.dir/feature_tests.cxx.o -c /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_5c29a
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5c29a.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_5c29a.dir/feature_tests.cxx.o  -o cmTC_5c29a 
+Building CXX object CMakeFiles/cmTC_5c359.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++11 -o CMakeFiles/cmTC_5c359.dir/feature_tests.cxx.o -c /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_5c359
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5c359.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_5c359.dir/feature_tests.cxx.o  -o cmTC_5c359 
 make[1]: Leaving directory '/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp'
 
 
@@ -635,14 +563,14 @@ make[1]: Leaving directory '/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build
 Detecting CXX [-std=c++98] compiler features compiled with the following output:
 Change Dir: /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_3e90d/fast"
-/usr/bin/make -f CMakeFiles/cmTC_3e90d.dir/build.make CMakeFiles/cmTC_3e90d.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_b9cc7/fast"
+/usr/bin/make -f CMakeFiles/cmTC_b9cc7.dir/build.make CMakeFiles/cmTC_b9cc7.dir/build
 make[1]: Entering directory '/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_3e90d.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++98 -o CMakeFiles/cmTC_3e90d.dir/feature_tests.cxx.o -c /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_3e90d
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3e90d.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_3e90d.dir/feature_tests.cxx.o  -o cmTC_3e90d 
+Building CXX object CMakeFiles/cmTC_b9cc7.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++98 -o CMakeFiles/cmTC_b9cc7.dir/feature_tests.cxx.o -c /home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_b9cc7
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b9cc7.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_b9cc7.dir/feature_tests.cxx.o  -o cmTC_b9cc7 
 make[1]: Leaving directory '/home/joao/TCC/oil_gas_fpga/apps/CMP/FPGA_SYCL/build/CMakeFiles/CMakeTmp'
 
 

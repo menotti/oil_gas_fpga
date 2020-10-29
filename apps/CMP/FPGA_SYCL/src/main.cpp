@@ -27,7 +27,8 @@
 #include "su_gather.hpp"
 
 #include <CL/sycl.hpp>
-#include <CL/sycl/intel/fpga_extensions.hpp>
+//#include <CL/sycl/intel/fpga_extensions.hpp>
+#include <CL/sycl/INTEL/fpga_extensions.hpp>
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
@@ -158,9 +159,11 @@ int main(int argc, const char** argv) {
 		*/
 
 		#if defined(FPGA_EMULATOR)
-		  sycl::intel::fpga_emulator_selector device_selector;
+		  //sycl::intel::fpga_emulator_selector device_selector;
+		  sycl::INTEL::fpga_emulator_selector device_selector;
 		#else
-		  sycl::intel::fpga_selector device_selector;
+		  //sycl::intel::fpga_selector device_selector;
+		  sycl::INTEL::fpga_selector device_selector;
 		#endif
 		
 		// Copies data to Compute Device
@@ -196,6 +199,7 @@ int main(int argc, const char** argv) {
 		sycl::buffer<real, 1> b_scalco(scalco, sycl::range<1>(ttraces));
 	  	beg = std::chrono::high_resolution_clock::now();
 		// Submit Command group function object to the queue
+		// Kernel code. Call the complex_mul function here.
 		queue.submit([&](sycl::handler& cgh) {
 			// Create accessors
 			auto a_gx      = b_gx.get_access<sycl::access::mode::read>(cgh);
@@ -209,20 +213,19 @@ int main(int argc, const char** argv) {
 				//ttraces = 6000
 				//Unroll ?
 				for(int i=0; i < ttraces; i++) {
-					// Kernel code. Call the complex_mul function here.
-					//Não precisa de memoria_local****
+					//Criar variável local
 					real _s = a_scalco[i];
 					if(-EPSILON < _s && _s < EPSILON)
 						_s = 1.0f;
 					else if(_s < 0)
 						_s = 1.0f / _s;
 
-					//Não precisa de memoria_local****
+					//Criar variável local
 					real hx = (a_gx[i] - a_sx[i]) * _s;
-					//Não precisa de memoria_local****
+					//Criar variável local
 					real hy = (a_gy[i] - a_sy[i]) * _s;
 
-					//Não precisa de memoria_local****
+					//Criar variável local
 					a_h[i] = 0.25 * (hx * hx + hy * hy) / FACTOR;
 				}
 			});
@@ -265,6 +268,7 @@ int main(int argc, const char** argv) {
 				auto a_stt     = b_stt.get_access<sycl::access::mode::read_write>(cgh);
 
 				cgh.single_task([=](){
+					//Fazer banking aqui
 					//
 					//ns*nc = 12510
 					//Unroll ?
@@ -277,7 +281,7 @@ int main(int argc, const char** argv) {
 						int c_id = i % nc;
 						int t0 = i / nc;
 
-						//Não precisa de memoria_local****
+						//Criar variável local
 						real _c = a_c[c_id];
 						real _t0 = dt * t0;
 						_t0 = _t0 * _t0;
@@ -290,7 +294,6 @@ int main(int argc, const char** argv) {
 						//Unroll 15
 						for(int t_id=t_id0; t_id < t_idf; t_id++) {
 							// Evaluate t
-							//Não precisa de memoria_local****
 							real t = sycl::sqrt(_t0 + _c * a_h[t_id]);
 
 							int it = (int)( t * idt );
@@ -326,15 +329,15 @@ int main(int argc, const char** argv) {
 
 						// Evaluate semblances
 						if(_den > EPSILON && m > EPSILON && w > EPSILON && err < 2) {
-							//Não precisa de memoria_local****
+							//Criar variável local
 							a_num[i] = _ac_squared / (_den * m);
-							//Não precisa de memoria_local****
+							//Criar variável local
 							a_stt[i] = _ac_linear  / (w   * m);
 						}
 						else {
-							//Não precisa de memoria_local****
+							//Criar variável local
 							a_num[i] = -1.0f;
-							//Não precisa de memoria_local****
+							//Criar variável local
 							a_stt[i] = -1.0f;
 						}
 						
@@ -371,11 +374,11 @@ int main(int argc, const char** argv) {
 							}
 						}
 
-						//Não precisa de memoria_local****
+						//Criar variável local
 						a_ctr[cdp_id*ns + t0] = max_c % nc;
-						//Não precisa de memoria_local****
+						//Criar variável local
 						a_str[cdp_id*ns + t0] = max_sem;
-						//Não precisa de memoria_local****
+						//Criar variável local
 						a_stk[cdp_id*ns + t0] = max_c > -1 ? a_stt[max_c] : 0;
 					}
 				});

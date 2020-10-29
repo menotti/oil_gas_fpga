@@ -111,19 +111,6 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named crs-sycl2.fpga_emu
-
-# Build rule for target.
-crs-sycl2.fpga_emu: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 crs-sycl2.fpga_emu
-.PHONY : crs-sycl2.fpga_emu
-
-# fast build rule for target.
-crs-sycl2.fpga_emu/fast:
-	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_emu.dir/build
-.PHONY : crs-sycl2.fpga_emu/fast
-
-#=============================================================================
 # Target rules for targets named run_emu
 
 # Build rule for target.
@@ -137,17 +124,30 @@ run_emu/fast:
 .PHONY : run_emu/fast
 
 #=============================================================================
-# Target rules for targets named fpga_emu_repo
+# Target rules for targets named crs-sycl2.fpga_comp_emu
 
 # Build rule for target.
-fpga_emu_repo: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 fpga_emu_repo
-.PHONY : fpga_emu_repo
+crs-sycl2.fpga_comp_emu: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 crs-sycl2.fpga_comp_emu
+.PHONY : crs-sycl2.fpga_comp_emu
 
 # fast build rule for target.
-fpga_emu_repo/fast:
-	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/build
-.PHONY : fpga_emu_repo/fast
+crs-sycl2.fpga_comp_emu/fast:
+	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_comp_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_comp_emu.dir/build
+.PHONY : crs-sycl2.fpga_comp_emu/fast
+
+#=============================================================================
+# Target rules for targets named crs-sycl2.fpga_emu
+
+# Build rule for target.
+crs-sycl2.fpga_emu: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 crs-sycl2.fpga_emu
+.PHONY : crs-sycl2.fpga_emu
+
+# fast build rule for target.
+crs-sycl2.fpga_emu/fast:
+	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_emu.dir/build
+.PHONY : crs-sycl2.fpga_emu/fast
 
 #=============================================================================
 # Target rules for targets named run
@@ -161,6 +161,19 @@ run: cmake_check_build_system
 run/fast:
 	$(MAKE) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/build
 .PHONY : run/fast
+
+#=============================================================================
+# Target rules for targets named run_comp_emu
+
+# Build rule for target.
+run_comp_emu: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 run_comp_emu
+.PHONY : run_comp_emu
+
+# fast build rule for target.
+run_comp_emu/fast:
+	$(MAKE) -f CMakeFiles/run_comp_emu.dir/build.make CMakeFiles/run_comp_emu.dir/build
+.PHONY : run_comp_emu/fast
 
 #=============================================================================
 # Target rules for targets named crs-sycl2.fpga
@@ -181,8 +194,8 @@ src/log.o: src/log.cpp.o
 
 # target to build an object file
 src/log.cpp.o:
+	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_comp_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_comp_emu.dir/src/log.cpp.o
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_emu.dir/src/log.cpp.o
-	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/log.cpp.o
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga.dir/build.make CMakeFiles/crs-sycl2.fpga.dir/src/log.cpp.o
 .PHONY : src/log.cpp.o
 
@@ -192,8 +205,8 @@ src/log.i: src/log.cpp.i
 
 # target to preprocess a source file
 src/log.cpp.i:
+	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_comp_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_comp_emu.dir/src/log.cpp.i
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_emu.dir/src/log.cpp.i
-	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/log.cpp.i
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga.dir/build.make CMakeFiles/crs-sycl2.fpga.dir/src/log.cpp.i
 .PHONY : src/log.cpp.i
 
@@ -203,8 +216,8 @@ src/log.s: src/log.cpp.s
 
 # target to generate assembly for a file
 src/log.cpp.s:
+	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_comp_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_comp_emu.dir/src/log.cpp.s
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_emu.dir/src/log.cpp.s
-	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/log.cpp.s
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga.dir/build.make CMakeFiles/crs-sycl2.fpga.dir/src/log.cpp.s
 .PHONY : src/log.cpp.s
 
@@ -215,7 +228,6 @@ src/main.o: src/main.cpp.o
 # target to build an object file
 src/main.cpp.o:
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_emu.dir/src/main.cpp.o
-	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/main.cpp.o
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga.dir/build.make CMakeFiles/crs-sycl2.fpga.dir/src/main.cpp.o
 .PHONY : src/main.cpp.o
 
@@ -226,7 +238,6 @@ src/main.i: src/main.cpp.i
 # target to preprocess a source file
 src/main.cpp.i:
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_emu.dir/src/main.cpp.i
-	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/main.cpp.i
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga.dir/build.make CMakeFiles/crs-sycl2.fpga.dir/src/main.cpp.i
 .PHONY : src/main.cpp.i
 
@@ -237,9 +248,35 @@ src/main.s: src/main.cpp.s
 # target to generate assembly for a file
 src/main.cpp.s:
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_emu.dir/src/main.cpp.s
-	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/main.cpp.s
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga.dir/build.make CMakeFiles/crs-sycl2.fpga.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
+
+src/main_complete.o: src/main_complete.cpp.o
+
+.PHONY : src/main_complete.o
+
+# target to build an object file
+src/main_complete.cpp.o:
+	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_comp_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_comp_emu.dir/src/main_complete.cpp.o
+.PHONY : src/main_complete.cpp.o
+
+src/main_complete.i: src/main_complete.cpp.i
+
+.PHONY : src/main_complete.i
+
+# target to preprocess a source file
+src/main_complete.cpp.i:
+	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_comp_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_comp_emu.dir/src/main_complete.cpp.i
+.PHONY : src/main_complete.cpp.i
+
+src/main_complete.s: src/main_complete.cpp.s
+
+.PHONY : src/main_complete.s
+
+# target to generate assembly for a file
+src/main_complete.cpp.s:
+	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_comp_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_comp_emu.dir/src/main_complete.cpp.s
+.PHONY : src/main_complete.cpp.s
 
 src/parser.o: src/parser.cpp.o
 
@@ -247,8 +284,8 @@ src/parser.o: src/parser.cpp.o
 
 # target to build an object file
 src/parser.cpp.o:
+	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_comp_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_comp_emu.dir/src/parser.cpp.o
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_emu.dir/src/parser.cpp.o
-	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/parser.cpp.o
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga.dir/build.make CMakeFiles/crs-sycl2.fpga.dir/src/parser.cpp.o
 .PHONY : src/parser.cpp.o
 
@@ -258,8 +295,8 @@ src/parser.i: src/parser.cpp.i
 
 # target to preprocess a source file
 src/parser.cpp.i:
+	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_comp_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_comp_emu.dir/src/parser.cpp.i
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_emu.dir/src/parser.cpp.i
-	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/parser.cpp.i
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga.dir/build.make CMakeFiles/crs-sycl2.fpga.dir/src/parser.cpp.i
 .PHONY : src/parser.cpp.i
 
@@ -269,8 +306,8 @@ src/parser.s: src/parser.cpp.s
 
 # target to generate assembly for a file
 src/parser.cpp.s:
+	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_comp_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_comp_emu.dir/src/parser.cpp.s
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_emu.dir/src/parser.cpp.s
-	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/parser.cpp.s
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga.dir/build.make CMakeFiles/crs-sycl2.fpga.dir/src/parser.cpp.s
 .PHONY : src/parser.cpp.s
 
@@ -280,8 +317,8 @@ src/su_cdp.o: src/su_cdp.cpp.o
 
 # target to build an object file
 src/su_cdp.cpp.o:
+	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_comp_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_comp_emu.dir/src/su_cdp.cpp.o
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_emu.dir/src/su_cdp.cpp.o
-	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/su_cdp.cpp.o
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga.dir/build.make CMakeFiles/crs-sycl2.fpga.dir/src/su_cdp.cpp.o
 .PHONY : src/su_cdp.cpp.o
 
@@ -291,8 +328,8 @@ src/su_cdp.i: src/su_cdp.cpp.i
 
 # target to preprocess a source file
 src/su_cdp.cpp.i:
+	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_comp_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_comp_emu.dir/src/su_cdp.cpp.i
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_emu.dir/src/su_cdp.cpp.i
-	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/su_cdp.cpp.i
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga.dir/build.make CMakeFiles/crs-sycl2.fpga.dir/src/su_cdp.cpp.i
 .PHONY : src/su_cdp.cpp.i
 
@@ -302,8 +339,8 @@ src/su_cdp.s: src/su_cdp.cpp.s
 
 # target to generate assembly for a file
 src/su_cdp.cpp.s:
+	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_comp_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_comp_emu.dir/src/su_cdp.cpp.s
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_emu.dir/src/su_cdp.cpp.s
-	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/su_cdp.cpp.s
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga.dir/build.make CMakeFiles/crs-sycl2.fpga.dir/src/su_cdp.cpp.s
 .PHONY : src/su_cdp.cpp.s
 
@@ -313,8 +350,8 @@ src/su_gather.o: src/su_gather.cpp.o
 
 # target to build an object file
 src/su_gather.cpp.o:
+	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_comp_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_comp_emu.dir/src/su_gather.cpp.o
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_emu.dir/src/su_gather.cpp.o
-	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/su_gather.cpp.o
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga.dir/build.make CMakeFiles/crs-sycl2.fpga.dir/src/su_gather.cpp.o
 .PHONY : src/su_gather.cpp.o
 
@@ -324,8 +361,8 @@ src/su_gather.i: src/su_gather.cpp.i
 
 # target to preprocess a source file
 src/su_gather.cpp.i:
+	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_comp_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_comp_emu.dir/src/su_gather.cpp.i
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_emu.dir/src/su_gather.cpp.i
-	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/su_gather.cpp.i
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga.dir/build.make CMakeFiles/crs-sycl2.fpga.dir/src/su_gather.cpp.i
 .PHONY : src/su_gather.cpp.i
 
@@ -335,8 +372,8 @@ src/su_gather.s: src/su_gather.cpp.s
 
 # target to generate assembly for a file
 src/su_gather.cpp.s:
+	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_comp_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_comp_emu.dir/src/su_gather.cpp.s
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_emu.dir/src/su_gather.cpp.s
-	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/su_gather.cpp.s
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga.dir/build.make CMakeFiles/crs-sycl2.fpga.dir/src/su_gather.cpp.s
 .PHONY : src/su_gather.cpp.s
 
@@ -346,8 +383,8 @@ src/su_trace.o: src/su_trace.cpp.o
 
 # target to build an object file
 src/su_trace.cpp.o:
+	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_comp_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_comp_emu.dir/src/su_trace.cpp.o
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_emu.dir/src/su_trace.cpp.o
-	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/su_trace.cpp.o
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga.dir/build.make CMakeFiles/crs-sycl2.fpga.dir/src/su_trace.cpp.o
 .PHONY : src/su_trace.cpp.o
 
@@ -357,8 +394,8 @@ src/su_trace.i: src/su_trace.cpp.i
 
 # target to preprocess a source file
 src/su_trace.cpp.i:
+	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_comp_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_comp_emu.dir/src/su_trace.cpp.i
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_emu.dir/src/su_trace.cpp.i
-	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/su_trace.cpp.i
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga.dir/build.make CMakeFiles/crs-sycl2.fpga.dir/src/su_trace.cpp.i
 .PHONY : src/su_trace.cpp.i
 
@@ -368,8 +405,8 @@ src/su_trace.s: src/su_trace.cpp.s
 
 # target to generate assembly for a file
 src/su_trace.cpp.s:
+	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_comp_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_comp_emu.dir/src/su_trace.cpp.s
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga_emu.dir/build.make CMakeFiles/crs-sycl2.fpga_emu.dir/src/su_trace.cpp.s
-	$(MAKE) -f CMakeFiles/fpga_emu_repo.dir/build.make CMakeFiles/fpga_emu_repo.dir/src/su_trace.cpp.s
 	$(MAKE) -f CMakeFiles/crs-sycl2.fpga.dir/build.make CMakeFiles/crs-sycl2.fpga.dir/src/su_trace.cpp.s
 .PHONY : src/su_trace.cpp.s
 
@@ -380,18 +417,22 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... crs-sycl2.fpga_emu"
-	@echo "... run_emu"
-	@echo "... fpga_emu_repo"
-	@echo "... run"
-	@echo "... crs-sycl2.fpga"
 	@echo "... edit_cache"
+	@echo "... run_emu"
+	@echo "... crs-sycl2.fpga_comp_emu"
+	@echo "... crs-sycl2.fpga_emu"
+	@echo "... run"
+	@echo "... run_comp_emu"
+	@echo "... crs-sycl2.fpga"
 	@echo "... src/log.o"
 	@echo "... src/log.i"
 	@echo "... src/log.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/main_complete.o"
+	@echo "... src/main_complete.i"
+	@echo "... src/main_complete.s"
 	@echo "... src/parser.o"
 	@echo "... src/parser.i"
 	@echo "... src/parser.s"

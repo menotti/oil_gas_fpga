@@ -73,7 +73,7 @@ su_gather.hpp
 /home/joao/TCC/oil_gas_fpga/apps/CRS/FPGA_SYCL/src/su_gather.hpp
 CL/sycl.hpp
 -
-CL/sycl/intel/fpga_extensions.hpp
+CL/sycl/INTEL/fpga_extensions.hpp
 -
 cstdlib
 -

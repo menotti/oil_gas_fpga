@@ -1,1 +1,0 @@
-dpcpp    -fintelfpga -fsycl-link -Xshardware CMakeFiles/fpga_emu_repo.dir/src/log.cpp.o CMakeFiles/fpga_emu_repo.dir/src/su_trace.cpp.o CMakeFiles/fpga_emu_repo.dir/src/su_gather.cpp.o CMakeFiles/fpga_emu_repo.dir/src/su_cdp.cpp.o CMakeFiles/fpga_emu_repo.dir/src/parser.cpp.o CMakeFiles/fpga_emu_repo.dir/src/main.cpp.o  -o fpga_emu_repo -lm -lpthread 

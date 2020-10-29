@@ -26,7 +26,8 @@
 #include "su_gather.hpp"
 
 #include <CL/sycl.hpp>
-#include <CL/sycl/intel/fpga_extensions.hpp>
+//#include <CL/sycl/intel/fpga_extensions.hpp>
+#include <CL/sycl/INTEL/fpga_extensions.hpp>
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
@@ -62,103 +63,114 @@ using real4 = struct real4_t;
 
 namespace sycl = cl::sycl;
 ////////////////////////////////////////////////////////////////////////////////
-
+/*
 int aph, apm, ng, ttraces, ncdps, ns, ntrs, max_gather, w, tau;
 int *ntraces_by_cdp_id, *ctr, *size;
 real itau, inc_a, inc_b, inc_c, dt, idt;
 real *gx, *gy, *sx, *sy, *scalco, *samples, *h0, *m0x, *m0y, *num, *stt, *str, *stk, *cdpsmpl, *m2, *m, *h;
 real4 * par;
-
+*/
 ////////////////////////////////////////////////////////////////////////////////
 
 int main(int argc, const char** argv) {
-  std::ofstream a_out("crs.a.su", std::ofstream::out | std::ios::binary);
-  std::ofstream b_out("crs.b.su", std::ofstream::out | std::ios::binary);
-  std::ofstream c_out("crs.c.su", std::ofstream::out | std::ios::binary);
-  std::ofstream s_out("crs.coher.su", std::ofstream::out | std::ios::binary);
-  std::ofstream stack("crs.stack.su", std::ofstream::out | std::ios::binary);
+	std::ofstream a_out("crs.a.su", std::ofstream::out | std::ios::binary);
+	std::ofstream b_out("crs.b.su", std::ofstream::out | std::ios::binary);
+	std::ofstream c_out("crs.c.su", std::ofstream::out | std::ios::binary);
+	std::ofstream s_out("crs.coher.su", std::ofstream::out | std::ios::binary);
+	std::ofstream stack("crs.stack.su", std::ofstream::out | std::ios::binary);
 
-  // Parse command line and read arguments
-  parser::add_argument("-a0", "A0 constant");
-  parser::add_argument("-a1", "A1 constant");
-  parser::add_argument("-na", "NA constant");
-  parser::add_argument("-b0", "B0 constant");
-  parser::add_argument("-b1", "B1 constant");
-  parser::add_argument("-nb", "NB constant");
-  parser::add_argument("-c0", "C0 constant");
-  parser::add_argument("-c1", "C1 constant");
-  parser::add_argument("-nc", "NC constant");
-  parser::add_argument("-aph", "APH constant");
-  parser::add_argument("-apm", "APM constant");
-  parser::add_argument("-tau", "Tau constant");
-  parser::add_argument("-i", "Data path");
-  parser::add_argument("-v", "Verbosity Level 0-3");
+	// Parse command line and read arguments
+	parser::add_argument("-a0", "A0 constant");
+	parser::add_argument("-a1", "A1 constant");
+	parser::add_argument("-na", "NA constant");
+	parser::add_argument("-b0", "B0 constant");
+	parser::add_argument("-b1", "B1 constant");
+	parser::add_argument("-nb", "NB constant");
+	parser::add_argument("-c0", "C0 constant");
+	parser::add_argument("-c1", "C1 constant");
+	parser::add_argument("-nc", "NC constant");
+	parser::add_argument("-aph", "APH constant");
+	parser::add_argument("-apm", "APM constant");
+	parser::add_argument("-tau", "Tau constant");
+	parser::add_argument("-i", "Data path");
+	parser::add_argument("-v", "Verbosity Level 0-3");
 
-  parser::parse(argc, argv);
+	parser::parse(argc, argv);
   
 //int aph, apm, ng, ttraces, ncdps, ns, ntrs, max_gather, w, tau;
 //int *ntraces_by_cdp_id, *ctr, *size;
 
-  // Read parameters and input
-  const real a0 = std::stod(parser::get("-a0", true));
-  const real a1 = std::stod(parser::get("-a1", true));
-  const real b0 = std::stod(parser::get("-b0", true));
-  const real b1 = std::stod(parser::get("-b1", true));
-  const real c0 = std::stod(parser::get("-c0", true)) * FACTOR;
-  const real c1 = std::stod(parser::get("-c1", true)) * FACTOR;
-  const real itau = std::stod(parser::get("-tau", true));
-  const int na = std::stoi(parser::get("-na", true));
-  const int nb = std::stoi(parser::get("-nb", true));
-  const int nc = std::stoi(parser::get("-nc", true));
-  const int aph = std::stoi(parser::get("-aph", true));
-  const int apm = std::stoi(parser::get("-apm", true));
-  const int ng = 1;
-  std::string path = parser::get("-i", true);
-  logger::verbosity_level(std::stoi(parser::get("-v", false)));
+	// Read parameters and input
+	const real a0 = std::stod(parser::get("-a0", true));
+	const real a1 = std::stod(parser::get("-a1", true));
+	const real b0 = std::stod(parser::get("-b0", true));
+	const real b1 = std::stod(parser::get("-b1", true));
+	const real c0 = std::stod(parser::get("-c0", true)) * FACTOR;
+	const real c1 = std::stod(parser::get("-c1", true)) * FACTOR;
+	const real itau = std::stod(parser::get("-tau", true));
+	const int na = std::stoi(parser::get("-na", true));
+	const int nb = std::stoi(parser::get("-nb", true));
+	const int nc = std::stoi(parser::get("-nc", true));
+	const int aph = std::stoi(parser::get("-aph", true));
+	const int apm = std::stoi(parser::get("-apm", true));
+	const int ng = 1;
+	std::string path = parser::get("-i", true);
+	logger::verbosity_level(std::stoi(parser::get("-v", false)));
 
-  // Reads *.su data and starts gather
-  su_gather gather(path, aph, apm, nc);
+	// Reads *.su data and starts gather
+	su_gather gather(path, aph, apm, nc);
+	int max_gather;
+	int *ntraces_by_cdp_id, *ctr, *size;
+	real dt;
+	real *gx, *gy, *sx, *sy, *scalco, *samples, *h0, *m0x, *m0y, *num, *stt, *str, *stk, *cdpsmpl, *m2, *m, *h;
+	real4 * par;
 
-  // Linearize gather data in order to improove data coalescence in GPU
-  gather.linearize(ntraces_by_cdp_id, samples, dt, gx, gy, sx, sy, scalco, nc);
-  const int ttraces = gather.ttraces(); // Total traces -> Total amount of traces read
-  const int ncdps = gather().size();    // Number of cdps -> Total number of cdps read
-  const int ns = gather.ns();           // Number of samples
-  const int ntrs = gather.ntrs();       // Max number of traces per cdp (fold)
-  const real inc_a = (a1-a0) * (1.0 / (real)na);
-  const real inc_b = (b1-b0) * (1.0 / (real)nb);
-  const real inc_c = (c1-c0) * (1.0 / (real)nc);
-  const int npar = na * nb * nc;
-  max_gather = gather.max_gather();
-  int number_of_semblances = 0;
+	int number_of_semblances = 0;
 
-  // Linear structures
-  par = new real4[ npar ];         // nc Cs
-  h0   = new real [ ttraces ];    // One halfoffset per trace
-  m0x  = new real [ ttraces ];    // One midpoint per trace
-  m0y  = new real [ ttraces ];    // One midpoint per trace
-  num = new real [ ns * npar ];    // nc nums per sample
-  stt = new real [ ng * ns * npar ];    // nc stts per sample
-  ctr = new int  [ ncdps * ns ]; // ns Cs per cdp
-  str = new real [ ncdps * ns ]; // ns semblance per cdp
-  stk = new real [ ncdps * ns ]; // ns stacked values per cdp
-  cdpsmpl = new real [ ns * ntrs * max_gather ]; // Samples for current cdp
-  m2 = new real [ ntrs * max_gather ]; // Samples for current cdp
-  m  = new real [ ntrs * max_gather ]; // Samples for current cdp
-  h  = new real [ ntrs * max_gather ]; // Samples for current cdp
+	// Linearize gather data in order to improove data coalescence in GPU
+	gather.linearize(ntraces_by_cdp_id, samples, dt, gx, gy, sx, sy, scalco, nc);
+	const int ttraces = gather.ttraces(); // Total traces -> Total amount of traces read
+	const int ncdps = gather().size();    // Number of cdps -> Total number of cdps read
+	const int ns = gather.ns();           // Number of samples
+	const int ntrs = gather.ntrs();       // Max number of traces per cdp (fold)
+	const real inc_a = (a1-a0) * (1.0 / (real)na);
+	const real inc_b = (b1-b0) * (1.0 / (real)nb);
+	const real inc_c = (c1-c0) * (1.0 / (real)nc);
+	const int npar = na * nb * nc;
+	max_gather = gather.max_gather();
+	// Linear structures
+	par = new real4[ npar ];         // nc Cs
+	h0   = new real [ ttraces ];    // One halfoffset per trace
+	m0x  = new real [ ttraces ];    // One midpoint per trace
+	m0y  = new real [ ttraces ];    // One midpoint per trace
+	num = new real [ ns * npar ];    // nc nums per sample
+	stt = new real [ ng * ns * npar ];    // nc stts per sample
+	ctr = new int  [ ncdps * ns ]; // ns Cs per cdp
+	str = new real [ ncdps * ns ]; // ns semblance per cdp
+	stk = new real [ ncdps * ns ]; // ns stacked values per cdp
+	cdpsmpl = new real [ ns * ntrs * max_gather ]; // Samples for current cdp
+	m2 = new real [ ntrs * max_gather ]; // Samples for current cdp
+	m  = new real [ ntrs * max_gather ]; // Samples for current cdp
+	h  = new real [ ntrs * max_gather ]; // Samples for current cdp
 
-  // Evaluate values for each cdp
-  const real _dt = dt / 1000000.0f;
-  const real _idt = 1.0f / _dt;
-  const real _tau = (int)( itau * idt) > 0 ? (int)( itau * idt)  : 0;
-  const real _w = (2 * tau) + 1;
+	// Evaluate values for each cdp
+
+	dt = dt / 1000000.0f;
+	real idt = 1.0f / dt;
+	int tau = ((int)( itau * idt) > 0) ? ((int)( itau * idt)) : 0;
+	real w = (2 * tau) + 1;
 
   	LOG(DEBUG, "Starting SYCL devices");
 	/*
 		CMP argumentos importates -aph 600 -c0 1.98e-7 -c1 1.77e-6 -i ../../../../datasets/simple-synthetic.su -nc 5 -tau 0.002 -v 0)
 		Kernel 1{
+			na = 5
+			nb = 5
 			nc = 5
-			inc = 0.3144
+			npar = 125
+			inc_a = 0.00028
+			inc_b = 4e-08
+			inc_c = 0.3144
 			c0 = 0.198
 		}
 		
@@ -167,16 +179,16 @@ int main(int argc, const char** argv) {
 		}
 		
 		Kernel 3{
-			cdp0=
-			cdpf=
+			cdp0 = 0
+			cdpf = 2
 		}
 				
 		Kernel 4{
 			npar=npar
 			ns=2502
-			ntraces=15
 			w=3
 			idt=500
+			ntrs = 15
 			tau=1
 			nc*ns=12510
 			ntraces*ns=37530
@@ -191,24 +203,29 @@ int main(int argc, const char** argv) {
 	*/
 
 	#if defined(FPGA_EMULATOR)
-	  sycl::intel::fpga_emulator_selector device_selector;
+	  //sycl::intel::fpga_emulator_selector device_selector;
+	  sycl::INTEL::fpga_emulator_selector device_selector;
 	#else
-	  sycl::intel::fpga_selector device_selector;
+	  //sycl::intel::fpga_selector device_selector;
+	  sycl::INTEL::fpga_selector device_selector;
 	#endif
 	
+	/*std::cout << "na: " << na << std::endl;
+	std::cout << "nb: " << nb << std::endl;
 	std::cout << "nc: " << nc << std::endl;
-	std::cout << "npar: " << nc << std::endl;
-	std::cout << "inc_a: " << nc << std::endl;
-	std::cout << "inc_b: " << nc << std::endl;
-	std::cout << "inc_c: " << nc << std::endl;
-	std::cout << "ttraces: " << nc << std::endl;
-	std::cout << "cdp0: " << gather.cdps_by_cdp_id()[cdp_id].front() << std::endl;
-	std::cout << "cdpf: " << gather.cdps_by_cdp_id()[cdp_id].back() << std::endl;
+	std::cout << "npar: " << npar << std::endl;
+	std::cout << "inc_a: " << inc_a << std::endl;
+	std::cout << "inc_b: " << inc_b << std::endl;
+	std::cout << "inc_c: " << inc_c << std::endl;
+	std::cout << "ttraces: " << ttraces << std::endl;
+	std::cout << "cdp0: " << gather.cdps_by_cdp_id()[0].front() << std::endl;
+	std::cout << "cdpf: " << gather.cdps_by_cdp_id()[0].back() << std::endl;
 	std::cout << "ns: " << ns << std::endl;
-	std::cout << "w: " << _w << std::endl;
-	std::cout << "idt: " << _idt << std::endl;
-	std::cout << "itau: " << _itau << std::endl;
+	std::cout << "w: " << w << std::endl;
+	std::cout << "idt: " << idt << std::endl;
+	std::cout << "tau: " << tau << std::endl;
 	std::cout << "ncdps: " << ncdps << std::endl;
+	std::cout << "ntrs: " << ntrs << std::endl;*/
 
 	// exception handler
 	auto exception_handler = [](sycl::exception_list exceptionList) {
@@ -240,15 +257,17 @@ int main(int argc, const char** argv) {
 				auto a_par = b_par.get_access<sycl::access::mode::read_write>(cgh);
 				cgh.single_task([=]( ){
 				
-					//Unroll 
+					//Unroll aqui
 			  		for(int i=0; i < npar; i++) {
 						int ida = i/(nc*nb);
 						int idb = (i/nc)%nb;
 						int idc = i%nc;
-
-						//par[i] = (real4)(a0+ida*inc_a, b0+idb*inc_b, c0+idc*inc_c, 0.0);
+						
+						//Criar variável local
 						a_par[i].a = (a0+ida*inc_a);
+						//Criar variável local
 						a_par[i].b = (b0+idb*inc_b);
+						//Criar variável local
 						a_par[i].c = (c0+idc*inc_c);
 					}
 				});
@@ -281,7 +300,7 @@ int main(int argc, const char** argv) {
 				auto a_h0    = b_h0.get_access<sycl::access::mode::read_write>(cgh);
 				cgh.single_task([=]( ) {
 				
-					//Unroll ?
+					//Unroll aqui
 			  		for(int i=0; i < ttraces; i++) {
 						real _s = a_scalco[i];
 
@@ -291,7 +310,9 @@ int main(int argc, const char** argv) {
 						a_m0x[i] = (a_gx[i] + a_sx[i]) * _s * 0.5;
 						a_m0y[i] = (a_gy[i] + a_sy[i]) * _s * 0.5;
 
+						//Criar variável local
 						real hx = (a_gx[i] - a_sx[i]) * _s;
+						//Criar variável local
 						real hy = (a_gy[i] - a_sy[i]) * _s;
 
 						a_h0[i] = 0.25 * (hx * hx + hy * hy) / FACTOR;
@@ -324,7 +345,12 @@ int main(int argc, const char** argv) {
 				int t_idf = ntraces_by_cdp_id[cdpf];
 				int ntraces = t_idf - t_id0;
 
-				memcpy(cdpsmpl, samples + t_id0*ns, ntraces*ns*sizeof(real));
+				/*memcpy(cdpsmpl, samples + t_id0*ns, ntraces*ns*sizeof(real));
+				std::cout << "cdp0: " << cdp0 << std::endl;
+				std::cout << "cdpf: " << cdpf << std::endl;
+				std::cout << "------------------------------------"<< std::endl;
+				std::cout << "t_id0: " << t_id0 << std::endl;
+				std::cout << "t_idf: " << t_idf << std::endl;*/
 
       			//sycl_compute_points_for_gather(q, h, m2, m, m0x, m0y, h0, ntraces_by_cdp_id,
 										//m0x_cdp_id, m0y_cdp_id, cdp0, cdpf, ntrs, ttraces, max_gather, ncdps);
@@ -355,8 +381,11 @@ int main(int argc, const char** argv) {
 								real dy = a_m0y[t_id0 + it] - m0y_cdp_id;
 								real _m2 = dx*dx + dy*dy;
 
+								//Criar variável local
 								a_m2[sz + it] = _m2;
+								//Criar variável local
 								a_m [sz + it] = sycl::sqrt(_m2);
+								//Criar variável local
 								a_h [sz + it] = a_h0[t_id0 + it];
 							}
 						}
@@ -379,6 +408,7 @@ int main(int argc, const char** argv) {
 					auto a_stt     = b_stt.get_access<sycl::access::mode::read_write>(cgh);
 					auto a_par     = b_par.get_access<sycl::access::mode::read_write>(cgh);
 					cgh.single_task([=]( )  {
+						//Criar banking aqui
 						for(int t0=0; t0 < ns; t0++) {
 							for(int par_id=0; par_id < npar; par_id++) {
 
@@ -388,31 +418,33 @@ int main(int argc, const char** argv) {
 
 								int id = t0*npar + par_id;
 
+								//Criar variável local
 								real4 _p = a_par[par_id];
-								real _t0 = _dt * t0;
+								//Criar variável local
+								real _t0 = dt * t0;
 
 								// start _num with zeros
 				
-								//Unroll 
-								for(int j=0; j < _w; j++) _num[j] = 0.0f;
+								//Unroll aqui
+								for(int j=0; j < w; j++) _num[j] = 0.0f;
 
 								for(int k=0; k < ntraces; k++) {
 									// Evaluate t
 									real _m2 = a_m2[k];
 									real t = _t0 + _p.a * a_m[k];
 									t = t*t + _p.b*_m2 + _p.c*a_h[k];
-									t = t < 0.0 ? -1 : (sycl::sqrt(t) * _idt);
+									t = t < 0.0 ? -1 : (sycl::sqrt(t) * idt);
 
 									int it = (int)( t );
-									int ittau = it - _tau;
+									int ittau = it - tau;
 									real x = t - (real)it;
 
-									if(ittau >= 0 && it + _tau + 1 < ns) {
+									if(ittau >= 0 && it + tau + 1 < ns) {
 										int k1 = ittau + k*ns;
 										real sk1p1= a_samples[k1], sk1;
 
-										//Unroll 
-										for(int j=0; j < _w; j++) {
+										//Unroll aqui
+										for(int j=0; j < w; j++) {
 											k1++;
 											sk1 = sk1p1;
 											sk1p1 = a_samples[k1];
@@ -428,16 +460,20 @@ int main(int argc, const char** argv) {
 								}
 
 								// Reduction for num
-								//Unroll 
-								for(int j=0; j < _w; j++) _ac_squared += _num[j] * _num[j];
+								//Unroll aqui
+								for(int j=0; j < w; j++) _ac_squared += _num[j] * _num[j];
 
 								// Evaluate semblances
-								if(_den > EPSILON && mm > EPSILON && _w > EPSILON && err < 2) {
+								if(_den > EPSILON && mm > EPSILON && w > EPSILON && err < 2) {
+									//Criar variável local
 									a_num[id] = _ac_squared / (_den * mm);
-									a_stt[id] = _ac_linear  / (_w   * mm);
+									//Criar variável local
+									a_stt[id] = _ac_linear  / (w   * mm);
 								}
 								else {
+									//Criar variável local
 									a_num[id] = 0.0f;
+									//Criar variável local
 									a_stt[id] = 0.0f;
 								}
 							}
@@ -472,8 +508,11 @@ int main(int argc, const char** argv) {
 								}
 							}
 
+							//Criar variável local
 							a_ctr[cdp_id*ns + t0] = max_par % npar;
+							//Criar variável local
 							a_str[cdp_id*ns + t0] = max_sem;
+							//Criar variável local
 							a_stk[cdp_id*ns + t0] = a_stt[max_par];
 						}
 					});

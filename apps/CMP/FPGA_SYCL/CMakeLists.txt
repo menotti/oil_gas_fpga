@@ -95,15 +95,15 @@ set(EMULATOR_LINK_REPORT "-fintelfpga -fsycl-link -Xshardware")
 ################################################################################    
 #GENERATE EMULATOR REPORT<<---------------------->>
 #COMO FAÇO PARA CRIAR  RELATÓRIO COM OS PARAMETROS PREENCHIDOS??????????????????
-    add_executable(${EMULATOR_REPORT}
-	${CMAKE_PROJECT_DIR}/log.cpp
-	${CMAKE_PROJECT_DIR}/su_trace.cpp
-	${CMAKE_PROJECT_DIR}/su_gather.cpp
-	${CMAKE_PROJECT_DIR}/su_cdp.cpp
-	${CMAKE_PROJECT_DIR}/parser.cpp
-	${CMAKE_PROJECT_DIR}/main.cpp)
-    set_target_properties(${EMULATOR_REPORT} PROPERTIES COMPILE_FLAGS ${EMULATOR_COMPILE_FLAGS})
-    set_target_properties(${EMULATOR_REPORT} PROPERTIES LINK_FLAGS ${EMULATOR_LINK_REPORT})
+#    add_executable(${EMULATOR_REPORT}
+#	${CMAKE_PROJECT_DIR}/log.cpp
+#	${CMAKE_PROJECT_DIR}/su_trace.cpp
+#	${CMAKE_PROJECT_DIR}/su_gather.cpp
+#	${CMAKE_PROJECT_DIR}/su_cdp.cpp
+#	${CMAKE_PROJECT_DIR}/parser.cpp
+#	${CMAKE_PROJECT_DIR}/main.cpp)
+#    set_target_properties(${EMULATOR_REPORT} PROPERTIES COMPILE_FLAGS ${EMULATOR_COMPILE_FLAGS})
+#    set_target_properties(${EMULATOR_REPORT} PROPERTIES LINK_FLAGS ${EMULATOR_LINK_REPORT})
 ################################################################################    
 #GENERATE EMULATOR REPORT<<---------------------->>
 #COMO FAÇO PARA CRIAR  RELATÓRIO COM OS PARAMETROS PREENCHIDOS??????????????????
@@ -134,7 +134,7 @@ set(EMULATOR_LINK_REPORT "-fintelfpga -fsycl-link -Xshardware")
 # Link project to system's libraries
 set(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "") # disable gcc's -rdynamic
 target_link_libraries(${EMULATOR_TARGET} ${SYCL_LIBRARIES} m pthread)
-target_link_libraries(${EMULATOR_REPORT} ${SYCL_LIBRARIES} m pthread)
+#target_link_libraries(${EMULATOR_REPORT} ${SYCL_LIBRARIES} m pthread)
 target_link_libraries(${EMULATOR_COMP_TARGET} ${SYCL_LIBRARIES} m pthread)
 #target_link_libraries(${EMULATOR_COMP_REPORT} ${SYCL_LIBRARIES} m pthread)
 target_link_libraries(${FPGA_TARGET} ${SYCL_LIBRARIES} m pthread)
