@@ -14,3 +14,13 @@ OpenCL,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,8678.0
 OpenCL,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,9675.0
 OpenCL,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,8891.0
 OpenCL,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,8643.0
+OpenMP,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,24681.0
+OpenMP,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,24157.0
+OpenMP,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,24145.0
+OpenMP,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,24516.0
+OpenMP,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,25672.0
+SYCL-Beta10,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,3735.0
+SYCL-Beta10,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,3729.0
+SYCL-Beta10,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,3754.0
+SYCL-Beta10,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,3739.0
+SYCL-Beta10,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,3738.0
