@@ -41,7 +41,7 @@ set(A10_PAC_BOARD_NAME "intel_a10gx_pac:pac_a10")
 set(S10_PAC_BOARD_NAME "intel_s10sx_pac:pac_s10")
 
 # Assume target is the Intel(R) PAC with Intel Arria(R) 10 GX FPGA 
-SET(_FPGA_BOARD ${A10_PAC_BOARD_NAME})
+SET(FPGA_BOARD ${A10_PAC_BOARD_NAME})
 
 # Check if target is the Intel(R) PAC with Intel Stratix(R) 10 SX FPGA
 IF (NOT DEFINED FPGA_BOARD)
@@ -52,7 +52,7 @@ ELSEIF(FPGA_BOARD STREQUAL ${A10_PAC_BOARD_NAME})
 
 ELSEIF(FPGA_BOARD STREQUAL ${S10_PAC_BOARD_NAME})
     MESSAGE(STATUS "\tConfiguring the design to run on the Intel(R) Programmable Acceleration Card (PAC) with Intel Stratix(R) 10 SX FPGA.")
-    SET(_FPGA_BOARD ${S10_PAC_BOARD_NAME})
+    SET(FPGA_BOARD ${S10_PAC_BOARD_NAME})
 
 ELSE()
     MESSAGE(STATUS "\tAn invalid board name was passed in using the FPGA_BOARD flag. Configuring the design to run on the Intel(R) Programmable Acceleration Card (PAC) with Intel Arria(R) 10 GX FPGA. Please refer to the README for the list of valid board names.")
@@ -63,7 +63,7 @@ ENDIF()
 set(HARDWARE_COMPILE_FLAGS "-fintelfpga")
 
 # use cmake -D USER_HARDWARE_FLAGS=<flags> to set extra flags for FPGA backend compilation
-set(HARDWARE_LINK_FLAGS "-fintelfpga -Xshardware -Xsboard=${_FPGA_BOARD} ${USER_HARDWARE_FLAGS}")
+set(HARDWARE_LINK_FLAGS "-fintelfpga -Xshardware -Xsboard=${FPGA_BOARD} ${USER_HARDWARE_FLAGS}")
 
 set(EMULATOR_COMPILE_FLAGS "-fintelfpga -DFPGA_EMULATOR")
 set(EMULATOR_LINK_FLAGS "-fintelfpga")
@@ -88,22 +88,22 @@ set(EMULATOR_LINK_REPORT "-fintelfpga -fsycl-link -Xshardware")
 	${CMAKE_PROJECT_DIR}/su_gather.cpp
 	${CMAKE_PROJECT_DIR}/su_cdp.cpp
 	${CMAKE_PROJECT_DIR}/parser.cpp
-	${CMAKE_PROJECT_DIR}/main_complete.cpp)
+	${CMAKE_PROJECT_DIR}/main.cpp)
     set_target_properties(${EMULATOR_COMP_TARGET} PROPERTIES COMPILE_FLAGS ${EMULATOR_COMPILE_FLAGS})
     set_target_properties(${EMULATOR_COMP_TARGET} PROPERTIES LINK_FLAGS ${EMULATOR_LINK_FLAGS})
     add_custom_target(run_comp_emu COMMAND ${EMULATOR_COMP_TARGET} -aph 600 -c0 1.98e-7 -c1 1.77e-6 -i ../../../../datasets/simple-synthetic.su -nc 5 -tau 0.002 -v 0)
 ################################################################################    
 #GENERATE EMULATOR REPORT<<---------------------->>
 #COMO FAÇO PARA CRIAR  RELATÓRIO COM OS PARAMETROS PREENCHIDOS??????????????????
-#    add_executable(${EMULATOR_REPORT}
-#	${CMAKE_PROJECT_DIR}/log.cpp
-#	${CMAKE_PROJECT_DIR}/su_trace.cpp
-#	${CMAKE_PROJECT_DIR}/su_gather.cpp
-#	${CMAKE_PROJECT_DIR}/su_cdp.cpp
-#	${CMAKE_PROJECT_DIR}/parser.cpp
-#	${CMAKE_PROJECT_DIR}/main.cpp)
-#    set_target_properties(${EMULATOR_REPORT} PROPERTIES COMPILE_FLAGS ${EMULATOR_COMPILE_FLAGS})
-#    set_target_properties(${EMULATOR_REPORT} PROPERTIES LINK_FLAGS ${EMULATOR_LINK_REPORT})
+    add_executable(${EMULATOR_REPORT}
+	${CMAKE_PROJECT_DIR}/log.cpp
+	${CMAKE_PROJECT_DIR}/su_trace.cpp
+	${CMAKE_PROJECT_DIR}/su_gather.cpp
+	${CMAKE_PROJECT_DIR}/su_cdp.cpp
+	${CMAKE_PROJECT_DIR}/parser.cpp
+	${CMAKE_PROJECT_DIR}/main.cpp)
+    set_target_properties(${EMULATOR_REPORT} PROPERTIES COMPILE_FLAGS ${EMULATOR_COMPILE_FLAGS})
+    set_target_properties(${EMULATOR_REPORT} PROPERTIES LINK_FLAGS ${EMULATOR_LINK_REPORT})
 ################################################################################    
 #GENERATE EMULATOR REPORT<<---------------------->>
 #COMO FAÇO PARA CRIAR  RELATÓRIO COM OS PARAMETROS PREENCHIDOS??????????????????
@@ -113,7 +113,7 @@ set(EMULATOR_LINK_REPORT "-fintelfpga -fsycl-link -Xshardware")
 #	${CMAKE_PROJECT_DIR}/su_gather.cpp
 #	${CMAKE_PROJECT_DIR}/su_cdp.cpp
 #	${CMAKE_PROJECT_DIR}/parser.cpp
-#	${CMAKE_PROJECT_DIR}/main_complete.cpp)
+#	${CMAKE_PROJECT_DIR}/main.cpp)
 #    set_target_properties(${EMULATOR_COMP_REPORT} PROPERTIES COMPILE_FLAGS ${EMULATOR_COMPILE_FLAGS})
 #    set_target_properties(${EMULATOR_COMP_REPORT} PROPERTIES LINK_FLAGS ${EMULATOR_LINK_REPORT})
 ################################################################################
