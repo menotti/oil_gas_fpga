@@ -1,0 +1,4 @@
+/home/joao/TCC/oil_gas_fpga/apps/CMP/OpenMP/build/CMakeFiles/rebuild_cache.dir
+/home/joao/TCC/oil_gas_fpga/apps/CMP/OpenMP/build/CMakeFiles/edit_cache.dir
+/home/joao/TCC/oil_gas_fpga/apps/CMP/OpenMP/build/CMakeFiles/cmp-omp2.dir
+/home/joao/TCC/oil_gas_fpga/apps/CMP/OpenMP/build/CMakeFiles/run.dir

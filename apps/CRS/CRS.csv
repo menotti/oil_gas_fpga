@@ -14,13 +14,39 @@ OpenCL,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,8678.0
 OpenCL,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,9675.0
 OpenCL,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,8891.0
 OpenCL,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,8643.0
-OpenMP,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,24681.0
-OpenMP,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,24157.0
-OpenMP,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,24145.0
-OpenMP,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,24516.0
-OpenMP,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,25672.0
-SYCL-Beta10,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,3735.0
-SYCL-Beta10,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,3729.0
-SYCL-Beta10,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,3754.0
-SYCL-Beta10,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,3739.0
-SYCL-Beta10,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,3738.0
+OpenCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,70823.0
+OpenCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,67613.0
+OpenCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,67334.0
+OpenCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,67652.0
+OpenCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,70913.0
+OpenCL,Intel(R) Gen8 HD Graphics NEO,15682.0
+OpenCL,Intel(R) Gen8 HD Graphics NEO,15698.0
+OpenCL,Intel(R) Gen8 HD Graphics NEO,16229.0
+OpenCL,Intel(R) Gen8 HD Graphics NEO,16573.0
+OpenCL,Intel(R) Gen8 HD Graphics NEO,16269.0
+OpenCL,GeForce 920M,27066.0
+OpenCL,GeForce 920M,25675.0
+OpenCL,GeForce 920M,25614.0
+OpenCL,GeForce 920M,25807.0
+OpenCL,GeForce 920M,26585.0
+OpenCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,410528.0
+SYCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,174430.0
+SYCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,144775.0
+SYCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,147598.0
+SYCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,148940.0
+SYCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,148877.0
+SYCL,Intel(R) Gen8 HD Graphics NEO,38756.0
+SYCL,Intel(R) Gen8 HD Graphics NEO,39024.0
+SYCL,Intel(R) Gen8 HD Graphics NEO,39216.0
+SYCL,Intel(R) Gen8 HD Graphics NEO,38927.0
+SYCL,Intel(R) Gen8 HD Graphics NEO,39543.0
+OpenMP,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,201812.0
+OpenMP,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,206758.0
+OpenMP,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,206635.0
+OpenMP,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,212377.0
+OpenMP,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,215703.0
+SYCL,Intel(R) FPGA Emulation Device,122699.0
+SYCL,Intel(R) FPGA Emulation Device,122473.0
+SYCL,Intel(R) FPGA Emulation Device,125443.0
+SYCL,Intel(R) FPGA Emulation Device,124411.0
+SYCL,Intel(R) FPGA Emulation Device,125354.0

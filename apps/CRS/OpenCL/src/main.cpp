@@ -308,6 +308,7 @@ int main(int argc, const char** argv) {
 
     // Gets time at end of computation
     end = std::chrono::high_resolution_clock::now();
+    std::cout << device.getInfo<CL_DEVICE_NAME>();
 
     // Gets kernel execution time
     for(auto& e: events) {
@@ -339,7 +340,7 @@ int main(int argc, const char** argv) {
   stats += ": Kernel Execution Time: " + std::to_string(kernel_total_exec_time);
   stats += ": Kernel Giga-Semblances-Trace/s: " + std::to_string(kernel_stps);
   LOG(INFO, stats);
-  std::cout << (int)(total_exec_time*1000) << std::endl;
+  std::cout <<", " << (int)(total_exec_time*1000) << std::endl;
 
   // Delinearizes data and save it into a *.su file
   for(int i=0; i < ncdps; i++) {

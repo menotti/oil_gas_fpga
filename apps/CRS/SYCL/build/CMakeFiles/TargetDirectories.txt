@@ -1,0 +1,4 @@
+/home/joao/TCC/oil_gas_fpga/apps/CRS/SYCL/build/CMakeFiles/rebuild_cache.dir
+/home/joao/TCC/oil_gas_fpga/apps/CRS/SYCL/build/CMakeFiles/edit_cache.dir
+/home/joao/TCC/oil_gas_fpga/apps/CRS/SYCL/build/CMakeFiles/crs-sycl2.dir
+/home/joao/TCC/oil_gas_fpga/apps/CRS/SYCL/build/CMakeFiles/run.dir

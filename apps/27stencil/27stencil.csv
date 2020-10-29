@@ -49,3 +49,54 @@ execution_time_ms,platform,version
 6.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenCL
 6.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenCL
 5.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenCL
+9.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenCL
+9.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenCL
+12.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenCL
+13.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenCL
+10.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenCL
+9.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenCL
+10.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenCL
+9.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenCL
+10.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenCL
+9.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenCL
+98.0,Intel(R) Gen8 HD Graphics NEO,OpenCL
+34.0,Intel(R) Gen8 HD Graphics NEO,OpenCL
+38.0,Intel(R) Gen8 HD Graphics NEO,OpenCL
+44.0,Intel(R) Gen8 HD Graphics NEO,OpenCL
+41.0,Intel(R) Gen8 HD Graphics NEO,OpenCL
+45.0,Intel(R) Gen8 HD Graphics NEO,OpenCL
+39.0,Intel(R) Gen8 HD Graphics NEO,OpenCL
+39.0,Intel(R) Gen8 HD Graphics NEO,OpenCL
+44.0,Intel(R) Gen8 HD Graphics NEO,OpenCL
+44.0,Intel(R) Gen8 HD Graphics NEO,OpenCL
+74.0,GeForce 920M,OpenCL
+97.0,GeForce 920M,OpenCL
+74.0,GeForce 920M,OpenCL
+85.0,GeForce 920M,OpenCL
+77.0,GeForce 920M,OpenCL
+94.0,GeForce 920M,OpenCL
+75.0,GeForce 920M,OpenCL
+74.0,GeForce 920M,OpenCL
+74.0,GeForce 920M,OpenCL
+74.0,GeForce 920M,OpenCL
+32.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenMP
+21.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenMP
+18.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenMP
+20.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenMP
+39.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenMP
+28.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenMP
+20.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenMP
+21.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenMP
+19.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenMP
+20.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenMP
+34.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenMP
+449.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,SYCL
+391.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,SYCL
+422.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,SYCL
+449.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,SYCL
+437.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,SYCL
+455.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,SYCL
+429.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,SYCL
+381.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,SYCL
+437.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,SYCL
+448.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,SYCL

@@ -1,8 +1,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 /**
  * @file main.cpp
- * @date 2017-03-04
- * @author Tiago Lobato Gimenes    (tlgimenes@gmail.com)
+ * @date 2020-07-08
+ * @modified by João Vieira da Silva Neto	(jvieira850@gmail.com) 
+ * @author Tiago Lobato Gimenes			(tlgimenes@gmail.com)
  *
  * @copyright
  * This program is free software: you can redistribute it and/or modify
@@ -19,7 +20,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 ////////////////////////////////////////////////////////////////////////////////
-
 
 #include "log.hpp"
 #include "utils.hpp"
@@ -44,6 +44,8 @@
 
 #define FACTOR 1e6
 
+#define NTHREADS 128
+
 namespace sycl = cl::sycl;
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -54,14 +56,16 @@ double kernel_execution_time = 0.0;
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-void sycl_init_c(sycl::queue& q, sycl::buffer<real, 1> b_c, real inc, real c0 , int nc)
-{
+void sycl_init_c(sycl::queue& q, real *c, real inc, real c0 , int nc)
+{   
+	sycl::buffer<real, 1> b_c(c, sycl::range<1>(nc));
   	beg = std::chrono::high_resolution_clock::now();
   	// Submit Command group function object to the queue
 	q.submit([&](sycl::handler& cgh) {
 		// Accessors set as read_write mode
 		auto a_c = b_c.get_access<sycl::access::mode::read_write>(cgh);
-		cgh.parallel_for<class kernelA>(sycl::range<1>(nc), [=](sycl::id<1> i)  {
+		cgh.parallel_for(sycl::range<1>(nc), [=](sycl::id<1> it)  {
+			int i=it.get(0);
 			// Kernel code. Call the complex_mul function here.
 			a_c[i] = c0 + inc*i;
 		});
@@ -73,9 +77,15 @@ void sycl_init_c(sycl::queue& q, sycl::buffer<real, 1> b_c, real inc, real c0 , 
 
 ////////////////////////////////////////////////////////////////////////////////
 
-void sycl_init_half(sycl::queue& q, sycl::buffer<real, 1> b_scalco, sycl::buffer<real, 1> b_gx, 
-        sycl::buffer<real, 1> b_gy, sycl::buffer<real, 1> b_sx, sycl::buffer<real, 1> b_sy, sycl::buffer<real, 1> b_h,int ttraces){
+void sycl_init_half(sycl::queue& q, real* scalco, real* gx, 
+        real *gy, real* sx, real* sy, real* h,int ttraces){
 
+	sycl::buffer<real, 1> b_h(h, sycl::range<1>(ttraces));
+	sycl::buffer<real, 1> b_gx(gx, sycl::range<1>(ttraces));
+	sycl::buffer<real, 1> b_gy(gy, sycl::range<1>(ttraces));
+	sycl::buffer<real, 1> b_sx(sx, sycl::range<1>(ttraces));
+	sycl::buffer<real, 1> b_sy(sy, sycl::range<1>(ttraces));
+	sycl::buffer<real, 1> b_scalco(scalco, sycl::range<1>(ttraces));
   	beg = std::chrono::high_resolution_clock::now();
 	// Submit Command group function object to the queue
 	q.submit([&](sycl::handler& cgh) {
@@ -87,7 +97,9 @@ void sycl_init_half(sycl::queue& q, sycl::buffer<real, 1> b_scalco, sycl::buffer
 		auto a_scalco  = b_scalco.get_access<sycl::access::mode::read>(cgh);
 		auto a_h       = b_h.get_access<sycl::access::mode::read_write>(cgh);
 
-		cgh.parallel_for<class kernelB>(sycl::range<1>(ttraces), [=](sycl::id<1> i) {
+		cgh.parallel_for(sycl::range<1>(ttraces), [=](sycl::id<1> it) {
+			
+			int i=it.get(0);
 			// Kernel code. Call the complex_mul function here.
     		real _s = a_scalco[i];
 			if(-EPSILON < _s && _s < EPSILON)
@@ -100,9 +112,7 @@ void sycl_init_half(sycl::queue& q, sycl::buffer<real, 1> b_scalco, sycl::buffer
 
 			a_h[i] = 0.25 * (hx * hx + hy * hy) / FACTOR;
 		});
-		//std::cout << "ttraces1: " << ttraces << std::endl;
 	});
-	//std::cout << "ttraces2: " << ttraces << std::endl;
 	q.wait_and_throw();
 	end = std::chrono::high_resolution_clock::now();
 	kernel_execution_time += std::chrono::duration_cast<std::chrono::duration<double>>(end - beg).count();
@@ -110,10 +120,14 @@ void sycl_init_half(sycl::queue& q, sycl::buffer<real, 1> b_scalco, sycl::buffer
 
 ////////////////////////////////////////////////////////////////////////////////
 
-void sycl_compute_semblances(sycl::queue& q, sycl::buffer<real, 1> b_h, sycl::buffer<real, 1> b_c,
-	 	sycl::buffer<real, 1>  b_cdpsmpl, sycl::buffer<real, 1> b_num, sycl::buffer<real, 1>  b_stt,
-        int t_id0, int t_idf, real _idt, real _dt, int _tau, int _w, int nc, int ns){
-
+void sycl_compute_semblances(sycl::queue& q, real* h, real* c,
+	 	real* cdpsmpl, real* num, real* stt,
+        int t_id0, int t_idf, real _idt, real _dt, int _tau, int _w, int nc, int ns, int ttraces, int ntrs){
+	sycl::buffer<real, 1> b_c(c, sycl::range<1>(nc));
+	sycl::buffer<real, 1> b_h(h, sycl::range<1>(ttraces));
+	sycl::buffer<real, 1> b_cdpsmpl(cdpsmpl, sycl::range<1>(ntrs * ns));
+	sycl::buffer<real, 1> b_num(num, sycl::range<1>(ns * nc));
+	sycl::buffer<real, 1> b_stt(stt, sycl::range<1>(ns * nc));
   	beg = std::chrono::high_resolution_clock::now();
 	// Submit Command group function object to the queue
 	q.submit([&](sycl::handler& cgh) {
@@ -124,11 +138,14 @@ void sycl_compute_semblances(sycl::queue& q, sycl::buffer<real, 1> b_h, sycl::bu
 		auto a_num     = b_num.get_access<sycl::access::mode::read_write>(cgh);
 		auto a_stt     = b_stt.get_access<sycl::access::mode::read_write>(cgh);
 
-		cgh.parallel_for<class kernelC>(sycl::range<1>(ns*nc), [=](sycl::id<1> i) {
+		cgh.parallel_for(
+		sycl::nd_range<1>(ns*nc+NTHREADS-(ns*nc)%NTHREADS, NTHREADS), [=](sycl::nd_item<1> item){
 	
 			real _den = 0.0f, _ac_linear = 0.0f, _ac_squared = 0.0f;
 			real _num[MAX_W],  m = 0.0f;
 			int err = 0;
+
+			int i=item.get_global_id();
 
 			if(i < ns*nc)
 			{
@@ -191,9 +208,13 @@ void sycl_compute_semblances(sycl::queue& q, sycl::buffer<real, 1> b_h, sycl::bu
 
 ////////////////////////////////////////////////////////////////////////////////
 
-void sycl_redux_semblances(sycl::queue& q, sycl::buffer<real, 1> b_num, sycl::buffer<real, 1> b_stt, sycl::buffer<int, 1>  b_ctr,
-        sycl::buffer<real, 1> b_str, sycl::buffer<real, 1> b_stk, int nc, int cdp_id, int ns ){
-
+void sycl_redux_semblances(sycl::queue& q, real* num, real* stt, int* ctr,
+        real* str, real* stk, int nc, int cdp_id, int ns, int ncdps){
+	sycl::buffer<real, 1> b_num(num, sycl::range<1>(ns * nc));
+	sycl::buffer<real, 1> b_stt(stt, sycl::range<1>(ns * nc));
+	sycl::buffer<real, 1> b_str(str, sycl::range<1>(ncdps * ns));
+	sycl::buffer<real, 1> b_stk(stk, sycl::range<1>(ncdps * ns));
+	sycl::buffer<int, 1> b_ctr(ctr, sycl::range<1>(ncdps * ns));
   	beg = std::chrono::high_resolution_clock::now();
 	// Submit Command group function object to the queue
 	q.submit([&](sycl::handler& cgh) {
@@ -202,7 +223,8 @@ void sycl_redux_semblances(sycl::queue& q, sycl::buffer<real, 1> b_num, sycl::bu
 		auto a_str     = b_str.get_access<sycl::access::mode::write>(cgh);
 		auto a_stk     = b_stk.get_access<sycl::access::mode::write>(cgh);
 		auto a_ctr     = b_ctr.get_access<sycl::access::mode::write>(cgh);
-		cgh.parallel_for<class kernelD>(sycl::range<1>(ns), [=](sycl::id<1> t0) {
+		cgh.parallel_for(sycl::range<1>(ns), [=](sycl::id<1> it) {
+			int t0=it.get(0);
 			// Kernel code. Call the complex_mul function here.
 			real max_sem = 0.0f, _num;
 			int max_c = -1;
@@ -234,11 +256,11 @@ void printTargetInfo(sycl::queue& q) {
   auto maxEUCount =
       device.get_info<sycl::info::device::max_compute_units>();
       
-  std::cout << device.get_info<sycl::info::device::name>() << ", ";
-//            << std::endl;
-//  std::cout << " The Device Max Work Group Size is : " << maxBlockSize
-//            << std::endl;
-//  std::cout << " The Device Max Computer Units is : " << maxEUCount << std::endl;
+  std::cout << " Running on " << device.get_info<sycl::info::device::name>()
+            << std::endl;
+  std::cout << " The Device Max Work Group Size is : " << maxBlockSize
+            << std::endl;
+  std::cout << " The Device Max Computer Units is : " << maxEUCount << std::endl;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -256,6 +278,7 @@ int main(int argc, const char** argv) {
   parser::add_argument("-tau", "Tau constant");
   parser::add_argument("-i", "Data path");
   parser::add_argument("-v", "Verbosity Level 0-3");
+  parser::add_argument("-d", "SYCL device number [1-n_dev]");
 
   parser::parse(argc, argv);
 
@@ -265,6 +288,7 @@ int main(int argc, const char** argv) {
   const real itau = std::stof(parser::get("-tau", true));
   const int nc = std::stoi(parser::get("-nc", true));
   const int aph = std::stoi(parser::get("-aph", true));
+  const int dev = std::stoi(parser::get("-d", false))-1;
   std::string path = parser::get("-i", true);
   logger::verbosity_level(std::stoi(parser::get("-v", false)));
 
@@ -305,10 +329,7 @@ int main(int argc, const char** argv) {
 //--------------Begin of my code----------
 
 	LOG(DEBUG, "Starting SYCL devices");
-	// Define device selector as 'default'
-	sycl::cpu_selector device_selector;
-	//sycl::host_selector device_selector;
-
+	//Define device selector as 'default'
 	// exception handler
 	auto exception_handler = [](sycl::exception_list exceptionList) {
 		for (std::exception_ptr const& e : exceptionList) {
@@ -320,35 +341,28 @@ int main(int argc, const char** argv) {
 		}
 	};
 
-
 	try {
 		// Create a device queue using DPC++ class queue
-		sycl::queue q(device_selector, exception_handler);
-		printTargetInfo(q);
+		auto platfrom_list = sycl::platform::get_platforms();
+		// getting the list of devices from the platform
+		std::vector<sycl::queue> queues;
+		for (const auto &platform : platfrom_list) {
+			if(platform.get_info<sycl::info::platform::name>() != "NVIDIA CUDA"){
+				auto device_list = platform.get_devices();// looping over platforms
+				for (const auto &device : device_list) {
+					queues.push_back(sycl::queue(device));
+				}
+			}
+		}
+		
 		{
-			// Alloc SYCL buffers
-			sycl::buffer<real, 1> b_c(c, sycl::range<1>(nc));
-			sycl::buffer<real, 1> b_h(h, sycl::range<1>(ttraces));
-			sycl::buffer<real, 1> b_gx(gx, sycl::range<1>(ttraces));
-			sycl::buffer<real, 1> b_gy(gy, sycl::range<1>(ttraces));
-			sycl::buffer<real, 1> b_sx(sx, sycl::range<1>(ttraces));
-			sycl::buffer<real, 1> b_sy(sy, sycl::range<1>(ttraces));
-			sycl::buffer<real, 1> b_scalco(scalco, sycl::range<1>(ttraces));
-			sycl::buffer<real, 1> b_cdpsmpl(cdpsmpl, sycl::range<1>(ntrs * ns));
-			sycl::buffer<real, 1> b_num(num, sycl::range<1>(ns * nc));
-			sycl::buffer<real, 1> b_stt(stt, sycl::range<1>(ns * nc));
-			sycl::buffer<real, 1> b_str(str, sycl::range<1>(ncdps * ns));
-			sycl::buffer<real, 1> b_stk(stk, sycl::range<1>(ncdps * ns));
-			sycl::buffer<int, 1> b_ctr(ctr, sycl::range<1>(ncdps * ns));
 
 			// Copies data to Compute Device
 			// Chronometer
 			main_beg = std::chrono::high_resolution_clock::now();
 			// Call the DpcppParallel with the required inputs and outputs
-			sycl_init_c(q, b_c, inc, c0, nc);
-			//std::cout << "ncdps3: "<< ncdps  << std::endl;
-			sycl_init_half(q, b_scalco, b_gx, b_gy, b_sx, b_sy, b_h, ttraces);
-			//std::cout << "ncdps4: "<< ncdps  << std::endl;
+			sycl_init_c(queues[dev], c, inc, c0, nc);
+			sycl_init_half(queues[dev], scalco, gx, gy, sx, sy, h, ttraces);
 
 			// Compute max semblances and get max C for each CDP
 			for(int cdp_id = 0; cdp_id < ncdps; cdp_id++) {
@@ -359,13 +373,11 @@ int main(int argc, const char** argv) {
 				// Copies data back to host
 				memcpy(cdpsmpl, samples + t_id0*ns, stride*ns*sizeof(real));
 
-
-				//std::cout << "cdp_id: "<< cdp_id  << std::endl;
 				// Compute Semblances
-				sycl_compute_semblances(q, b_h, b_c, b_cdpsmpl, b_num, b_stt, t_id0, t_idf, idt, dt, tau, w, nc, ns);
+				sycl_compute_semblances(queues[dev], h, c, cdpsmpl, num, stt, t_id0, t_idf, idt, dt, tau, w, nc, ns, ttraces, ntrs);
 
 				// Redux semblances
-				sycl_redux_semblances(q, b_num, b_stt, b_ctr, b_str, b_stk, nc, cdp_id, ns);
+				sycl_redux_semblances(queues[dev], num, stt, ctr, str, stk, nc, cdp_id, ns, ncdps);
 
 				number_of_semblances += stride;
 
@@ -373,6 +385,7 @@ int main(int argc, const char** argv) {
 			}
 			// Gets time at end of computation
 			main_end = std::chrono::high_resolution_clock::now();
+			std::cout << queues[dev].get_device().get_info<sycl::info::device::name>();
 		}
 
 	} catch (...) {
@@ -387,12 +400,12 @@ int main(int argc, const char** argv) {
   double total_exec_time = std::chrono::duration_cast<std::chrono::duration<double>>(main_end - main_beg).count();
   double stps = (number_of_semblances / 1e9 ) * (ns * nc / total_exec_time);
   double kernel_stps = (number_of_semblances / 1e9 ) * (ns * nc / kernel_execution_time);
-  std::string stats = "Total Execution Time: " + std::to_string(total_exec_time);
-  stats += ": Giga-Semblances-Trace/s: " + std::to_string(stps);
-  stats += ": Kernel Execution Time: " + std::to_string(kernel_execution_time);
-  stats += ": Kernel Giga-Semblances-Trace/s: " + std::to_string(kernel_stps);
+  std::string stats = "Total Execution Time: " + std::to_string(total_exec_time)+"\n";
+  stats += ": Giga-Semblances-Trace/s: " + std::to_string(stps)+"\n";
+  stats += ": Kernel Execution Time: " + std::to_string(kernel_execution_time)+"\n";
+  stats += ": Kernel Giga-Semblances-Trace/s: " + std::to_string(kernel_stps)+"\n";
   LOG(INFO, stats);
-  std::cout << (int)(total_exec_time*1000) << std::endl;
+  std::cout << ", " << (int)(total_exec_time*1000) << std::endl;
 
   // Delinearizes data and save it into a *.su file
   for(int i=0; i < ncdps; i++) {

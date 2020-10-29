@@ -59,23 +59,63 @@ execution_time_ms,platform,version
 161.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenCL
 162.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenCL
 172.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenCL
-193.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,OpenMP
-193.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,OpenMP
-226.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,OpenMP
-196.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,OpenMP
-214.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,OpenMP
-192.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,OpenMP
-194.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,OpenMP
-201.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,OpenMP
-207.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,OpenMP
-197.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,OpenMP
-370.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,SYCL-Beta10
-366.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,SYCL-Beta10
-382.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,SYCL-Beta10
-364.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,SYCL-Beta10
-358.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,SYCL-Beta10
-366.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,SYCL-Beta10
-360.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,SYCL-Beta10
-369.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,SYCL-Beta10
-366.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,SYCL-Beta10
-369.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,SYCL-Beta10
+455.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenCL
+418.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenCL
+417.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenCL
+422.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenCL
+423.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenCL
+422.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenCL
+415.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenCL
+411.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenCL
+439.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenCL
+405.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenCL
+1476.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
+1351.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
+1533.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
+1360.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
+1649.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
+1353.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
+1324.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
+1319.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
+1675.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
+1306.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
+1054.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,SYCL
+828.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,SYCL
+892.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,SYCL
+859.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,SYCL
+864.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,SYCL
+848.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,SYCL
+856.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,SYCL
+851.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,SYCL
+836.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,SYCL
+839.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,SYCL
+2160.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
+2022.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
+2059.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
+2106.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
+2086.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
+2148.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
+2099.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
+2098.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
+2189.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
+2122.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
+187.0,Intel(R) Gen8 HD Graphics NEO,OpenCL
+296.0,Intel(R) Gen8 HD Graphics NEO,OpenCL
+251.0,Intel(R) Gen8 HD Graphics NEO,OpenCL
+179.0,Intel(R) Gen8 HD Graphics NEO,OpenCL
+174.0,Intel(R) Gen8 HD Graphics NEO,OpenCL
+177.0,Intel(R) Gen8 HD Graphics NEO,OpenCL
+177.0,Intel(R) Gen8 HD Graphics NEO,OpenCL
+177.0,Intel(R) Gen8 HD Graphics NEO,OpenCL
+183.0,Intel(R) Gen8 HD Graphics NEO,OpenCL
+178.0,Intel(R) Gen8 HD Graphics NEO,OpenCL
+3842.0,Intel(R) Gen8 HD Graphics NEO,SYCL
+3793.0,Intel(R) Gen8 HD Graphics NEO,SYCL
+3821.0,Intel(R) Gen8 HD Graphics NEO,SYCL
+3761.0,Intel(R) Gen8 HD Graphics NEO,SYCL
+3733.0,Intel(R) Gen8 HD Graphics NEO,SYCL
+3736.0,Intel(R) Gen8 HD Graphics NEO,SYCL
+3705.0,Intel(R) Gen8 HD Graphics NEO,SYCL
+3858.0,Intel(R) Gen8 HD Graphics NEO,SYCL
+3836.0,Intel(R) Gen8 HD Graphics NEO,SYCL
+3801.0,Intel(R) Gen8 HD Graphics NEO,SYCL

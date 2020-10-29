@@ -109,7 +109,7 @@ int main(int argc, const char** argv) {
   int tau = ((int)( itau * idt) > 0) ? ((int)( itau * idt)) : 0;
   real w = (2 * tau) + 1;
 
-  LOG(DEBUG, "Starting OpenOMP devices");
+  LOG(DEBUG, "Starting OpenMP devices");
 
   // Copies data to Compute Device
   // Chronometer
@@ -229,7 +229,7 @@ int main(int argc, const char** argv) {
     // Copies data back to host
     memcpy(cdpsmpl, samples + t_id0*ns, stride*ns*sizeof(real));
 
-    LOG(DEBUG, "OpenOMP Progress: " + std::to_string(cdp_id) + "/" + std::to_string(ncdps));
+    LOG(DEBUG, "OpenMP Progress: " + std::to_string(cdp_id) + "/" + std::to_string(ncdps));
 
     // Gets time at end of computation
     end = std::chrono::high_resolution_clock::now();

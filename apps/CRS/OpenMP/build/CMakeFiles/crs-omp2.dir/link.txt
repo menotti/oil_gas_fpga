@@ -1,0 +1,1 @@
+/usr/bin/c++   -fopenmp   CMakeFiles/crs-omp2.dir/src/log.cpp.o CMakeFiles/crs-omp2.dir/src/su_trace.cpp.o CMakeFiles/crs-omp2.dir/src/su_gather.cpp.o CMakeFiles/crs-omp2.dir/src/su_cdp.cpp.o CMakeFiles/crs-omp2.dir/src/parser.cpp.o CMakeFiles/crs-omp2.dir/src/main.cpp.o  -o crs-omp2 -lm 
