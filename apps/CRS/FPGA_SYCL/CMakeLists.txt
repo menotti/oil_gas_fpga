@@ -32,7 +32,6 @@ set(TARGET_NAME crs-sycl2)
 
 set(EMULATOR_TARGET ${TARGET_NAME}.fpga_emu)
 set(FPGA_TARGET ${TARGET_NAME}.fpga)
-set(EMULATOR_COMP_TARGET ${TARGET_NAME}.fpga_comp_emu)
 set(EMULATOR_REPORT fpga_emu_repo)
 ################################################################################
 # Intel supported FPGA Boards and their names
@@ -77,32 +76,19 @@ set(EMULATOR_LINK_REPORT "-fintelfpga -fsycl-link -Xshardware")
 	${CMAKE_PROJECT_DIR}/main.cpp)
     set_target_properties(${EMULATOR_TARGET} PROPERTIES COMPILE_FLAGS ${EMULATOR_COMPILE_FLAGS})
     set_target_properties(${EMULATOR_TARGET} PROPERTIES LINK_FLAGS ${EMULATOR_LINK_FLAGS})
-    add_custom_target(run_emu COMMAND ${EMULATOR_TARGET} -a0 -0.7e-3 -a1 0.7e-3 -na 5 -c0 1.98e-7 -c1 1.77e-6 -nc 5 -b0 -1e-7 -b1 1e-7 -nb 5 -aph 600 -apm 50 -tau 0.002 -v 0 -i ~/TCC/simple-synthetic.su)
+    add_custom_target(run_emu COMMAND ${EMULATOR_TARGET} -a0 -0.7e-3 -a1 0.7e-3 -na 5 -c0 1.98e-7 -c1 1.77e-6 -nc 5 -b0 -1e-7 -b1 1e-7 -nb 5 -aph 600 -apm 50 -tau 0.002 -v 0 -i ../../../../datasets/simple-synthetic.su)
 
-################################################################################ 
-#GENERATE EXECUTABLE FPGA_EMULATOR<<---------------------->>
-    add_executable(${EMULATOR_COMP_TARGET}
+################################################################################   
+#GENERATE EMULATOR REPORT<<---------------------->>
+    add_executable(${EMULATOR_REPORT}
 	${CMAKE_PROJECT_DIR}/log.cpp
 	${CMAKE_PROJECT_DIR}/su_trace.cpp
 	${CMAKE_PROJECT_DIR}/su_gather.cpp
 	${CMAKE_PROJECT_DIR}/su_cdp.cpp
 	${CMAKE_PROJECT_DIR}/parser.cpp
-	${CMAKE_PROJECT_DIR}/main_complete.cpp)
-    set_target_properties(${EMULATOR_COMP_TARGET} PROPERTIES COMPILE_FLAGS ${EMULATOR_COMPILE_FLAGS})
-    set_target_properties(${EMULATOR_COMP_TARGET} PROPERTIES LINK_FLAGS ${EMULATOR_LINK_FLAGS})
-    add_custom_target(run_comp_emu COMMAND ${EMULATOR_COMP_TARGET} -a0 -0.7e-3 -a1 0.7e-3 -na 5 -c0 1.98e-7 -c1 1.77e-6 -nc 5 -b0 -1e-7 -b1 1e-7 -nb 5 -aph 600 -apm 50 -tau 0.002 -v 0 -i ~/TCC/simple-synthetic.su)
-
-################################################################################   
-#GENERATE EMULATOR REPORT<<---------------------->>
-#    add_executable(${EMULATOR_REPORT}
-#	${CMAKE_PROJECT_DIR}/log.cpp
-#	${CMAKE_PROJECT_DIR}/su_trace.cpp
-#	${CMAKE_PROJECT_DIR}/su_gather.cpp
-#	${CMAKE_PROJECT_DIR}/su_cdp.cpp
-#	${CMAKE_PROJECT_DIR}/parser.cpp
-#	${CMAKE_PROJECT_DIR}/main.cpp)
-#    set_target_properties(${EMULATOR_REPORT} PROPERTIES COMPILE_FLAGS ${EMULATOR_COMPILE_FLAGS})
-#    set_target_properties(${EMULATOR_REPORT} PROPERTIES LINK_FLAGS ${EMULATOR_LINK_REPORT})
+	${CMAKE_PROJECT_DIR}/main.cpp)
+    set_target_properties(${EMULATOR_REPORT} PROPERTIES COMPILE_FLAGS ${EMULATOR_COMPILE_FLAGS})
+    set_target_properties(${EMULATOR_REPORT} PROPERTIES LINK_FLAGS ${EMULATOR_LINK_REPORT})
 ################################################################################
 #GENERATE EXECUTABLE FPGA<<---------------------->>
     add_executable(${FPGA_TARGET} EXCLUDE_FROM_ALL
@@ -114,7 +100,7 @@ set(EMULATOR_LINK_REPORT "-fintelfpga -fsycl-link -Xshardware")
 	${CMAKE_PROJECT_DIR}/main.cpp)
     set_target_properties(${FPGA_TARGET} PROPERTIES COMPILE_FLAGS ${HARDWARE_COMPILE_FLAGS})
     set_target_properties(${FPGA_TARGET} PROPERTIES LINK_FLAGS ${HARDWARE_LINK_FLAGS})
-    add_custom_target(run COMMAND ${FPGA_TARGET} -a0 -0.7e-3 -a1 0.7e-3 -na 5 -c0 1.98e-7 -c1 1.77e-6 -nc 5 -b0 -1e-7 -b1 1e-7 -nb 5 -aph 600 -apm 50 -tau 0.002 -v 0 -i ~/TCC/simple-synthetic.su)
+    add_custom_target(run COMMAND ${FPGA_TARGET} -a0 -0.7e-3 -a1 0.7e-3 -na 5 -c0 1.98e-7 -c1 1.77e-6 -nc 5 -b0 -1e-7 -b1 1e-7 -nb 5 -aph 600 -apm 50 -tau 0.002 -v 0 -i ../../../../datasets/simple-synthetic.su)
 
 ################################################################################
 # Link project to system's libraries

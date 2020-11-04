@@ -53,6 +53,12 @@ class redux_semblances;
 #define FACTOR 1e6
 
 #define NTHREADS 128
+
+#define STATIC_NPAR 125
+
+#define STATIC_TTRACES 6000 //it needs be bigger than ttraces
+
+#define STATIC_NS 2502 //it needs be bigger than ns
 ////////////////////////////////////////////////////////////////////////////////
 
 std::chrono::high_resolution_clock::time_point main_beg, main_end, beg, end;
@@ -68,14 +74,6 @@ struct real4_t {
 using real4 = struct real4_t;
 
 namespace sycl = cl::sycl;
-////////////////////////////////////////////////////////////////////////////////
-/*
-int aph, apm, ng, ttraces, ncdps, ns, ntrs, max_gather, w, tau;
-int *ntraces_by_cdp_id, *ctr, *size;
-real itau, inc_a, inc_b, inc_c, dt, idt;
-real *gx, *gy, *sx, *sy, *scalco, *samples, *h0, *m0x, *m0y, *num, *stt, *str, *stk, *cdpsmpl, *m2, *m, *h;
-real4 * par;
-*/
 ////////////////////////////////////////////////////////////////////////////////
 
 int main(int argc, const char** argv) {
@@ -392,6 +390,31 @@ int main(int argc, const char** argv) {
 					auto a_stt     = b_stt.get_access<sycl::access::mode::read_write>(cgh);
 					auto a_par     = b_par.get_access<sycl::access::mode::read_write>(cgh);
 					cgh.single_task<compute_semblances>([=]( )  {
+						//Memória local e banking criados 
+      					//[[intelfpga::numbanks(STATIC_NPAR)]]
+						real local_a_num[STATIC_NS][STATIC_NPAR];
+						real local_a_stt[STATIC_NS][STATIC_NPAR];
+						real local_t0[STATIC_NS];
+						real4 local_p[STATIC_NPAR];
+						
+						//ns = 2502
+						//Unroll ?
+						//#pragma unroll 512 
+						//[[intelfpga::ivdep]]
+						for(int t0=0; t0 < ns; t0++) {
+							//Memória local usada aqui
+							local_t0[t0] = dt * t0;
+						}
+						
+						//ns = 125
+						//Unroll ?
+						//#pragma unroll 64 
+						//[[intelfpga::ivdep]]
+						for(int par_id=0; par_id < npar; par_id++) {
+							//Memória local usada aqui
+							local_p[par_id] = a_par[par_id];							
+						}
+                        
 						//Criar banking aqui
 						for(int t0=0; t0 < ns; t0++) {
 							for(int par_id=0; par_id < npar; par_id++) {
@@ -399,15 +422,6 @@ int main(int argc, const char** argv) {
 								real _den = 0.0f, _ac_linear = 0.0f, _ac_squared = 0.0f;
 								real _num[MAX_W],  mm = 0.0f;
 								int err = 0;
-
-								int id = t0*npar + par_id;
-
-								//Criar variável local
-								real4 _p = a_par[par_id];
-								//Criar variável local
-								real _t0 = dt * t0;
-
-								// start _num with zeros
 				
 								//Unroll aqui
 								for(int j=0; j < w; j++) _num[j] = 0.0f;
@@ -415,8 +429,12 @@ int main(int argc, const char** argv) {
 								for(int k=0; k < ntraces; k++) {
 									// Evaluate t
 									real _m2 = a_m2[k];
-									real t = _t0 + _p.a * a_m[k];
-									t = t*t + _p.b*_m2 + _p.c*a_h[k];
+									//Memória local usada aqui
+									real t = local_t0[t0] + local_p[par_id].a * a_m[k];
+									//Memória local usada aqui
+									t = t*t + local_p[par_id].b*_m2 + local_p[par_id].c*a_h[k];
+									//real t = _t0 + _p.a * a_m[k];
+									//t = t*t + _p.b*_m2 + _p.c*a_h[k];
 									t = t < 0.0 ? -1 : (sycl::sqrt(t) * idt);
 
 									int it = (int)( t );
@@ -449,17 +467,24 @@ int main(int argc, const char** argv) {
 
 								// Evaluate semblances
 								if(_den > EPSILON && mm > EPSILON && w > EPSILON && err < 2) {
-									//Criar variável local
-									a_num[id] = _ac_squared / (_den * mm);
-									//Criar variável local
-									a_stt[id] = _ac_linear  / (w   * mm);
+									//Memória local usada aqui
+									local_a_num[t0][par_id] = _ac_squared / (_den * mm);
+									//Memória local usada aqui
+									local_a_stt[t0][par_id] = _ac_linear  / (w   * mm);
 								}
 								else {
-									//Criar variável local
-									a_num[id] = 0.0f;
-									//Criar variável local
-									a_stt[id] = 0.0f;
+									//Memória local usada aqui
+									local_a_num[t0][par_id] = 0.0f;
+									//Memória local usada aqui
+									local_a_stt[t0][par_id] = 0.0f;
 								}
+							}
+						}
+                        
+						for(int t0=0; t0 < ns; t0++) {
+							for(int par_id=0; par_id < npar; par_id++) {
+								a_num[t0*npar + par_id] = local_a_num[t0][par_id];
+								a_stt[t0*npar + par_id] = local_a_stt[t0][par_id];
 							}
 						}
 					});

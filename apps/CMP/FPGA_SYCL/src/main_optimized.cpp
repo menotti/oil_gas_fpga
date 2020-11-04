@@ -27,8 +27,8 @@
 #include "su_gather.hpp"
 
 #include <CL/sycl.hpp>
-//#include <CL/sycl/intel/fpga_extensions.hpp>
-#include <CL/sycl/INTEL/fpga_extensions.hpp>
+#include <CL/sycl/intel/fpga_extensions.hpp>
+//#include <CL/sycl/INTEL/fpga_extensions.hpp>
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
@@ -167,11 +167,11 @@ int main(int argc, const char** argv) {
 		*/
 
 		#if defined(FPGA_EMULATOR)
-		  //sycl::intel::fpga_emulator_selector device_selector;
-		  sycl::INTEL::fpga_emulator_selector device_selector;
+		  sycl::intel::fpga_emulator_selector device_selector;
+		  //sycl::INTEL::fpga_emulator_selector device_selector;
 		#else
-		  //sycl::intel::fpga_selector device_selector;
-		  sycl::INTEL::fpga_selector device_selector;
+		  sycl::intel::fpga_selector device_selector;
+		  //sycl::INTEL::fpga_selector device_selector;
 		#endif
 		
 		// Copies data to Compute Device
@@ -188,7 +188,7 @@ int main(int argc, const char** argv) {
 			auto a_c = b_c.get_access<sycl::access::mode::read_write>(cgh);
 			cgh.single_task([=](){
 				//Unroll 5
-				#pragma unroll 8 
+				#pragma unroll 5 
 				[[intelfpga::ivdep]]
 				for(int i=0; i < nc; i++) {
 					//Não precisa de memoria_local****
@@ -240,7 +240,7 @@ int main(int argc, const char** argv) {
 				
 				//ttraces = 6000
 				//Unroll ?
-				#pragma unroll 2048 
+				#pragma unroll 3000 
 				[[intelfpga::ivdep]]
 				for(int i=0; i < ttraces; i++) {
 					//Memória local usada aqui
@@ -250,7 +250,7 @@ int main(int argc, const char** argv) {
 				
 				//ttraces = 6000
 				//Unroll ?
-				#pragma unroll 2048 
+				#pragma unroll 3000 
 				[[intelfpga::ivdep]]
 				for(int i=0; i < ttraces; i++) {
 					//Memória local usada aqui
@@ -300,7 +300,7 @@ int main(int argc, const char** argv) {
 					
 					//ns = 2502
 					//Unroll ?
-					#pragma unroll 512 
+					#pragma unroll 834 
 					[[intelfpga::ivdep]]
 					for(int i=0; i < ns; i++){
 						//Memória local usada aqui
@@ -310,7 +310,7 @@ int main(int argc, const char** argv) {
 					
 					//nc = 5
 					//Unroll ?
-					#pragma unroll 8 
+					#pragma unroll 5 
 					[[intelfpga::ivdep]]
 					for(int j=0; j < nc; j++) {	
 						//Memória local usada aqui
@@ -328,9 +328,9 @@ int main(int argc, const char** argv) {
 							// start _num with zeros
 							//w = 3
 							//Unroll 3
-							#pragma unroll 4 
+							#pragma unroll 3 
 							[[intelfpga::ivdep]]
-							for(int j=0; j < w; j++) _num[j] = 0.0f;
+							for(int l=0; l < w; l++) _num[l] = 0.0f;
 
 							//Unroll ?
 							for(int t_id=t_id0; t_id < t_idf; t_id++) {
@@ -348,9 +348,9 @@ int main(int argc, const char** argv) {
 									real sk1p1 = a_cdpsmpl[k1], sk1;
 									//w = 3
 									//Unroll 3
-									#pragma unroll 4 
+									#pragma unroll 3 
 									[[intelfpga::ivdep]]
-									for(int j=0; j < w; j++) {
+									for(int l=0; l < w; l++) {
 										k1++;
 										sk1 = sk1p1;
 										sk1p1 = a_cdpsmpl[k1];
@@ -358,7 +358,7 @@ int main(int argc, const char** argv) {
 										// linear interpolation optmized for this problem
 										real v = (sk1p1 - sk1) * x + sk1;
 
-										_num[j] += v;
+										_num[l] += v;
 										_den += v * v;
 										_ac_linear += v;
 									}
@@ -369,9 +369,9 @@ int main(int argc, const char** argv) {
 							// Reduction for num
 							//w = 3
 							//Unroll 3
-							#pragma unroll 4 
+							#pragma unroll 3 
 							[[intelfpga::ivdep]]
-							for(int j=0; j < w; j++) _ac_squared += _num[j] * _num[j];
+							for(int l=0; l < w; l++) _ac_squared += _num[l] * _num[l];
 							
 							// Evaluate semblances
 							if(_den > EPSILON && m > EPSILON && w > EPSILON && err < 2) {
@@ -389,7 +389,7 @@ int main(int argc, const char** argv) {
 					for(int i=0; i < ns; i++){	
 						//nc = 5
 						//Unroll ?
-						#pragma unroll 8 
+						#pragma unroll 5 
 						[[intelfpga::ivdep]]
 						for(int j=0; j < nc; i++) {
 							//Memória local usada aqui
@@ -420,7 +420,7 @@ int main(int argc, const char** argv) {
 				
 					//ns=2502
 					//Unroll ?
-					#pragma unroll 512	 
+					#pragma unroll 834	 
 					[[intelfpga::ivdep]]
 					for(int t0=0; t0 < ns; t0++) {
 						real max_sem = 0.0f, _num;
@@ -428,7 +428,7 @@ int main(int argc, const char** argv) {
 						
 						//it = (valor inicial) + 5
 						//Unroll 5
-						#pragma unroll 8	 
+						#pragma unroll 5	 
 						[[intelfpga::ivdep]]
 						for(int it=t0*nc; it < (t0+1)*nc ; it++) {
 							_num = a_num[it];
@@ -447,7 +447,7 @@ int main(int argc, const char** argv) {
 				
 					//ns=2502
 					//Unroll ?
-					#pragma unroll 512	 
+					#pragma unroll 834	 
 					[[intelfpga::ivdep]]
 					for(int t0=0; t0 < ns; t0++) {
 						//Memória local usada aqui
@@ -457,7 +457,7 @@ int main(int argc, const char** argv) {
 				
 					//ns=2502
 					//Unroll ?
-					#pragma unroll 512	 
+					#pragma unroll 834	 
 					[[intelfpga::ivdep]]
 					for(int t0=0; t0 < ns; t0++) {
 						//Memória local usada aqui
@@ -467,7 +467,7 @@ int main(int argc, const char** argv) {
 				
 					//ns=2502
 					//Unroll ?
-					#pragma unroll 512	 
+					#pragma unroll 834	 
 					[[intelfpga::ivdep]]
 					for(int t0=0; t0 < ns; t0++) {
 						//Memória local usada aqui

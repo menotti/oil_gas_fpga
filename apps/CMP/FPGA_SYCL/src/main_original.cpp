@@ -38,6 +38,11 @@
 #include <cstring>
 #include <chrono>
 
+/////////////////////KERNEL NAMES////////////////////////////////////////
+class init_c;
+class init_half;
+class compute_semblances;
+class redux_semblances;
 ////////////////////////////////////////////////////////////////////////////////
 
 #define MAX_W 16
@@ -178,7 +183,7 @@ int main(int argc, const char** argv) {
 		queue.submit([&](sycl::handler& cgh) {
 			// Accessors set as read_write mode
 			auto a_c = b_c.get_access<sycl::access::mode::read_write>(cgh);
-			cgh.single_task([=](){
+			cgh.single_task<init_c>([=](){
 				//Unroll 5
 				for(int i=0; i < nc; i++) {
 					//Não precisa de memoria_local****
@@ -209,7 +214,7 @@ int main(int argc, const char** argv) {
 			auto a_scalco  = b_scalco.get_access<sycl::access::mode::read>(cgh);
 			auto a_h       = b_h.get_access<sycl::access::mode::read_write>(cgh);
 
-			cgh.single_task([=]() {
+			cgh.single_task<init_half>([=]() {
 				//ttraces = 6000
 				//Unroll ?
 				for(int i=0; i < ttraces; i++) {
@@ -267,7 +272,7 @@ int main(int argc, const char** argv) {
 				auto a_num     = b_num.get_access<sycl::access::mode::read_write>(cgh);
 				auto a_stt     = b_stt.get_access<sycl::access::mode::read_write>(cgh);
 
-				cgh.single_task([=](){
+				cgh.single_task<compute_semblances>([=](){
 					//Fazer banking aqui
 					//
 					//ns*nc = 12510
@@ -357,7 +362,7 @@ int main(int argc, const char** argv) {
 				auto a_str     = b_str.get_access<sycl::access::mode::write>(cgh);
 				auto a_stk     = b_stk.get_access<sycl::access::mode::write>(cgh);
 				auto a_ctr     = b_ctr.get_access<sycl::access::mode::write>(cgh);
-				cgh.single_task([=]( ) {
+				cgh.single_task<redux_semblances>([=]( ) {
 					//ns=2502
 					//Unroll ?
 					for(int t0=0; t0 < ns; t0++) {
