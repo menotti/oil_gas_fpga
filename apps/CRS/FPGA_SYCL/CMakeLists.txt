@@ -1,8 +1,8 @@
 ################################################################################
 ##
 #  @file CMakeLists.txt
-#  @date 2017-02-20
-#  @author Tiago Lobato Gimenes    (tlgimenes@gmail.com)
+#  @date 2020-11-09
+#  @author João Vieira da Silva Neto   (jvieira850@gmail.com)
 ## 
 ################################################################################
 # Specify the minimum version for CMake

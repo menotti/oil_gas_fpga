@@ -54,11 +54,11 @@ class redux_semblances;
 
 #define NTHREADS 128
 
-#define STATIC_NPAR 125
+#define STATIC_NPAR 130
 
 #define STATIC_TTRACES 6000 //it needs be bigger than ttraces
 
-#define STATIC_NS 2502 //it needs be bigger than ns
+#define STATIC_NS 2550 //it needs be bigger than ns
 ////////////////////////////////////////////////////////////////////////////////
 
 std::chrono::high_resolution_clock::time_point main_beg, main_end, beg, end;
@@ -286,9 +286,49 @@ int main(int argc, const char** argv) {
 				auto a_m0y    = b_m0y.get_access<sycl::access::mode::read_write>(cgh);
 				auto a_h0    = b_h0.get_access<sycl::access::mode::read_write>(cgh);
 				cgh.single_task<init_mid>([=]( ) {
+					//Memória local usada aqui
+					real local_s[STATIC_TTRACES];
+					real local_hx[STATIC_TTRACES];
+					real local_hy[STATIC_TTRACES];
+				
+					//ttraces = 6000
+					//Unroll ?
+					#pragma unroll 6 
+					[[intelfpga::ivdep]]
+			  		for(int i=0; i < ttraces; i++) {
+						//Memória local usada aqui
+						local_s[i] = a_scalco[i];
+						if(-EPSILON < local_s[i] && local_s[i] < EPSILON)
+							local_s[i] = 1.0f;
+						else if(local_s[i] < 0)
+							local_s[i] = 1.0f / local_s[i];
+						//Memória local usada aqui
+						local_hx[i] = (a_gx[i] - a_sx[i]) * local_s[i];
+						local_hy[i] = (a_gy[i] - a_sy[i]) * local_s[i];
+					}
+					
+					//ttraces = 6000
+					//Unroll ?
+					#pragma unroll 6 
+					[[intelfpga::ivdep]]
+					for(int i=0; i < ttraces; i++) {
+						//Memória local usada aqui
+						a_m0x[i]  = local_hx[i]*0.5;
+						//Memória local usada aqui
+						a_m0y[i]  = local_hy[i]*0.5;
+					}
+					
+					//ttraces = 6000
+					//Unroll ?
+					#pragma unroll 6 
+					[[intelfpga::ivdep]]
+					for(int i=0; i < ttraces; i++) {
+						//Memória local usada aqui
+						a_h0[i] = 0.25 * (local_hx[i] * local_hx[i] + local_hy[i] * local_hy[i]) / FACTOR;
+					}
 				
 					//Unroll aqui
-			  		for(int i=0; i < ttraces; i++) {
+			  		/*for(int i=0; i < ttraces; i++) {
 						real _s = a_scalco[i];
 
 						if(-EPSILON < _s && _s < EPSILON) _s = 1.0;
@@ -303,7 +343,7 @@ int main(int argc, const char** argv) {
 						real hy = (a_gy[i] - a_sy[i]) * _s;
 
 						a_h0[i] = 0.25 * (hx * hx + hy * hy) / FACTOR;
-					}
+					}*/
 				});
 			});
 			q.wait_and_throw();
@@ -347,10 +387,50 @@ int main(int argc, const char** argv) {
 					auto a_m2 = b_m2.get_access<sycl::access::mode::read_write>(cgh);
 					auto a_m = b_m.get_access<sycl::access::mode::read_write>(cgh);
 					auto a_ntraces_by_cdp_id = b_ntraces_by_cdp_id.get_access<sycl::access::mode::read_write>(cgh);
-					cgh.single_task<compute_points_for_gather>([=]( ) {			
+					cgh.single_task<compute_points_for_gather>([=]( ) {
+						//Memória local criada aqui
+						real local_dx[STATIC_TTRACES];
+						real local_dy[STATIC_TTRACES];
+						real local_m2[STATIC_TTRACES];
+						real local_a_h0[STATIC_TTRACES];			
 				
-						//Unroll 		
+						//cdpf-cdp0 = 4
+						//Unroll ?
 						for(int cdp=cdp0; cdp <= cdpf; cdp++) {
+							int t_id00 = cdp0 > 0 ? a_ntraces_by_cdp_id[cdp0-1] : 0;
+							int t_id0 = cdp > 0 ? a_ntraces_by_cdp_id[cdp-1] : 0;
+							int t_idf = a_ntraces_by_cdp_id[cdp];
+							int sz = t_id0-t_id00;
+				
+							//t_idf-t_id0 = 75
+							//Unroll ?
+							#pragma unroll 3 
+							[[intelfpga::ivdep]]
+							for(int it=0; it < t_idf-t_id0; it++)
+							{	
+								//Memória local usada aqui
+								local_dx[sz + it] = a_m0x[t_id0 + it] - m0x_cdp_id;
+								local_dy[sz + it] = a_m0y[t_id0 + it] - m0y_cdp_id;
+								local_m2[sz + it] = local_dx[sz + it]*local_dx[sz + it] + local_dy[sz + it]*local_dy[sz + it];
+								local_a_h0[sz + it] = a_h0[t_id0 + it];
+							}
+
+							//t_idf-t_id0 = 75
+							//Unroll ?
+							#pragma unroll 5 
+							[[intelfpga::ivdep]]
+							for(int it=0; it < t_idf-t_id0; it++)
+							{
+								//Memória local usada aqui
+								a_m2[sz + it] = local_m2[sz + it];
+								//Memória local usada aqui
+								a_m [sz + it] = sycl::sqrt(local_m2[sz + it]);
+								//Memória local usada aqui
+								a_h [sz + it] = local_a_h0[t_id0 + it];
+							}
+						}
+						//Unroll 		
+						/*for(int cdp=cdp0; cdp <= cdpf; cdp++) {
 							int t_id00 = cdp0 > 0 ? a_ntraces_by_cdp_id[cdp0-1] : 0;
 							int t_id0 = cdp > 0 ? a_ntraces_by_cdp_id[cdp-1] : 0;
 							int t_idf = a_ntraces_by_cdp_id[cdp];
@@ -370,7 +450,7 @@ int main(int argc, const char** argv) {
 								//Criar variável local
 								a_h [sz + it] = a_h0[t_id0 + it];
 							}
-						}
+						}*/
 					});
 				});
 				q.wait_and_throw();
@@ -390,8 +470,6 @@ int main(int argc, const char** argv) {
 					auto a_stt     = b_stt.get_access<sycl::access::mode::read_write>(cgh);
 					auto a_par     = b_par.get_access<sycl::access::mode::read_write>(cgh);
 					cgh.single_task<compute_semblances>([=]( )  {
-						//Memória local e banking criados 
-      					//[[intelfpga::numbanks(STATIC_NPAR)]]
 						real local_a_num[STATIC_NS][STATIC_NPAR];
 						real local_a_stt[STATIC_NS][STATIC_NPAR];
 						real local_t0[STATIC_NS];
@@ -399,8 +477,8 @@ int main(int argc, const char** argv) {
 						
 						//ns = 2502
 						//Unroll ?
-						//#pragma unroll 512 
-						//[[intelfpga::ivdep]]
+						#pragma unroll 3
+						[[intelfpga::ivdep]]
 						for(int t0=0; t0 < ns; t0++) {
 							//Memória local usada aqui
 							local_t0[t0] = dt * t0;
@@ -408,8 +486,8 @@ int main(int argc, const char** argv) {
 						
 						//ns = 125
 						//Unroll ?
-						//#pragma unroll 64 
-						//[[intelfpga::ivdep]]
+						#pragma unroll 5 
+						[[intelfpga::ivdep]]
 						for(int par_id=0; par_id < npar; par_id++) {
 							//Memória local usada aqui
 							local_p[par_id] = a_par[par_id];							
@@ -422,8 +500,11 @@ int main(int argc, const char** argv) {
 								real _den = 0.0f, _ac_linear = 0.0f, _ac_squared = 0.0f;
 								real _num[MAX_W],  mm = 0.0f;
 								int err = 0;
-				
-								//Unroll aqui
+                                
+                                //ns = 3
+                                //Unroll ?
+                                #pragma unroll 3 
+                                [[intelfpga::ivdep]]
 								for(int j=0; j < w; j++) _num[j] = 0.0f;
 
 								for(int k=0; k < ntraces; k++) {
@@ -445,7 +526,10 @@ int main(int argc, const char** argv) {
 										int k1 = ittau + k*ns;
 										real sk1p1= a_samples[k1], sk1;
 
-										//Unroll aqui
+                                        //ns = 3
+                                        //Unroll ?
+                                        #pragma unroll 3 
+                                        [[intelfpga::ivdep]]
 										for(int j=0; j < w; j++) {
 											k1++;
 											sk1 = sk1p1;
@@ -462,31 +546,46 @@ int main(int argc, const char** argv) {
 								}
 
 								// Reduction for num
-								//Unroll aqui
+                                //ns = 3
+                                //Unroll ?
+                                #pragma unroll 3 
+                                [[intelfpga::ivdep]]
 								for(int j=0; j < w; j++) _ac_squared += _num[j] * _num[j];
 
 								// Evaluate semblances
 								if(_den > EPSILON && mm > EPSILON && w > EPSILON && err < 2) {
 									//Memória local usada aqui
-									local_a_num[t0][par_id] = _ac_squared / (_den * mm);
+									a_num[t0*npar + par_id] = _ac_squared / (_den * mm);
 									//Memória local usada aqui
-									local_a_stt[t0][par_id] = _ac_linear  / (w   * mm);
+									a_stt[t0*npar + par_id] = _ac_linear  / (w   * mm);
 								}
 								else {
 									//Memória local usada aqui
-									local_a_num[t0][par_id] = 0.0f;
+									a_num[t0*npar + par_id] = 0.0f;
 									//Memória local usada aqui
-									local_a_stt[t0][par_id] = 0.0f;
+									a_stt[t0*npar + par_id] = 0.0f;
 								}
+								/*if(_den > EPSILON && mm > EPSILON && w > EPSILON && err < 2) {
+									//Memória local usada aqui
+									local_a_num[t0*npar + par_id] = _ac_squared / (_den * mm);
+									//Memória local usada aqui
+									local_a_stt[t0*npar + par_id] = _ac_linear  / (w   * mm);
+								}
+								else {
+									//Memória local usada aqui
+									local_a_num[t0*npar + par_id] = 0.0f;
+									//Memória local usada aqui
+									local_a_stt[t0*npar + par_id] = 0.0f;
+								}*/
 							}
 						}
                         
-						for(int t0=0; t0 < ns; t0++) {
+						/*for(int t0=0; t0 < ns; t0++) {
 							for(int par_id=0; par_id < npar; par_id++) {
-								a_num[t0*npar + par_id] = local_a_num[t0][par_id];
-								a_stt[t0*npar + par_id] = local_a_stt[t0][par_id];
+                                a_num[t0*npar + par_id] = local_a_num[t0*npar + par_id];
+								a_stt[t0*npar + par_id] = local_a_stt[t0*npar + par_id];
 							}
-						}
+						}*/
 					});
 				});
 				q.wait_and_throw();
