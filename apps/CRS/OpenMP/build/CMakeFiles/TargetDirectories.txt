@@ -1,4 +1,0 @@
-/home/joao/TCC/oil_gas_fpga/apps/CRS/OpenMP/build/CMakeFiles/rebuild_cache.dir
-/home/joao/TCC/oil_gas_fpga/apps/CRS/OpenMP/build/CMakeFiles/edit_cache.dir
-/home/joao/TCC/oil_gas_fpga/apps/CRS/OpenMP/build/CMakeFiles/crs-omp2.dir
-/home/joao/TCC/oil_gas_fpga/apps/CRS/OpenMP/build/CMakeFiles/run.dir

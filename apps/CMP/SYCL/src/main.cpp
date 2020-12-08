@@ -119,136 +119,6 @@ void sycl_init_half(sycl::queue& q, real* scalco, real* gx,
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-
-void sycl_compute_semblances(sycl::queue& q, real* h, real* c,
-	 	real* cdpsmpl, real* num, real* stt,
-        int t_id0, int t_idf, real _idt, real _dt, int _tau, int _w, int nc, int ns, int ttraces, int ntrs){
-	sycl::buffer<real, 1> b_c(c, sycl::range<1>(nc));
-	sycl::buffer<real, 1> b_h(h, sycl::range<1>(ttraces));
-	sycl::buffer<real, 1> b_cdpsmpl(cdpsmpl, sycl::range<1>(ntrs * ns));
-	sycl::buffer<real, 1> b_num(num, sycl::range<1>(ns * nc));
-	sycl::buffer<real, 1> b_stt(stt, sycl::range<1>(ns * nc));
-  	beg = std::chrono::high_resolution_clock::now();
-	// Submit Command group function object to the queue
-	q.submit([&](sycl::handler& cgh) {
-	    // Create accessors
-		auto a_cdpsmpl = b_cdpsmpl.get_access<sycl::access::mode::read>(cgh);
-		auto a_c       = b_c.get_access<sycl::access::mode::read_write>(cgh);
-		auto a_h       = b_h.get_access<sycl::access::mode::read_write>(cgh);
-		auto a_num     = b_num.get_access<sycl::access::mode::read_write>(cgh);
-		auto a_stt     = b_stt.get_access<sycl::access::mode::read_write>(cgh);
-
-		cgh.parallel_for(
-		sycl::nd_range<1>(ns*nc+NTHREADS-(ns*nc)%NTHREADS, NTHREADS), [=](sycl::nd_item<1> item){
-	
-			real _den = 0.0f, _ac_linear = 0.0f, _ac_squared = 0.0f;
-			real _num[MAX_W],  m = 0.0f;
-			int err = 0;
-
-			int i=item.get_global_id();
-
-			if(i < ns*nc)
-			{
-				int c_id = i % nc;
-				int t0 = i / nc;
-
-				real _c = a_c[c_id];
-				real _t0 = _dt * t0;
-				_t0 = _t0 * _t0;
-
-				// start _num with zeros
-				for(int j=0; j < _w; j++) _num[j] = 0.0f;
-
-				for(int t_id=t_id0; t_id < t_idf; t_id++) {
-				    // Evaluate t
-				    real t = sycl::sqrt(_t0 + _c * a_h[t_id]);
-
-				    int it = (int)( t * _idt );
-				    int ittau = it - _tau;
-				    real x = t * _idt - (real)it;
-
-				    if(ittau >= 0 && it + _tau + 1 < ns) {
-				        int k1 = ittau + (t_id-t_id0)*ns;
-				        real sk1p1 = a_cdpsmpl[k1], sk1;
-				        for(int j=0; j < _w; j++) {
-				            k1++;
-				            sk1 = sk1p1;
-				            sk1p1 = a_cdpsmpl[k1];
-
-				            // linear interpolation optmized for this problem
-				            real v = (sk1p1 - sk1) * x + sk1;
-
-				            _num[j] += v;
-				            _den += v * v;
-				            _ac_linear += v;
-				        }
-				        m += 1;
-				    } else { err++; }
-				}
-
-				// Reduction for num
-				for(int j=0; j < _w; j++) _ac_squared += _num[j] * _num[j];
-
-				// Evaluate semblances
-				if(_den > EPSILON && m > EPSILON && _w > EPSILON && err < 2) {
-				    a_num[i] = _ac_squared / (_den * m);
-				    a_stt[i] = _ac_linear  / (_w   * m);
-				}
-				else {
-				    a_num[i] = -1.0f;
-				    a_stt[i] = -1.0f;
-				}
-			}
-		});
-	});
-	q.wait_and_throw();
-	end = std::chrono::high_resolution_clock::now();
-	kernel_execution_time += std::chrono::duration_cast<std::chrono::duration<double>>(end - beg).count();
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-void sycl_redux_semblances(sycl::queue& q, real* num, real* stt, int* ctr,
-        real* str, real* stk, int nc, int cdp_id, int ns, int ncdps){
-	sycl::buffer<real, 1> b_num(num, sycl::range<1>(ns * nc));
-	sycl::buffer<real, 1> b_stt(stt, sycl::range<1>(ns * nc));
-	sycl::buffer<real, 1> b_str(str, sycl::range<1>(ncdps * ns));
-	sycl::buffer<real, 1> b_stk(stk, sycl::range<1>(ncdps * ns));
-	sycl::buffer<int, 1> b_ctr(ctr, sycl::range<1>(ncdps * ns));
-  	beg = std::chrono::high_resolution_clock::now();
-	// Submit Command group function object to the queue
-	q.submit([&](sycl::handler& cgh) {
-		auto a_num     = b_num.get_access<sycl::access::mode::read_write>(cgh);
-		auto a_stt     = b_stt.get_access<sycl::access::mode::read_write>(cgh);
-		auto a_str     = b_str.get_access<sycl::access::mode::write>(cgh);
-		auto a_stk     = b_stk.get_access<sycl::access::mode::write>(cgh);
-		auto a_ctr     = b_ctr.get_access<sycl::access::mode::write>(cgh);
-		cgh.parallel_for(sycl::range<1>(ns), [=](sycl::id<1> it) {
-			int t0=it.get(0);
-			// Kernel code. Call the complex_mul function here.
-			real max_sem = 0.0f, _num;
-			int max_c = -1;
-
-			for(int it=t0*nc; it < (t0+1)*nc ; it++) {
-				_num = a_num[it];
-				if(_num > max_sem) {
-				    max_sem = _num;
-				    max_c = it;
-				}
-			}
-
-			a_ctr[cdp_id*ns + t0] = max_c % nc;
-			a_str[cdp_id*ns + t0] = max_sem;
-			a_stk[cdp_id*ns + t0] = max_c > -1 ? a_stt[max_c] : 0;
-		});
-	});
-	q.wait_and_throw();
-	end = std::chrono::high_resolution_clock::now();
-	kernel_execution_time += std::chrono::duration_cast<std::chrono::duration<double>>(end - beg).count();
-}
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
 void printTargetInfo(sycl::queue& q) {
   auto device = q.get_device();
   auto maxBlockSize =
@@ -318,10 +188,10 @@ int main(int argc, const char** argv) {
   real * stk = new real [ ncdps * ns ]; // ns stacked values per cdp
   real * cdpsmpl = new real [ ns * ntrs ]; // Samples for current cdp
 
-  dt = dt / 1000000.0f;
-  real idt = 1.0f / dt;
-  int tau = std::max((int)( itau * idt), 0);
-  int w   = (2 * tau) + 1;
+  real _dt = dt / 1000000.0f;
+  real _idt = 1.0f / _dt;
+  int _tau = std::max((int)( itau * _idt), 0);
+  int _w   = (2 * _tau) + 1;
 
   int  *h_ctr  = new int [ncdps*ns];
   real *h_str  = new real[ncdps*ns];
@@ -364,6 +234,14 @@ int main(int argc, const char** argv) {
 			sycl_init_c(queues[dev], c, inc, c0, nc);
 			sycl_init_half(queues[dev], scalco, gx, gy, sx, sy, h, ttraces);
 
+			sycl::buffer<real, 1> b_c(c, sycl::range<1>(nc));
+			sycl::buffer<real, 1> b_h(h, sycl::range<1>(ttraces));
+			sycl::buffer<real, 1> b_num(num, sycl::range<1>(ns * nc));
+			sycl::buffer<real, 1> b_stt(stt, sycl::range<1>(ns * nc));
+			sycl::buffer<real, 1> b_str(str, sycl::range<1>(ncdps * ns));
+			sycl::buffer<real, 1> b_stk(stk, sycl::range<1>(ncdps * ns));
+			sycl::buffer<int, 1> b_ctr(ctr, sycl::range<1>(ncdps * ns));
+
 			// Compute max semblances and get max C for each CDP
 			for(int cdp_id = 0; cdp_id < ncdps; cdp_id++) {
 				int t_id0 = cdp_id > 0 ? ntraces_by_cdp_id[cdp_id-1] : 0; // id of first trace
@@ -372,12 +250,119 @@ int main(int argc, const char** argv) {
 
 				// Copies data back to host
 				memcpy(cdpsmpl, samples + t_id0*ns, stride*ns*sizeof(real));
+				sycl::buffer<real, 1> b_cdpsmpl(cdpsmpl, sycl::range<1>(ntrs * ns));
 
 				// Compute Semblances
-				sycl_compute_semblances(queues[dev], h, c, cdpsmpl, num, stt, t_id0, t_idf, idt, dt, tau, w, nc, ns, ttraces, ntrs);
+				//sycl_compute_semblances(queues[dev], h, c, cdpsmpl, num, stt, t_id0, t_idf, idt, dt, tau, w, nc, ns, ttraces, ntrs);
+			  	beg = std::chrono::high_resolution_clock::now();
+				// Submit Command group function object to the queue
+				queues[dev].submit([&](sycl::handler& cgh) {
+					// Create accessors
+					auto a_cdpsmpl = b_cdpsmpl.get_access<sycl::access::mode::read>(cgh);
+					auto a_c       = b_c.get_access<sycl::access::mode::read_write>(cgh);
+					auto a_h       = b_h.get_access<sycl::access::mode::read_write>(cgh);
+					auto a_num     = b_num.get_access<sycl::access::mode::read_write>(cgh);
+					auto a_stt     = b_stt.get_access<sycl::access::mode::read_write>(cgh);
+
+					cgh.parallel_for<class compute_semblances>(
+					sycl::nd_range<1>(ns*nc+NTHREADS-(ns*nc)%NTHREADS, NTHREADS), [=](sycl::nd_item<1> item){
+				
+						real _den = 0.0f, _ac_linear = 0.0f, _ac_squared = 0.0f;
+						real _num[MAX_W],  m = 0.0f;
+						int err = 0;
+
+						int i=item.get_global_id();
+
+						if(i < ns*nc)
+						{
+							int c_id = i % nc;
+							int t0 = i / nc;
+
+							real _c = a_c[c_id];
+							real _t0 = _dt * t0;
+							_t0 = _t0 * _t0;
+
+							// start _num with zeros
+							for(int j=0; j < _w; j++) _num[j] = 0.0f;
+
+							for(int t_id=t_id0; t_id < t_idf; t_id++) {
+								// Evaluate t
+								real t = sycl::sqrt(_t0 + _c * a_h[t_id]);
+
+								int it = (int)( t * _idt );
+								int ittau = it - _tau;
+								real x = t * _idt - (real)it;
+
+								if(ittau >= 0 && it + _tau + 1 < ns) {
+									int k1 = ittau + (t_id-t_id0)*ns;
+									real sk1p1 = a_cdpsmpl[k1], sk1;
+									for(int j=0; j < _w; j++) {
+										k1++;
+										sk1 = sk1p1;
+										sk1p1 = a_cdpsmpl[k1];
+
+										// linear interpolation optmized for this problem
+										real v = (sk1p1 - sk1) * x + sk1;
+
+										_num[j] += v;
+										_den += v * v;
+										_ac_linear += v;
+									}
+									m += 1;
+								} else { err++; }
+							}
+
+							// Reduction for num
+							for(int j=0; j < _w; j++) _ac_squared += _num[j] * _num[j];
+
+							// Evaluate semblances
+							if(_den > EPSILON && m > EPSILON && _w > EPSILON && err < 2) {
+								a_num[i] = _ac_squared / (_den * m);
+								a_stt[i] = _ac_linear  / (_w   * m);
+							}
+							else {
+								a_num[i] = -1.0f;
+								a_stt[i] = -1.0f;
+							}
+						}
+					});
+				});
+				queues[dev].wait();
+				end = std::chrono::high_resolution_clock::now();
+				kernel_execution_time += std::chrono::duration_cast<std::chrono::duration<double>>(end - beg).count();
 
 				// Redux semblances
-				sycl_redux_semblances(queues[dev], num, stt, ctr, str, stk, nc, cdp_id, ns, ncdps);
+				//sycl_redux_semblances(queues[dev], num, stt, ctr, str, stk, nc, cdp_id, ns, ncdps);
+			  	beg = std::chrono::high_resolution_clock::now();
+				// Submit Command group function object to the queue
+				queues[dev].submit([&](sycl::handler& cgh) {
+					auto a_num     = b_num.get_access<sycl::access::mode::read_write>(cgh);
+					auto a_stt     = b_stt.get_access<sycl::access::mode::read_write>(cgh);
+					auto a_str     = b_str.get_access<sycl::access::mode::write>(cgh);
+					auto a_stk     = b_stk.get_access<sycl::access::mode::write>(cgh);
+					auto a_ctr     = b_ctr.get_access<sycl::access::mode::write>(cgh);
+					cgh.parallel_for<class redux_semblances>(sycl::range<1>(ns), [=](sycl::id<1> it) {
+						int t0=it.get(0);
+						// Kernel code. Call the complex_mul function here.
+						real max_sem = 0.0f, _num;
+						int max_c = -1;
+
+						for(int it=t0*nc; it < (t0+1)*nc ; it++) {
+							_num = a_num[it];
+							if(_num > max_sem) {
+								max_sem = _num;
+								max_c = it;
+							}
+						}
+
+						a_ctr[cdp_id*ns + t0] = max_c % nc;
+						a_str[cdp_id*ns + t0] = max_sem;
+						a_stk[cdp_id*ns + t0] = max_c > -1 ? a_stt[max_c] : 0;
+					});
+				});
+				queues[dev].wait();
+				end = std::chrono::high_resolution_clock::now();
+				kernel_execution_time += std::chrono::duration_cast<std::chrono::duration<double>>(end - beg).count();
 
 				number_of_semblances += stride;
 

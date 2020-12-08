@@ -1,4 +1,0 @@
-/home/joao/TCC/oil_gas_fpga/apps/CRS/OpenCL/build/CMakeFiles/rebuild_cache.dir
-/home/joao/TCC/oil_gas_fpga/apps/CRS/OpenCL/build/CMakeFiles/edit_cache.dir
-/home/joao/TCC/oil_gas_fpga/apps/CRS/OpenCL/build/CMakeFiles/crs-ocl2.dir
-/home/joao/TCC/oil_gas_fpga/apps/CRS/OpenCL/build/CMakeFiles/run.dir

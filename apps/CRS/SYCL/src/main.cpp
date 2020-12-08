@@ -61,14 +61,6 @@ struct real4_t {
 using real4 = struct real4_t;
 
 ////////////////////////////////////////////////////////////////////////////////
-
-int na, nb, nc, aph, apm, ng, ttraces, ncdps, ns, ntrs, npar, max_gather, w, tau;
-int *ntraces_by_cdp_id, *ctr, *size;
-real a0, a1, b0, b1, c0, c1, itau, inc_a, inc_b, inc_c, dt, idt;
-real *gx, *gy, *sx, *sy, *scalco, *samples, *h0, *m0x, *m0y, *num, *stt, *str, *stk, *cdpsmpl, *m2, *m, *h;
-real4 * par;
-
-////////////////////////////////////////////////////////////////////////////////
 // Evaluate Cs - linspace
 void sycl_init_par(sycl::queue& q, real4* par, real a0, real b0, real c0, real inc_a, real inc_b,
         real inc_c, int na, int nb, int nc, int npar)
@@ -146,196 +138,6 @@ void sycl_init_mid(sycl::queue& q, real* scalco, real* gx, real* gy,
 
 ////////////////////////////////////////////////////////////////////////////////
 
-void sycl_compute_semblances(sycl::queue& q, real* h, real* m2,	real* m, real* samples, real* num, real* stt,
-		real4* par, int size, real idt, real dt, int tau, int w, int npar, int ns, int ntrs, int max_gather)
-{	
-	sycl::buffer<real, 1> b_h(h, sycl::range<1>(ntrs * max_gather));
-	sycl::buffer<real, 1> b_m(m, sycl::range<1>(ntrs * max_gather));
-	sycl::buffer<real, 1> b_m2(m, sycl::range<1>(ntrs * max_gather));
-	sycl::buffer<real, 1> b_samples(samples, sycl::range<1>(ntrs * max_gather * ns));
-	sycl::buffer<real, 1> b_num(num, sycl::range<1>(ns * npar));
-	sycl::buffer<real, 1> b_stt(stt, sycl::range<1>(ns * npar));
-	sycl::buffer<real4, 1> b_par(par, sycl::range<1>(npar));
-  	beg = std::chrono::high_resolution_clock::now();
-  	// Submit Command group function object to the queue
-	q.submit([&](sycl::handler& cgh) {
-		// Accessors set as read_write mode
-		auto a_h       = b_h.get_access<sycl::access::mode::read_write>(cgh);
-		auto a_m2      = b_m2.get_access<sycl::access::mode::read_write>(cgh);
-		auto a_m       = b_m.get_access<sycl::access::mode::read_write>(cgh);
-		auto a_samples = b_samples.get_access<sycl::access::mode::read_write>(cgh);
-		auto a_num     = b_num.get_access<sycl::access::mode::read_write>(cgh);
-		auto a_stt     = b_stt.get_access<sycl::access::mode::read_write>(cgh);
-		auto a_par     = b_par.get_access<sycl::access::mode::read_write>(cgh);
-		cgh.parallel_for<class kernelC>(
-		sycl::nd_range<1>(ns*npar+NTHREADS-(ns*npar)%NTHREADS, NTHREADS), [=](sycl::nd_item<1> item)  {
-
-			real _den = 0.0f, _ac_linear = 0.0f, _ac_squared = 0.0f;
-			real _num[MAX_W],  mm = 0.0f;
-			int err = 0;
-
-    		int i = item.get_global_id();
-
-			int par_id = i % npar;
-			int t0 = i / npar;
-
-			real4 _p = a_par[par_id];
-			real _t0 = dt * t0;
-
-			if(i < ns * npar)
-			{
-				// start _num with zeros
-				for(int j=0; j < w; j++) _num[j] = 0.0f;
-
-				for(int k=0; k < size; k++) {
-				    // Evaluate t
-				    real _m2 = a_m2[k];
-				    real t = _t0 + _p.a * a_m[k];
-				    t = t*t + _p.b*_m2 + _p.c*a_h[k];
-				    t = t < 0.0 ? -1 : (sycl::sqrt(t) * idt);
-
-				    int it = (int)( t );
-				    int ittau = it - tau;
-				    real x = t - (real)it;
-
-				    if(ittau >= 0 && it + tau + 1 < ns) {
-				        int k1 = ittau + k*ns;
-				        real sk1p1= a_samples[k1], sk1;
-
-				        for(int j=0; j < w; j++) {
-				            k1++;
-				            sk1 = sk1p1;
-				            sk1p1 = a_samples[k1];
-				            // linear interpolation optmized for this problem
-				            real v = (sk1p1 - sk1) * x + sk1;
-
-				            _num[j] += v;
-				            _den += v * v;
-				            _ac_linear += v;
-				        }
-				        mm += 1;
-				    } else { err++; }
-				}
-
-				// Reduction for num
-				for(int j=0; j < w; j++) _ac_squared += _num[j] * _num[j];
-
-				// Evaluate semblances
-				if(_den > EPSILON && mm > EPSILON && w > EPSILON && err < 2) {
-				    a_num[i] = _ac_squared / (_den * mm);
-				    a_stt[i] = _ac_linear  / (w   * mm);
-				}
-				else {
-				    a_num[i] = 0.0f;
-				    a_stt[i] = 0.0f;
-				}
-			}
-		});
-	});
-	q.wait_and_throw();
-	end = std::chrono::high_resolution_clock::now();
-	kernel_execution_time += std::chrono::duration_cast<std::chrono::duration<double>>(end - beg).count();
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-void sycl_redux_semblances(sycl::queue& q, real* num, real* stt, int* ctr, real* str, real* stk,
-	int id, int cdp_id, int npar, int ns, int ncdps)
-{
-	sycl::buffer<real, 1> b_num(num, sycl::range<1>(ns * npar));
-	sycl::buffer<real, 1> b_stt(stt, sycl::range<1>(ns * npar));
-	sycl::buffer<int, 1> b_ctr(ctr, sycl::range<1>(ncdps*ns));
-	sycl::buffer<real, 1> b_str(str, sycl::range<1>(ncdps*ns));
-	sycl::buffer<real, 1> b_stk(stk, sycl::range<1>(ncdps*ns));
-  	beg = std::chrono::high_resolution_clock::now();
-  	// Submit Command group function object to the queue
-	q.submit([&](sycl::handler& cgh) {
-		// Accessors set as read_write mode
-		auto a_num = b_num.get_access<sycl::access::mode::read_write>(cgh);
-		auto a_stt = b_stt.get_access<sycl::access::mode::read_write>(cgh);
-		auto a_ctr = b_ctr.get_access<sycl::access::mode::read_write>(cgh);
-		auto a_str = b_str.get_access<sycl::access::mode::read_write>(cgh);
-		auto a_stk = b_stk.get_access<sycl::access::mode::read_write>(cgh);
-		cgh.parallel_for<class kernelD>(sycl::range<1>(ns), [=](sycl::id<1> ide)  {
-			int t0=ide.get(0);
-			real max_sem = 0.0f, _num;
-			int max_par = 0;
-
-			for(int it=t0*npar; it < (t0+1)*npar; it++) {
-				_num = a_num[it];
-				if(_num > max_sem) {
-				    max_sem = _num;
-				    max_par = it;
-				}
-			}
-
-			a_ctr[cdp_id*ns + t0] = max_par % npar;
-			a_str[cdp_id*ns + t0] = max_sem;
-			a_stk[cdp_id*ns + t0] = a_stt[max_par];
-		});
-	});
-	q.wait_and_throw();
-	end = std::chrono::high_resolution_clock::now();
-	kernel_execution_time += std::chrono::duration_cast<std::chrono::duration<double>>(end - beg).count();
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-void sycl_compute_points_for_gather(sycl::queue& q, real* h, real* m2, real* m,
-		real* m0x, real*  m0y, real* h0, int* ntraces_by_cdp_id, real m0x_cdp_id, real m0y_cdp_id,
-		int cdp0, int cdpf, int ntrs, int ttraces, int max_gather, int ncdps)
-{
-	sycl::buffer<real, 1> b_h(h, sycl::range<1>(ntrs * max_gather));
-	sycl::buffer<real, 1> b_m(m, sycl::range<1>(ntrs * max_gather));
-	sycl::buffer<real, 1> b_m2(m, sycl::range<1>(ntrs * max_gather));
-	sycl::buffer<real, 1> b_h0(h0, sycl::range<1>(ttraces));
-	sycl::buffer<real, 1> b_m0x(m0x, sycl::range<1>(ttraces));
-	sycl::buffer<real, 1> b_m0y(m0y, sycl::range<1>(ttraces));
-    sycl::buffer<int, 1> b_ntraces_by_cdp_id(ntraces_by_cdp_id, sycl::range<1>(ncdps));
-  	beg = std::chrono::high_resolution_clock::now();
-  	// Submit Command group function object to the queue
-	q.submit([&](sycl::handler& cgh) {
-		// Accessors set as read_write mode
-		auto a_m0x = b_m0x.get_access<sycl::access::mode::read_write>(cgh);
-		auto a_m0y = b_m0y.get_access<sycl::access::mode::read_write>(cgh);
-		auto a_h0 = b_h0.get_access<sycl::access::mode::read_write>(cgh);
-		auto a_h = b_h.get_access<sycl::access::mode::read_write>(cgh);
-		auto a_m2 = b_m2.get_access<sycl::access::mode::read_write>(cgh);
-		auto a_m = b_m.get_access<sycl::access::mode::read_write>(cgh);
-		auto a_ntraces_by_cdp_id = b_ntraces_by_cdp_id.get_access<sycl::access::mode::read_write>(cgh);
-		cgh.parallel_for<class kernelE>(sycl::range<1>(cdpf-cdp0+1), [=](sycl::id<1> it)  {
-			
-			real dx, dy, _m2;
-			int cdp = cdp0 + it.get(0);
-
-			if(cdp0 <= cdp && cdp <= cdpf)
-			{
-				int t_id00 = cdp0 > 0 ? a_ntraces_by_cdp_id[cdp0-1] : 0;
-				int t_id0 = cdp > 0 ? a_ntraces_by_cdp_id[cdp-1] : 0;
-				int t_idf = a_ntraces_by_cdp_id[cdp];
-				int sz = t_id0-t_id00;
-
-				for(int it=0; it < t_idf-t_id0; it++)
-				{
-				    dx = a_m0x[t_id0 + it] - m0x_cdp_id;
-				    dy = a_m0y[t_id0 + it] - m0y_cdp_id;
-				    _m2 = dx*dx + dy*dy;
-
-				    a_m2[sz + it] = _m2;
-				    a_m [sz + it] = sycl::sqrt(_m2);
-				    a_h [sz + it] = a_h0[t_id0 + it];
-				}
-			}
-		});
-	});
-	q.wait_and_throw();
-	end = std::chrono::high_resolution_clock::now();
-	kernel_execution_time += std::chrono::duration_cast<std::chrono::duration<double>>(end - beg).count();
-	
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 ////////////////////////////////////////////////////////////////////////////////
 
 int main(int argc, const char** argv) {
@@ -365,59 +167,65 @@ int main(int argc, const char** argv) {
   parser::parse(argc, argv);
 
   // Read parameters and input
-  a0 = std::stod(parser::get("-a0", true));
-  a1 = std::stod(parser::get("-a1", true));
-  b0 = std::stod(parser::get("-b0", true));
-  b1 = std::stod(parser::get("-b1", true));
-  c0 = std::stod(parser::get("-c0", true)) * FACTOR;
-  c1 = std::stod(parser::get("-c1", true)) * FACTOR;
-  itau = std::stod(parser::get("-tau", true));
-  na = std::stoi(parser::get("-na", true));
-  nb = std::stoi(parser::get("-nb", true));
-  nc = std::stoi(parser::get("-nc", true));
-  aph = std::stoi(parser::get("-aph", true));
-  apm = std::stoi(parser::get("-apm", true));
+  const real a0 = std::stod(parser::get("-a0", true));
+  const real a1 = std::stod(parser::get("-a1", true));
+  const real b0 = std::stod(parser::get("-b0", true));
+  const real b1 = std::stod(parser::get("-b1", true));
+  const real c0 = std::stod(parser::get("-c0", true)) * FACTOR;
+  const real c1 = std::stod(parser::get("-c1", true)) * FACTOR;
+  const real itau = std::stod(parser::get("-tau", true));
+  const int na = std::stoi(parser::get("-na", true));
+  const int nb = std::stoi(parser::get("-nb", true));
+  const int nc = std::stoi(parser::get("-nc", true));
+  const int aph = std::stoi(parser::get("-aph", true));
+  const int apm = std::stoi(parser::get("-apm", true));
   const int dev = std::stoi(parser::get("-d", false))-1;
-  ng = 1;
+  int ng = 1;
   std::string path = parser::get("-i", true);
   logger::verbosity_level(std::stoi(parser::get("-v", false)));
+
+//int na, nb, nc, aph, apm, ng, ttraces, ncdps, ns, ntrs, npar, max_gather, w, tau;
+//int *ntraces_by_cdp_id, *ctr, *size;
+//real a0, a1, b0, b1, c0, c1, itau, inc_a, inc_b, inc_c, dt, idt;
+//real *gx, *gy, *sx, *sy, *scalco, *samples, *h0, *m0x, *m0y, *num, *stt, *str, *stk, *cdpsmpl, *m2, *m, *h;
+  real *gx, *gy, *sx, *sy, *scalco, dt, *samples;
+  int *ntraces_by_cdp_id; // Number of traces for each cdp
 
   // Reads *.su data and starts gather
   su_gather gather(path, aph, apm, nc);
 
   // Linearize gather data in order to improove data coalescence in GPU
   gather.linearize(ntraces_by_cdp_id, samples, dt, gx, gy, sx, sy, scalco, nc);
-  ttraces = gather.ttraces(); // Total traces -> Total amount of traces read
-  ncdps = gather().size();    // Number of cdps -> Total number of cdps read
-  ns = gather.ns();           // Number of samples
-  ntrs = gather.ntrs();       // Max number of traces per cdp (fold)
-  inc_a = (a1-a0) * (1.0 / (real)na);
-  inc_b = (b1-b0) * (1.0 / (real)nb);
-  inc_c = (c1-c0) * (1.0 / (real)nc);
-  npar = na * nb * nc;
-  max_gather = gather.max_gather();
+  const int ttraces = gather.ttraces(); // Total traces -> Total amount of traces read
+  const int ncdps = gather().size();    // Number of cdps -> Total number of cdps read
+  const int ns = gather.ns();           // Number of samples
+  const int ntrs = gather.ntrs();       // Max number of traces per cdp (fold)
+  const real inc_a = (a1-a0) * (1.0 / (real)na);
+  const real inc_b = (b1-b0) * (1.0 / (real)nb);
+  const real inc_c = (c1-c0) * (1.0 / (real)nc);
+  const int npar = na * nb * nc;
+  const int max_gather = gather.max_gather();
   int number_of_semblances = 0;
-
   // Linear structures
-  par = new real4[ npar ];         // nc Cs
-  h0   = new real [ ttraces ];    // One halfoffset per trace
-  m0x  = new real [ ttraces ];    // One midpoint per trace
-  m0y  = new real [ ttraces ];    // One midpoint per trace
-  num = new real [ ns * npar ];    // nc nums per sample
-  stt = new real [ ng * ns * npar ];    // nc stts per sample
-  ctr = new int  [ ncdps * ns ]; // ns Cs per cdp
-  str = new real [ ncdps * ns ]; // ns semblance per cdp
-  stk = new real [ ncdps * ns ]; // ns stacked values per cdp
-  cdpsmpl = new real [ ns * ntrs * max_gather ]; // Samples for current cdp
-  m2 = new real [ ntrs * max_gather ]; // Samples for current cdp
-  m  = new real [ ntrs * max_gather ]; // Samples for current cdp
-  h  = new real [ ntrs * max_gather ]; // Samples for current cdp
+  real4 *par = new real4[ npar ];         // nc Cs
+  real *h0   = new real [ ttraces ];    // One halfoffset per trace
+  real *m0x  = new real [ ttraces ];    // One midpoint per trace
+  real *m0y  = new real [ ttraces ];    // One midpoint per trace
+  real *num = new real [ ns * npar ];    // nc nums per sample
+  real *stt = new real [ ng * ns * npar ];    // nc stts per sample
+  int *ctr = new int  [ ncdps * ns ]; // ns Cs per cdp
+  real *str = new real [ ncdps * ns ]; // ns semblance per cdp
+  real *stk = new real [ ncdps * ns ]; // ns stacked values per cdp
+  real *cdpsmpl = new real [ ns * ntrs * max_gather ]; // Samples for current cdp
+  real *m2 = new real [ ntrs * max_gather ]; // Samples for current cdp
+  real *m  = new real [ ntrs * max_gather ]; // Samples for current cdp
+  real *h  = new real [ ntrs * max_gather ]; // Samples for current cdp
 
   // Evaluate values for each cdp
   dt = dt / 1000000.0f;
-  idt = 1.0f / dt;
-  tau = (int)( itau * idt) > 0 ? (int)( itau * idt)  : 0;
-  w = (2 * tau) + 1;
+  real idt = 1.0f / dt;
+  int tau = (int)( itau * idt) > 0 ? (int)( itau * idt)  : 0;
+  int w = (2 * tau) + 1;
 
   	LOG(DEBUG, "Starting SYCL devices");
 	// Define device selector as 'default'
@@ -455,9 +263,26 @@ int main(int argc, const char** argv) {
 
 			// Evaluate Cs - linspace
 			sycl_init_par(queues[dev], par, a0, b0, c0, inc_a, inc_b, inc_c, na, nb, nc, npar);
-
 			// Evaluate halfoffset points in x and y coordinates
 			sycl_init_mid(queues[dev], scalco, gx, gy, sx, sy, m0x, m0y, h0, ttraces);
+
+
+
+			sycl::buffer<real, 1> b_h(h, sycl::range<1>(ntrs * max_gather));
+			sycl::buffer<real, 1> b_m(m, sycl::range<1>(ntrs * max_gather));
+			sycl::buffer<real, 1> b_num(num, sycl::range<1>(ns * npar));
+			sycl::buffer<real, 1> b_m2(m, sycl::range<1>(ntrs * max_gather));
+			sycl::buffer<real, 1> b_h0(h0, sycl::range<1>(ttraces));
+			sycl::buffer<real, 1> b_m0x(m0x, sycl::range<1>(ttraces));
+			sycl::buffer<real, 1> b_m0y(m0y, sycl::range<1>(ttraces));
+			sycl::buffer<int, 1> b_ntraces_by_cdp_id(ntraces_by_cdp_id, sycl::range<1>(ncdps));
+
+			sycl::buffer<real, 1> b_stt(stt, sycl::range<1>(ns * npar));
+			sycl::buffer<real4, 1> b_par(par, sycl::range<1>(npar));
+
+			sycl::buffer<int, 1> b_ctr(ctr, sycl::range<1>(ncdps*ns));
+			sycl::buffer<real, 1> b_str(str, sycl::range<1>(ncdps*ns));
+			sycl::buffer<real, 1> b_stk(stk, sycl::range<1>(ncdps*ns));
 
     		// Compute max semblances and get max C for each CDP
 			for(int cdp_id=0; cdp_id < ncdps; cdp_id++) {
@@ -472,12 +297,162 @@ int main(int argc, const char** argv) {
 
 				memcpy(cdpsmpl, samples + t_id0*ns, ntraces*ns*sizeof(real));
 
-      			sycl_compute_points_for_gather(queues[dev], h, m2, m, m0x, m0y, h0, ntraces_by_cdp_id,
-										m0x_cdp_id, m0y_cdp_id, cdp0, cdpf, ntrs, ttraces, max_gather, ncdps);
+				sycl::buffer<real, 1> b_samples(cdpsmpl, sycl::range<1>(ntrs * max_gather * ns));
 
-				sycl_compute_semblances(queues[dev], h, m2, m, cdpsmpl, num, stt, par, ntraces, idt, dt, tau, w, npar, ns, ntrs, max_gather);
+      			//sycl_compute_points_for_gather(queues[dev], h, m2, m, m0x, m0y, h0, ntraces_by_cdp_id,
+										//m0x_cdp_id, m0y_cdp_id, cdp0, cdpf, ntrs, ttraces, max_gather, ncdps);
+			  	beg = std::chrono::high_resolution_clock::now();
+			  	// Submit Command group function object to the queue
+				queues[dev].submit([&](sycl::handler& cgh) {
+					// Accessors set as read_write mode
+					auto a_m0x = b_m0x.get_access<sycl::access::mode::read_write>(cgh);
+					auto a_m0y = b_m0y.get_access<sycl::access::mode::read_write>(cgh);
+					auto a_h0 = b_h0.get_access<sycl::access::mode::read_write>(cgh);
+					auto a_h = b_h.get_access<sycl::access::mode::read_write>(cgh);
+					auto a_m2 = b_m2.get_access<sycl::access::mode::read_write>(cgh);
+					auto a_m = b_m.get_access<sycl::access::mode::read_write>(cgh);
+					auto a_ntraces_by_cdp_id = b_ntraces_by_cdp_id.get_access<sycl::access::mode::read_write>(cgh);
+					cgh.parallel_for<class kernelE>(sycl::range<1>(cdpf-cdp0+1), [=](sycl::id<1> it)  {
+						
+						real dx, dy, _m2;
+						int cdp = cdp0 + it.get(0);
 
-				sycl_redux_semblances(queues[dev], num, stt, ctr, str, stk, id, cdp_id, npar, ns, ncdps);
+						if(cdp0 <= cdp && cdp <= cdpf)
+						{
+							int t_id00 = cdp0 > 0 ? a_ntraces_by_cdp_id[cdp0-1] : 0;
+							int t_id0 = cdp > 0 ? a_ntraces_by_cdp_id[cdp-1] : 0;
+							int t_idf = a_ntraces_by_cdp_id[cdp];
+							int sz = t_id0-t_id00;
+
+							for(int it=0; it < t_idf-t_id0; it++)
+							{
+								dx = a_m0x[t_id0 + it] - m0x_cdp_id;
+								dy = a_m0y[t_id0 + it] - m0y_cdp_id;
+								_m2 = dx*dx + dy*dy;
+
+								a_m2[sz + it] = _m2;
+								a_m [sz + it] = sycl::sqrt(_m2);
+								a_h [sz + it] = a_h0[t_id0 + it];
+							}
+						}
+					});
+				});
+				queues[dev].wait_and_throw();
+				end = std::chrono::high_resolution_clock::now();
+				kernel_execution_time += std::chrono::duration_cast<std::chrono::duration<double>>(end - beg).count();
+
+				//sycl_compute_semblances(queues[dev], h, m2, m, cdpsmpl, num, stt, par, ntraces, idt, dt, tau, w, npar, ns, ntrs, max_gather);
+			  	beg = std::chrono::high_resolution_clock::now();
+			  	// Submit Command group function object to the queue
+				queues[dev].submit([&](sycl::handler& cgh) {
+					// Accessors set as read_write mode
+					auto a_h       = b_h.get_access<sycl::access::mode::read_write>(cgh);
+					auto a_m2      = b_m2.get_access<sycl::access::mode::read_write>(cgh);
+					auto a_m       = b_m.get_access<sycl::access::mode::read_write>(cgh);
+					auto a_samples = b_samples.get_access<sycl::access::mode::read_write>(cgh);
+					auto a_num     = b_num.get_access<sycl::access::mode::read_write>(cgh);
+					auto a_stt     = b_stt.get_access<sycl::access::mode::read_write>(cgh);
+					auto a_par     = b_par.get_access<sycl::access::mode::read_write>(cgh);
+					cgh.parallel_for<class kernelC>(
+					sycl::nd_range<1>(ns*npar+NTHREADS-(ns*npar)%NTHREADS, NTHREADS), [=](sycl::nd_item<1> item)  {
+
+						real _den = 0.0f, _ac_linear = 0.0f, _ac_squared = 0.0f;
+						real _num[MAX_W],  mm = 0.0f;
+						int err = 0;
+
+						int i = item.get_global_id();
+
+						int par_id = i % npar;
+						int t0 = i / npar;
+
+						real4 _p = a_par[par_id];
+						real _t0 = dt * t0;
+
+						if(i < ns * npar)
+						{
+							// start _num with zeros
+							for(int j=0; j < w; j++) _num[j] = 0.0f;
+
+							for(int k=0; k < ntraces; k++) {
+								// Evaluate t
+								real _m2 = a_m2[k];
+								real t = _t0 + _p.a * a_m[k];
+								t = t*t + _p.b*_m2 + _p.c*a_h[k];
+								t = t < 0.0 ? -1 : (sycl::sqrt(t) * idt);
+
+								int it = (int)( t );
+								int ittau = it - tau;
+								real x = t - (real)it;
+
+								if(ittau >= 0 && it + tau + 1 < ns) {
+									int k1 = ittau + k*ns;
+									real sk1p1= a_samples[k1], sk1;
+
+									for(int j=0; j < w; j++) {
+										k1++;
+										sk1 = sk1p1;
+										sk1p1 = a_samples[k1];
+										// linear interpolation optmized for this problem
+										real v = (sk1p1 - sk1) * x + sk1;
+
+										_num[j] += v;
+										_den += v * v;
+										_ac_linear += v;
+									}
+									mm += 1;
+								} else { err++; }
+							}
+
+							// Reduction for num
+							for(int j=0; j < w; j++) _ac_squared += _num[j] * _num[j];
+
+							// Evaluate semblances
+							if(_den > EPSILON && mm > EPSILON && w > EPSILON && err < 2) {
+								a_num[i] = _ac_squared / (_den * mm);
+								a_stt[i] = _ac_linear  / (w   * mm);
+							}
+							else {
+								a_num[i] = 0.0f;
+								a_stt[i] = 0.0f;
+							}
+						}
+					});
+				});
+				queues[dev].wait_and_throw();
+				end = std::chrono::high_resolution_clock::now();
+				kernel_execution_time += std::chrono::duration_cast<std::chrono::duration<double>>(end - beg).count();
+
+				//sycl_redux_semblances(queues[dev], num, stt, ctr, str, stk, id, cdp_id, npar, ns, ncdps);
+			  	beg = std::chrono::high_resolution_clock::now();
+			  	// Submit Command group function object to the queue
+				queues[dev].submit([&](sycl::handler& cgh) {
+					// Accessors set as read_write mode
+					auto a_num = b_num.get_access<sycl::access::mode::read_write>(cgh);
+					auto a_stt = b_stt.get_access<sycl::access::mode::read_write>(cgh);
+					auto a_ctr = b_ctr.get_access<sycl::access::mode::read_write>(cgh);
+					auto a_str = b_str.get_access<sycl::access::mode::read_write>(cgh);
+					auto a_stk = b_stk.get_access<sycl::access::mode::read_write>(cgh);
+					cgh.parallel_for<class kernelD>(sycl::range<1>(ns), [=](sycl::id<1> ide)  {
+						int t0=ide.get(0);
+						real max_sem = 0.0f, _num;
+						int max_par = 0;
+
+						for(int it=t0*npar; it < (t0+1)*npar; it++) {
+							_num = a_num[it];
+							if(_num > max_sem) {
+								max_sem = _num;
+								max_par = it;
+							}
+						}
+
+						a_ctr[cdp_id*ns + t0] = max_par % npar;
+						a_str[cdp_id*ns + t0] = max_sem;
+						a_stk[cdp_id*ns + t0] = a_stt[max_par];
+					});
+				});
+				queues[dev].wait_and_throw();
+				end = std::chrono::high_resolution_clock::now();
+				kernel_execution_time += std::chrono::duration_cast<std::chrono::duration<double>>(end - beg).count();
 
 				number_of_semblances += ntraces;
 
