@@ -27,8 +27,8 @@
 #include "su_gather.hpp"
 
 #include <CL/sycl.hpp>
-#include <CL/sycl/intel/fpga_extensions.hpp>
-//#include <CL/sycl/INTEL/fpga_extensions.hpp>
+//#include <CL/sycl/intel/fpga_extensions.hpp>
+#include <CL/sycl/INTEL/fpga_extensions.hpp>
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
@@ -38,8 +38,12 @@
 #include <cstring>
 #include <chrono>
 
+/////////////////////KERNEL NAMES////////////////////////////////////////
+class init_c;
+class init_half;
+class compute_semblances;
+class redux_semblances;
 ////////////////////////////////////////////////////////////////////////////////
-
 #define MAX_W 16
 
 #define EPSILON 1e-13
@@ -48,13 +52,13 @@
 
 #define NTHREADS 128
 
-#define STATIC_NC 4 //it needs be bigger than ns
+#define BANK_SIZE 32 //it needs be bigger than ns
 
-#define STATIC_TTRACES 8192 //it needs be bigger than ttraces
+#define STATIC_NC 5 //it needs be bigger than ns
 
-#define STATIC_NS 4096 //it needs be bigger than ns
+#define STATIC_TTRACES 7000 //it needs be bigger than ttraces
 
-#define NSNC 16384 //it needs be bigger than ns*nc
+#define STATIC_NS 2510 //it needs be bigger than ns
 
 namespace sycl = cl::sycl;
 ////////////////////////////////////////////////////////////////////////////////
@@ -167,11 +171,11 @@ int main(int argc, const char** argv) {
 		*/
 
 		#if defined(FPGA_EMULATOR)
-		  sycl::intel::fpga_emulator_selector device_selector;
-		  //sycl::INTEL::fpga_emulator_selector device_selector;
+		  //sycl::intel::fpga_emulator_selector device_selector;
+		  sycl::INTEL::fpga_emulator_selector device_selector;
 		#else
-		  sycl::intel::fpga_selector device_selector;
-		  //sycl::INTEL::fpga_selector device_selector;
+		  //sycl::intel::fpga_selector device_selector;
+		  sycl::INTEL::fpga_selector device_selector;
 		#endif
 		
 		// Copies data to Compute Device
@@ -186,10 +190,8 @@ int main(int argc, const char** argv) {
 		queue.submit([&](sycl::handler& cgh) {
 			// Accessors set as read_write mode
 			auto a_c = b_c.get_access<sycl::access::mode::read_write>(cgh);
-			cgh.single_task([=](){
+			cgh.single_task<init_c>([=](){
 				//Unroll 5
-				#pragma unroll 5 
-				[[intelfpga::ivdep]]
 				for(int i=0; i < nc; i++) {
 					//Não precisa de memoria_local****
 					a_c[i] = c0 + inc*i;
@@ -219,7 +221,7 @@ int main(int argc, const char** argv) {
 			auto a_scalco  = b_scalco.get_access<sycl::access::mode::read>(cgh);
 			auto a_h       = b_h.get_access<sycl::access::mode::read_write>(cgh);
 
-			cgh.single_task([=]() {
+			cgh.single_task<init_half>([=]() {
 				//Não consigo fazer banking aqui
 				real local_s[STATIC_TTRACES];
 				real local_hx[STATIC_TTRACES];
@@ -227,8 +229,8 @@ int main(int argc, const char** argv) {
 				
 				//ttraces = 6000
 				//Unroll ?
-				//#pragma unroll 2048 
-				//[[intelfpga::ivdep]]
+				#pragma unroll 6 
+				[[intelfpga::ivdep]]
 				for(int i=0; i < ttraces; i++) {
 					//Memória local usada aqui
 					local_s[i] = a_scalco[i];
@@ -236,13 +238,6 @@ int main(int argc, const char** argv) {
 						local_s[i] = 1.0f;
 					else if(local_s[i] < 0)
 						local_s[i] = 1.0f / local_s[i];
-				}
-				
-				//ttraces = 6000
-				//Unroll ?
-				#pragma unroll 3000 
-				[[intelfpga::ivdep]]
-				for(int i=0; i < ttraces; i++) {
 					//Memória local usada aqui
 					local_hx[i] = (a_gx[i] - a_sx[i]) * local_s[i];
 					local_hy[i] = (a_gy[i] - a_sy[i]) * local_s[i];
@@ -250,7 +245,7 @@ int main(int argc, const char** argv) {
 				
 				//ttraces = 6000
 				//Unroll ?
-				#pragma unroll 3000 
+				#pragma unroll 6
 				[[intelfpga::ivdep]]
 				for(int i=0; i < ttraces; i++) {
 					//Memória local usada aqui
@@ -261,7 +256,6 @@ int main(int argc, const char** argv) {
 		queue.wait_and_throw();
 		end = std::chrono::high_resolution_clock::now();
 		kernel_execution_time += std::chrono::duration_cast<std::chrono::duration<double>>(end - beg).count();
-		sycl::buffer<real, 1> b_cdpsmpl(cdpsmpl, sycl::range<1>(ntrs * ns));
 		sycl::buffer<real, 1> b_num(num, sycl::range<1>(ns * nc));
 		sycl::buffer<real, 1> b_stt(stt, sycl::range<1>(ns * nc));
 		sycl::buffer<real, 1> b_str(str, sycl::range<1>(ncdps * ns));
@@ -278,7 +272,14 @@ int main(int argc, const char** argv) {
 		for(int cdp_id = 0; cdp_id < ncdps; ) {
 			assert(w <= MAX_W);
 			// Copies data back to host
+			
+			//std::cout << "w: " << w << std::endl;
+			//std::cout << "MAX_W: " << w << std::endl;
+			//std::cout << "t_id0 - t_idf: " << t_idf - t_id0 << std::endl;
+			
 			memcpy(cdpsmpl, samples + t_id0*ns, stride*ns*sizeof(real));
+            sycl::buffer<real, 1> b_cdpsmpl(cdpsmpl, sycl::range<1>(ntrs * ns));
+            
 		  	beg = std::chrono::high_resolution_clock::now();
 			// Submit Command group function object to the queue
 			
@@ -290,113 +291,111 @@ int main(int argc, const char** argv) {
 				auto a_num     = b_num.get_access<sycl::access::mode::read_write>(cgh);
 				auto a_stt     = b_stt.get_access<sycl::access::mode::read_write>(cgh);
 
-				cgh.single_task([=](){
-					//Memória local e banking criados
-      				[[intelfpga::numbanks(STATIC_NC)]]
+				cgh.single_task<compute_semblances>([=](){
 					real local_a_num[STATIC_NS][STATIC_NC];
 					real local_a_stt[STATIC_NS][STATIC_NC];
 					real local_c[STATIC_NC];
 					real local_t0[STATIC_NS];
-					
-					//ns = 2502
+                    
+                    //ns = 2502
 					//Unroll ?
-					#pragma unroll 834 
+					#pragma unroll 3 
 					[[intelfpga::ivdep]]
-					for(int i=0; i < ns; i++){
+					for(int t0=0; t0 < ns; t0++){
 						//Memória local usada aqui
-						real _t0 = dt * i;
-						local_t0[i] = _t0 * _t0;
+						real _t0 = dt * t0;
+						local_t0[t0] = _t0 * _t0;
 					}
 					
 					//nc = 5
 					//Unroll ?
 					#pragma unroll 5 
 					[[intelfpga::ivdep]]
-					for(int j=0; j < nc; j++) {	
+					for(int c_id=0; c_id < nc; c_id++) {	
 						//Memória local usada aqui
-						local_c[j] = a_c[j];
+						local_c[c_id] = a_c[c_id];
 					}
+                    
+                    for(int t0=0; t0 < ns; t0++){
+                        for(int c_id=0; c_id < nc; c_id++) {
 
-					//ns*nc = 12510
-					//Unroll ?
-					for(int i=0; i < ns; i++){
-						for(int j=0; j < nc; i++) {
-							real _den = 0.0f, _ac_linear = 0.0f, _ac_squared = 0.0f;
-							real _num[MAX_W],  m = 0.0f;
-							int err = 0;
-							
-							// start _num with zeros
-							//w = 3
-							//Unroll 3
-							#pragma unroll 3 
-							[[intelfpga::ivdep]]
-							for(int l=0; l < w; l++) _num[l] = 0.0f;
+                            real _den = 0.0f, _ac_linear = 0.0f, _ac_squared = 0.0f;
+                            real _num[MAX_W],  m = 0.0f;
+                            int err = 0;
 
-							//Unroll ?
-							for(int t_id=t_id0; t_id < t_idf; t_id++) {
-								// Evaluate t
-								//Memória local usada aqui
-								real t = sycl::sqrt(local_t0[i] + local_c[j] * a_h[t_id]);
+                            // start _num with zeros
+                            //w = 3
+                            //Unroll 3
+                            #pragma unroll 3 
+                            [[intelfpga::ivdep]]
+                            for(int j=0; j < w; j++) _num[j] = 0.0f;
 
-								int it = (int)( t * idt );
-								int ittau = it - tau;
-								real x = t * idt - (real)it;
+                            //Unroll 15
+                            for(int t_id=t_id0; t_id < t_idf; t_id++) {
+                                // Evaluate t
+                                real t = sycl::sqrt(local_t0[t0] + local_c[c_id] * a_h[t_id]);
 
-								if(ittau >= 0 && it + tau + 1 < ns) {
-									int k1 = ittau + (t_id-t_id0)*ns;
-									//Não precisa de memoria_local****
-									real sk1p1 = a_cdpsmpl[k1], sk1;
-									//w = 3
-									//Unroll 3
-									#pragma unroll 3 
-									[[intelfpga::ivdep]]
-									for(int l=0; l < w; l++) {
-										k1++;
-										sk1 = sk1p1;
-										sk1p1 = a_cdpsmpl[k1];
+                                int it = (int)( t * idt );
+                                int ittau = it - tau;
+                                real x = t * idt - (real)it;
 
-										// linear interpolation optmized for this problem
-										real v = (sk1p1 - sk1) * x + sk1;
+                                if(ittau >= 0 && it + tau + 1 < ns) {
+                                    int k1 = ittau + (t_id-t_id0)*ns;
+                                    //Não precisa de memoria_local****
+                                    real sk1p1 = a_cdpsmpl[k1], sk1;
+                                    //w = 3
+                                    //Unroll 3
+                                    #pragma unroll 3 
+                                    [[intelfpga::ivdep]]
+                                    for(int j=0; j < w; j++) {
+                                        k1++;
+                                        sk1 = sk1p1;
+                                        sk1p1 = a_cdpsmpl[k1];
 
-										_num[l] += v;
-										_den += v * v;
-										_ac_linear += v;
-									}
-									m += 1;
-								} else { err++; }
-							}
+                                        // linear interpolation optmized for this problem
+                                        real v = (sk1p1 - sk1) * x + sk1;
 
-							// Reduction for num
-							//w = 3
-							//Unroll 3
-							#pragma unroll 3 
-							[[intelfpga::ivdep]]
-							for(int l=0; l < w; l++) _ac_squared += _num[l] * _num[l];
-							
-							// Evaluate semblances
-							if(_den > EPSILON && m > EPSILON && w > EPSILON && err < 2) {
-								//Memória local usada aqui
-								local_a_num[i][j] = _ac_squared / (_den * m);
-								local_a_stt[i][j] = _ac_linear  / (w   * m);
-							}else{
-								//Memória local usada aqui
-								local_a_num[i][j] = -1.0f;
-								local_a_stt[i][j] = -1.0f;
-							}
-						}
-					}
+                                        _num[j] += v;
+                                        _den += v * v;
+                                        _ac_linear += v;
+                                    }
+                                    m += 1;
+                                } else { err++; }
+                            }
+
+                            // Reduction for num
+                            //w = 3
+                            //Unroll 3
+                            #pragma unroll 3 
+                            [[intelfpga::ivdep]]
+                            for(int j=0; j < w; j++) _ac_squared += _num[j] * _num[j];
+
+                            // Evaluate semblances
+                            if(_den > EPSILON && m > EPSILON && w > EPSILON && err < 2) {
+                                //Memória local usada aqui
+                                local_a_num[t0][c_id] = _ac_squared / (_den * m);
+                                local_a_stt[t0][c_id] = _ac_linear  / (w   * m);
+                            }else{
+                                //Memória local usada aqui
+                                local_a_num[t0][c_id] = -1.0f;
+                                local_a_stt[t0][c_id] = -1.0f;
+                            }
+                        }
+                    }
 					
-					for(int i=0; i < ns; i++){	
-						//nc = 5
-						//Unroll ?
-						#pragma unroll 5 
-						[[intelfpga::ivdep]]
-						for(int j=0; j < nc; i++) {
-							//Memória local usada aqui
-							a_num[i*nc+j] = local_a_num[i][j];
-							a_stt[i*nc+j] = local_a_stt[i][j];
-						}
-					}
+                    
+                    for(int t0=0; t0 < ns; t0++){
+                        // Reduction for num
+                        //w = 3
+                        //Unroll 3
+                        #pragma unroll 5 
+                        [[intelfpga::ivdep]]
+                        for(int c_id=0; c_id < nc; c_id++) {
+                            //Memória local usada aqui
+                            a_num[t0*nc+c_id] = local_a_num[t0][c_id];
+                            a_stt[t0*nc+c_id] = local_a_stt[t0][c_id];
+                        }
+                    }
 				});
 			});
 			queue.wait_and_throw();
@@ -412,24 +411,15 @@ int main(int argc, const char** argv) {
 				auto a_str     = b_str.get_access<sycl::access::mode::write>(cgh);
 				auto a_stk     = b_stk.get_access<sycl::access::mode::write>(cgh);
 				auto a_ctr     = b_ctr.get_access<sycl::access::mode::write>(cgh);
-				cgh.single_task([=]( ) {
-					//Memória local criada aqui
-					real local_a_ctr[STATIC_NS];
-					real local_a_str[STATIC_NS];
-					real local_a_stk[STATIC_NS];
-				
+				cgh.single_task<redux_semblances>([=]( ) {
 					//ns=2502
 					//Unroll ?
-					#pragma unroll 834	 
-					[[intelfpga::ivdep]]
 					for(int t0=0; t0 < ns; t0++) {
 						real max_sem = 0.0f, _num;
 						int max_c = -1;
 						
 						//it = (valor inicial) + 5
 						//Unroll 5
-						#pragma unroll 5	 
-						[[intelfpga::ivdep]]
 						for(int it=t0*nc; it < (t0+1)*nc ; it++) {
 							_num = a_num[it];
 							if(_num > max_sem) {
@@ -438,40 +428,12 @@ int main(int argc, const char** argv) {
 							}
 						}
 
-						//Memória local usada aqui
-						local_a_ctr[t0] = max_c % nc;
-						local_a_str[t0] = max_sem;
-						local_a_stk[t0] = max_c > -1 ? a_stt[max_c] : 0;
-					}
-					
-				
-					//ns=2502
-					//Unroll ?
-					#pragma unroll 834	 
-					[[intelfpga::ivdep]]
-					for(int t0=0; t0 < ns; t0++) {
-						//Memória local usada aqui
-						a_ctr[cdp_id*ns + t0] = local_a_ctr[t0];
-					}
-					
-				
-					//ns=2502
-					//Unroll ?
-					#pragma unroll 834	 
-					[[intelfpga::ivdep]]
-					for(int t0=0; t0 < ns; t0++) {
-						//Memória local usada aqui
-						a_str[cdp_id*ns + t0] = local_a_str[t0];
-					}
-					
-				
-					//ns=2502
-					//Unroll ?
-					#pragma unroll 834	 
-					[[intelfpga::ivdep]]
-					for(int t0=0; t0 < ns; t0++) {
-						//Memória local usada aqui
-						a_stk[cdp_id*ns + t0] = local_a_stk[t0];
+						//Criar variável local
+						a_ctr[cdp_id*ns + t0] = max_c % nc;
+						//Criar variável local
+						a_str[cdp_id*ns + t0] = max_sem;
+						//Criar variável local
+						a_stk[cdp_id*ns + t0] = max_c > -1 ? a_stt[max_c] : 0;
 					}
 				});
 			});

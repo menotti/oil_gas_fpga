@@ -27,8 +27,8 @@
 #include "su_gather.hpp"
 
 #include <CL/sycl.hpp>
-#include <CL/sycl/intel/fpga_extensions.hpp>
-//#include <CL/sycl/INTEL/fpga_extensions.hpp>
+//#include <CL/sycl/intel/fpga_extensions.hpp>
+#include <CL/sycl/INTEL/fpga_extensions.hpp>
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
@@ -164,11 +164,11 @@ int main(int argc, const char** argv) {
 		*/
 
 		#if defined(FPGA_EMULATOR)
-		  sycl::intel::fpga_emulator_selector device_selector;
-		  //sycl::INTEL::fpga_emulator_selector device_selector;
+		  //sycl::intel::fpga_emulator_selector device_selector;
+		  sycl::INTEL::fpga_emulator_selector device_selector;
 		#else
-		  sycl::intel::fpga_selector device_selector;
-		  //sycl::INTEL::fpga_selector device_selector;
+		  //sycl::intel::fpga_selector device_selector;
+		  sycl::INTEL::fpga_selector device_selector;
 		#endif
 		
 		// Copies data to Compute Device
@@ -238,7 +238,6 @@ int main(int argc, const char** argv) {
 		queue.wait_and_throw();
 		end = std::chrono::high_resolution_clock::now();
 		kernel_execution_time += std::chrono::duration_cast<std::chrono::duration<double>>(end - beg).count();
-		sycl::buffer<real, 1> b_cdpsmpl(cdpsmpl, sycl::range<1>(ntrs * ns));
 		sycl::buffer<real, 1> b_num(num, sycl::range<1>(ns * nc));
 		sycl::buffer<real, 1> b_stt(stt, sycl::range<1>(ns * nc));
 		sycl::buffer<real, 1> b_str(str, sycl::range<1>(ncdps * ns));
@@ -261,6 +260,7 @@ int main(int argc, const char** argv) {
 			//std::cout << "t_id0 - t_idf: " << t_idf - t_id0 << std::endl;
 			
 			memcpy(cdpsmpl, samples + t_id0*ns, stride*ns*sizeof(real));
+            sycl::buffer<real, 1> b_cdpsmpl(cdpsmpl, sycl::range<1>(ntrs * ns));
 		  	beg = std::chrono::high_resolution_clock::now();
 			// Submit Command group function object to the queue
 			

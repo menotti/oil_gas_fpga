@@ -26,8 +26,8 @@
 #include "su_gather.hpp"
 
 #include <CL/sycl.hpp>
-#include <CL/sycl/intel/fpga_extensions.hpp>
-//#include <CL/sycl/INTEL/fpga_extensions.hpp>
+//#include <CL/sycl/intel/fpga_extensions.hpp>
+#include <CL/sycl/INTEL/fpga_extensions.hpp>
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
@@ -207,11 +207,11 @@ int main(int argc, const char** argv) {
 	*/
 
 	#if defined(FPGA_EMULATOR)
-	  sycl::intel::fpga_emulator_selector device_selector;
-	  //sycl::INTEL::fpga_emulator_selector device_selector;
+	  //sycl::intel::fpga_emulator_selector device_selector;
+	  sycl::INTEL::fpga_emulator_selector device_selector;
 	#else
-	  sycl::intel::fpga_selector device_selector;
-	  //sycl::INTEL::fpga_selector device_selector;
+	  //sycl::intel::fpga_selector device_selector;
+	  sycl::INTEL::fpga_selector device_selector;
 	#endif
 
 	// exception handler
@@ -354,7 +354,6 @@ int main(int argc, const char** argv) {
 			sycl::buffer<real, 1> b_m(m, sycl::range<1>(ntrs * max_gather));
 			sycl::buffer<real, 1> b_m2(m, sycl::range<1>(ntrs * max_gather));
 			sycl::buffer<int, 1> b_ntraces_by_cdp_id(ntraces_by_cdp_id, sycl::range<1>(ncdps));
-			sycl::buffer<real, 1> b_samples(cdpsmpl, sycl::range<1>(ntrs * max_gather * ns));
 			sycl::buffer<real, 1> b_num(num, sycl::range<1>(ns * npar));
 			sycl::buffer<real, 1> b_stt(stt, sycl::range<1>(ns * npar));
 			sycl::buffer<int, 1> b_ctr(ctr, sycl::range<1>(ncdps*ns));
@@ -373,6 +372,7 @@ int main(int argc, const char** argv) {
 				int ntraces = t_idf - t_id0;
 
 				memcpy(cdpsmpl, samples + t_id0*ns, ntraces*ns*sizeof(real));
+                sycl::buffer<real, 1> b_samples(cdpsmpl, sycl::range<1>(ntrs * max_gather * ns));
 
       			//sycl_compute_points_for_gather(q, h, m2, m, m0x, m0y, h0, ntraces_by_cdp_id,
 										//m0x_cdp_id, m0y_cdp_id, cdp0, cdpf, ntrs, ttraces, max_gather, ncdps);
