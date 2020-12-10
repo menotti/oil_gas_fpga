@@ -313,9 +313,9 @@ int main(int argc, const char** argv) {
 					[[intelfpga::ivdep]]
 					for(int i=0; i < ttraces; i++) {
 						//Memória local usada aqui
-						a_m0x[i]  = local_hx[i]*0.5;
+						a_m0x[i]  = (a_gx[i] + a_sx[i]) * local_s[i] * 0.5;
 						//Memória local usada aqui
-						a_m0y[i]  = local_hy[i]*0.5;
+						a_m0y[i]  = (a_gy[i] + a_sy[i]) * local_s[i] * 0.5;
 					}
 					
 					//ttraces = 6000
@@ -326,24 +326,6 @@ int main(int argc, const char** argv) {
 						//Memória local usada aqui
 						a_h0[i] = 0.25 * (local_hx[i] * local_hx[i] + local_hy[i] * local_hy[i]) / FACTOR;
 					}
-				
-					//Unroll aqui
-			  		/*for(int i=0; i < ttraces; i++) {
-						real _s = a_scalco[i];
-
-						if(-EPSILON < _s && _s < EPSILON) _s = 1.0;
-						else if(_s < 0) _s = 1.0f / _s;
-
-						a_m0x[i] = (a_gx[i] + a_sx[i]) * _s * 0.5;
-						a_m0y[i] = (a_gy[i] + a_sy[i]) * _s * 0.5;
-
-						//Criar variável local
-						real hx = (a_gx[i] - a_sx[i]) * _s;
-						//Criar variável local
-						real hy = (a_gy[i] - a_sy[i]) * _s;
-
-						a_h0[i] = 0.25 * (hx * hx + hy * hy) / FACTOR;
-					}*/
 				});
 			});
 			q.wait_and_throw();
@@ -352,7 +334,7 @@ int main(int argc, const char** argv) {
 			
 			sycl::buffer<real, 1> b_h(h, sycl::range<1>(ntrs * max_gather));
 			sycl::buffer<real, 1> b_m(m, sycl::range<1>(ntrs * max_gather));
-			sycl::buffer<real, 1> b_m2(m, sycl::range<1>(ntrs * max_gather));
+			sycl::buffer<real, 1> b_m2(m2, sycl::range<1>(ntrs * max_gather));
 			sycl::buffer<int, 1> b_ntraces_by_cdp_id(ntraces_by_cdp_id, sycl::range<1>(ncdps));
 			sycl::buffer<real, 1> b_num(num, sycl::range<1>(ns * npar));
 			sycl::buffer<real, 1> b_stt(stt, sycl::range<1>(ns * npar));
@@ -412,7 +394,7 @@ int main(int argc, const char** argv) {
 								local_dx[sz + it] = a_m0x[t_id0 + it] - m0x_cdp_id;
 								local_dy[sz + it] = a_m0y[t_id0 + it] - m0y_cdp_id;
 								local_m2[sz + it] = local_dx[sz + it]*local_dx[sz + it] + local_dy[sz + it]*local_dy[sz + it];
-								local_a_h0[sz + it] = a_h0[t_id0 + it];
+								local_a_h0[t_id0 + it] = a_h0[t_id0 + it];
 							}
 
 							//t_idf-t_id0 = 75
@@ -429,28 +411,6 @@ int main(int argc, const char** argv) {
 								a_h [sz + it] = local_a_h0[t_id0 + it];
 							}
 						}
-						//Unroll 		
-						/*for(int cdp=cdp0; cdp <= cdpf; cdp++) {
-							int t_id00 = cdp0 > 0 ? a_ntraces_by_cdp_id[cdp0-1] : 0;
-							int t_id0 = cdp > 0 ? a_ntraces_by_cdp_id[cdp-1] : 0;
-							int t_idf = a_ntraces_by_cdp_id[cdp];
-							int sz = t_id0-t_id00;
-				
-							//Unroll 
-							for(int it=0; it < t_idf-t_id0; it++)
-							{
-								real dx = a_m0x[t_id0 + it] - m0x_cdp_id;
-								real dy = a_m0y[t_id0 + it] - m0y_cdp_id;
-								real _m2 = dx*dx + dy*dy;
-
-								//Criar variável local
-								a_m2[sz + it] = _m2;
-								//Criar variável local
-								a_m [sz + it] = sycl::sqrt(_m2);
-								//Criar variável local
-								a_h [sz + it] = a_h0[t_id0 + it];
-							}
-						}*/
 					});
 				});
 				q.wait_and_throw();
@@ -555,37 +515,25 @@ int main(int argc, const char** argv) {
 								// Evaluate semblances
 								if(_den > EPSILON && mm > EPSILON && w > EPSILON && err < 2) {
 									//Memória local usada aqui
-									a_num[t0*npar + par_id] = _ac_squared / (_den * mm);
+									local_a_num[t0][par_id] = _ac_squared / (_den * mm);
 									//Memória local usada aqui
-									a_stt[t0*npar + par_id] = _ac_linear  / (w   * mm);
+									local_a_stt[t0][par_id] = _ac_linear  / (w   * mm);
 								}
 								else {
 									//Memória local usada aqui
-									a_num[t0*npar + par_id] = 0.0f;
+									local_a_num[t0][par_id] = 0.0f;
 									//Memória local usada aqui
-									a_stt[t0*npar + par_id] = 0.0f;
+									local_a_stt[t0][par_id] = 0.0f;
 								}
-								/*if(_den > EPSILON && mm > EPSILON && w > EPSILON && err < 2) {
-									//Memória local usada aqui
-									local_a_num[t0*npar + par_id] = _ac_squared / (_den * mm);
-									//Memória local usada aqui
-									local_a_stt[t0*npar + par_id] = _ac_linear  / (w   * mm);
-								}
-								else {
-									//Memória local usada aqui
-									local_a_num[t0*npar + par_id] = 0.0f;
-									//Memória local usada aqui
-									local_a_stt[t0*npar + par_id] = 0.0f;
-								}*/
 							}
 						}
                         
-						/*for(int t0=0; t0 < ns; t0++) {
+						for(int t0=0; t0 < ns; t0++) {
 							for(int par_id=0; par_id < npar; par_id++) {
-                                a_num[t0*npar + par_id] = local_a_num[t0*npar + par_id];
-								a_stt[t0*npar + par_id] = local_a_stt[t0*npar + par_id];
+                                a_num[t0*npar + par_id] = local_a_num[t0][par_id];
+								a_stt[t0*npar + par_id] = local_a_stt[t0][par_id];
 							}
-						}*/
+						}
 					});
 				});
 				q.wait_and_throw();

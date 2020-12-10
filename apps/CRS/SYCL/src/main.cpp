@@ -271,7 +271,7 @@ int main(int argc, const char** argv) {
 			sycl::buffer<real, 1> b_h(h, sycl::range<1>(ntrs * max_gather));
 			sycl::buffer<real, 1> b_m(m, sycl::range<1>(ntrs * max_gather));
 			sycl::buffer<real, 1> b_num(num, sycl::range<1>(ns * npar));
-			sycl::buffer<real, 1> b_m2(m, sycl::range<1>(ntrs * max_gather));
+			sycl::buffer<real, 1> b_m2(m2, sycl::range<1>(ntrs * max_gather));
 			sycl::buffer<real, 1> b_h0(h0, sycl::range<1>(ttraces));
 			sycl::buffer<real, 1> b_m0x(m0x, sycl::range<1>(ttraces));
 			sycl::buffer<real, 1> b_m0y(m0y, sycl::range<1>(ttraces));

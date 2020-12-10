@@ -19,34 +19,38 @@ OpenCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,67613.0
 OpenCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,67334.0
 OpenCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,67652.0
 OpenCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,70913.0
-OpenCL,Intel(R) Gen8 HD Graphics NEO,15682.0
-OpenCL,Intel(R) Gen8 HD Graphics NEO,15698.0
-OpenCL,Intel(R) Gen8 HD Graphics NEO,16229.0
-OpenCL,Intel(R) Gen8 HD Graphics NEO,16573.0
-OpenCL,Intel(R) Gen8 HD Graphics NEO,16269.0
 OpenCL,GeForce 920M,27066.0
 OpenCL,GeForce 920M,25675.0
 OpenCL,GeForce 920M,25614.0
 OpenCL,GeForce 920M,25807.0
 OpenCL,GeForce 920M,26585.0
-OpenCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,410528.0
-SYCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,174430.0
-SYCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,144775.0
-SYCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,147598.0
-SYCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,148940.0
-SYCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,148877.0
-SYCL,Intel(R) Gen8 HD Graphics NEO,38756.0
-SYCL,Intel(R) Gen8 HD Graphics NEO,39024.0
-SYCL,Intel(R) Gen8 HD Graphics NEO,39216.0
-SYCL,Intel(R) Gen8 HD Graphics NEO,38927.0
-SYCL,Intel(R) Gen8 HD Graphics NEO,39543.0
-OpenMP,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,201812.0
-OpenMP,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,206758.0
-OpenMP,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,206635.0
-OpenMP,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,212377.0
-OpenMP,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,215703.0
-SYCL,Intel(R) FPGA Emulation Device,122699.0
-SYCL,Intel(R) FPGA Emulation Device,122473.0
-SYCL,Intel(R) FPGA Emulation Device,125443.0
-SYCL,Intel(R) FPGA Emulation Device,124411.0
-SYCL,Intel(R) FPGA Emulation Device,125354.0
+OpenCL,Intel(R) Graphics Gen8 [0x1616],15105.0
+OpenCL,Intel(R) Graphics Gen8 [0x1616],15368.0
+OpenCL,Intel(R) Graphics Gen8 [0x1616],15147.0
+OpenCL,Intel(R) Graphics Gen8 [0x1616],15160.0
+OpenCL,Intel(R) Graphics Gen8 [0x1616],15158.0
+OpenCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,66634.0
+OpenCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,63105.0
+OpenCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,66400.0
+OpenCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,65123.0
+OpenCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,65123.0
+OpenMP,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,185147.0
+OpenMP,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,196059.0
+OpenMP,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,196214.0
+OpenMP,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,192015.0
+OpenMP,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,194090.0
+SYCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,114808.0
+SYCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,116775.0
+SYCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,119179.0
+SYCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,117905.0
+SYCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,121625.0
+SYCL,Intel(R) Graphics Gen8 [0x1616],17457.0
+SYCL,Intel(R) Graphics Gen8 [0x1616],17285.0
+SYCL,Intel(R) Graphics Gen8 [0x1616],17617.0
+SYCL,Intel(R) Graphics Gen8 [0x1616],17924.0
+SYCL,Intel(R) Graphics Gen8 [0x1616],17435.0
+FPGA_SYCL,Intel(R) FPGA Emulation Device,175039.0
+FPGA_SYCL,Intel(R) FPGA Emulation Device,175892.0
+FPGA_SYCL,Intel(R) FPGA Emulation Device,179707.0
+FPGA_SYCL,Intel(R) FPGA Emulation Device,178833.0
+FPGA_SYCL,Intel(R) FPGA Emulation Device,177398.0
