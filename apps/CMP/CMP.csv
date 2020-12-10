@@ -118,3 +118,63 @@ execution_time_ms,platform,version
 173.0,Intel(R) Graphics Gen8 [0x1616],OpenCL
 187.0,Intel(R) Graphics Gen8 [0x1616],OpenCL
 192.0,Intel(R) Graphics Gen8 [0x1616],OpenCL
+230.0,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,OpenCL
+198.0,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,OpenCL
+197.0,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,OpenCL
+197.0,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,OpenCL
+198.0,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,OpenCL
+198.0,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,OpenCL
+197.0,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,OpenCL
+197.0,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,OpenCL
+200.0,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,OpenCL
+199.0,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,OpenCL
+209.0,Intel(R) Gen9 HD Graphics NEO,OpenCL
+152.0,Intel(R) Gen9 HD Graphics NEO,OpenCL
+166.0,Intel(R) Gen9 HD Graphics NEO,OpenCL
+157.0,Intel(R) Gen9 HD Graphics NEO,OpenCL
+159.0,Intel(R) Gen9 HD Graphics NEO,OpenCL
+149.0,Intel(R) Gen9 HD Graphics NEO,OpenCL
+153.0,Intel(R) Gen9 HD Graphics NEO,OpenCL
+151.0,Intel(R) Gen9 HD Graphics NEO,OpenCL
+155.0,Intel(R) Gen9 HD Graphics NEO,OpenCL
+154.0,Intel(R) Gen9 HD Graphics NEO,OpenCL
+650.0,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,OpenMP
+627.0,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,OpenMP
+633.0,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,OpenMP
+628.0,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,OpenMP
+629.0,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,OpenMP
+772.0,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,OpenMP
+645.0,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,OpenMP
+702.0,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,OpenMP
+640.0,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,OpenMP
+638.0,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,OpenMP
+555.0,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,SYCL
+405.0,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,SYCL
+402.0,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,SYCL
+407.0,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,SYCL
+423.0,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,SYCL
+543.0,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,SYCL
+424.0,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,SYCL
+468.0,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,SYCL
+503.0,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,SYCL
+468.0,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,SYCL
+663.0,Intel(R) Gen9 HD Graphics NEO,SYCL
+697.0,Intel(R) Gen9 HD Graphics NEO,SYCL
+628.0,Intel(R) Gen9 HD Graphics NEO,SYCL
+604.0,Intel(R) Gen9 HD Graphics NEO,SYCL
+607.0,Intel(R) Gen9 HD Graphics NEO,SYCL
+622.0,Intel(R) Gen9 HD Graphics NEO,SYCL
+632.0,Intel(R) Gen9 HD Graphics NEO,SYCL
+646.0,Intel(R) Gen9 HD Graphics NEO,SYCL
+679.0,Intel(R) Gen9 HD Graphics NEO,SYCL
+628.0,Intel(R) Gen9 HD Graphics NEO,SYCL
+1756.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
+1828.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
+1832.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
+1729.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
+1772.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
+1767.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
+1790.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
+1899.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
+1871.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
+1812.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
