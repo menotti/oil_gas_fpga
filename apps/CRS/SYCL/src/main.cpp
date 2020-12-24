@@ -71,7 +71,7 @@ void sycl_init_par(sycl::queue& q, real4* par, real a0, real b0, real c0, real i
 	q.submit([&](sycl::handler& cgh) {
 		// Accessors set as read_write mode
 		auto a_par = b_par.get_access<sycl::access::mode::read_write>(cgh);
-		cgh.parallel_for<class kernelA>(sycl::range<1>(npar), [=](sycl::id<1> it)  {
+		cgh.parallel_for<class init_par>(sycl::range<1>(npar), [=](sycl::id<1> it)  {
 			int i=it.get(0);
 
 			int ida = i/(nc*nb);
@@ -114,7 +114,7 @@ void sycl_init_mid(sycl::queue& q, real* scalco, real* gx, real* gy,
 		auto a_m0x    = b_m0x.get_access<sycl::access::mode::read_write>(cgh);
 		auto a_m0y    = b_m0y.get_access<sycl::access::mode::read_write>(cgh);
 		auto a_h0    = b_h0.get_access<sycl::access::mode::read_write>(cgh);
-		cgh.parallel_for<class kernelB>(sycl::range<1>(ttraces), [=](sycl::id<1> it)  {
+		cgh.parallel_for<class init_mid>(sycl::range<1>(ttraces), [=](sycl::id<1> it)  {
 			int i=it.get(0);
 			// Kernel code. Call the complex_mul function here.
 			real _s = a_scalco[i];
@@ -312,7 +312,7 @@ int main(int argc, const char** argv) {
 					auto a_m2 = b_m2.get_access<sycl::access::mode::read_write>(cgh);
 					auto a_m = b_m.get_access<sycl::access::mode::read_write>(cgh);
 					auto a_ntraces_by_cdp_id = b_ntraces_by_cdp_id.get_access<sycl::access::mode::read_write>(cgh);
-					cgh.parallel_for<class kernelE>(sycl::range<1>(cdpf-cdp0+1), [=](sycl::id<1> it)  {
+					cgh.parallel_for<class compute_points_for_gather>(sycl::range<1>(cdpf-cdp0+1), [=](sycl::id<1> it)  {
 						
 						real dx, dy, _m2;
 						int cdp = cdp0 + it.get(0);
@@ -353,7 +353,7 @@ int main(int argc, const char** argv) {
 					auto a_num     = b_num.get_access<sycl::access::mode::read_write>(cgh);
 					auto a_stt     = b_stt.get_access<sycl::access::mode::read_write>(cgh);
 					auto a_par     = b_par.get_access<sycl::access::mode::read_write>(cgh);
-					cgh.parallel_for<class kernelC>(
+					cgh.parallel_for<class compute_semblances>(
 					sycl::nd_range<1>(ns*npar+NTHREADS-(ns*npar)%NTHREADS, NTHREADS), [=](sycl::nd_item<1> item)  {
 
 						real _den = 0.0f, _ac_linear = 0.0f, _ac_squared = 0.0f;
@@ -432,7 +432,7 @@ int main(int argc, const char** argv) {
 					auto a_ctr = b_ctr.get_access<sycl::access::mode::read_write>(cgh);
 					auto a_str = b_str.get_access<sycl::access::mode::read_write>(cgh);
 					auto a_stk = b_stk.get_access<sycl::access::mode::read_write>(cgh);
-					cgh.parallel_for<class kernelD>(sycl::range<1>(ns), [=](sycl::id<1> ide)  {
+					cgh.parallel_for<class redux_semblances>(sycl::range<1>(ns), [=](sycl::id<1> ide)  {
 						int t0=ide.get(0);
 						real max_sem = 0.0f, _num;
 						int max_par = 0;
