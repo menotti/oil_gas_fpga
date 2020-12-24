@@ -178,3 +178,13 @@ execution_time_ms,platform,version
 1899.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
 1871.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
 1812.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
+278.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,SYCL
+271.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,SYCL
+272.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,SYCL
+272.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,SYCL
+274.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,SYCL
+268.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,SYCL
+272.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,SYCL
+272.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,SYCL
+272.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,SYCL
+273.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,SYCL

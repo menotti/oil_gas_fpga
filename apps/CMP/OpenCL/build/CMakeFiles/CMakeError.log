@@ -1,0 +1,198 @@
+Determining if the CL_VERSION_2_2 exist failed with the following output:
+Change Dir: /home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_67992/fast"
+/usr/bin/make -f CMakeFiles/cmTC_67992.dir/build.make CMakeFiles/cmTC_67992.dir/build
+make[1]: Entering directory '/home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_67992.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_67992.dir/CheckSymbolExists.c.o   -c /home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+/home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:2:10: fatal error: OpenCL_INCLUDE_DIR-NOTFOUND/CL/cl.h: No such file or directory
+ #include <OpenCL_INCLUDE_DIR-NOTFOUND/CL/cl.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+CMakeFiles/cmTC_67992.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_67992.dir/CheckSymbolExists.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_67992.dir/CheckSymbolExists.c.o] Error 1
+make[1]: Leaving directory '/home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_67992/fast' failed
+make: *** [cmTC_67992/fast] Error 2
+
+File /home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <OpenCL_INCLUDE_DIR-NOTFOUND/CL/cl.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef CL_VERSION_2_2
+  return ((int*)(&CL_VERSION_2_2))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the CL_VERSION_2_1 exist failed with the following output:
+Change Dir: /home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_dcb0a/fast"
+/usr/bin/make -f CMakeFiles/cmTC_dcb0a.dir/build.make CMakeFiles/cmTC_dcb0a.dir/build
+make[1]: Entering directory '/home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_dcb0a.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_dcb0a.dir/CheckSymbolExists.c.o   -c /home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+/home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:2:10: fatal error: OpenCL_INCLUDE_DIR-NOTFOUND/CL/cl.h: No such file or directory
+ #include <OpenCL_INCLUDE_DIR-NOTFOUND/CL/cl.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+CMakeFiles/cmTC_dcb0a.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_dcb0a.dir/CheckSymbolExists.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_dcb0a.dir/CheckSymbolExists.c.o] Error 1
+make[1]: Leaving directory '/home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_dcb0a/fast' failed
+make: *** [cmTC_dcb0a/fast] Error 2
+
+File /home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <OpenCL_INCLUDE_DIR-NOTFOUND/CL/cl.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef CL_VERSION_2_1
+  return ((int*)(&CL_VERSION_2_1))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the CL_VERSION_2_0 exist failed with the following output:
+Change Dir: /home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_b0583/fast"
+/usr/bin/make -f CMakeFiles/cmTC_b0583.dir/build.make CMakeFiles/cmTC_b0583.dir/build
+make[1]: Entering directory '/home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_b0583.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_b0583.dir/CheckSymbolExists.c.o   -c /home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+/home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:2:10: fatal error: OpenCL_INCLUDE_DIR-NOTFOUND/CL/cl.h: No such file or directory
+ #include <OpenCL_INCLUDE_DIR-NOTFOUND/CL/cl.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+CMakeFiles/cmTC_b0583.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_b0583.dir/CheckSymbolExists.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_b0583.dir/CheckSymbolExists.c.o] Error 1
+make[1]: Leaving directory '/home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_b0583/fast' failed
+make: *** [cmTC_b0583/fast] Error 2
+
+File /home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <OpenCL_INCLUDE_DIR-NOTFOUND/CL/cl.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef CL_VERSION_2_0
+  return ((int*)(&CL_VERSION_2_0))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the CL_VERSION_1_2 exist failed with the following output:
+Change Dir: /home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_35a55/fast"
+/usr/bin/make -f CMakeFiles/cmTC_35a55.dir/build.make CMakeFiles/cmTC_35a55.dir/build
+make[1]: Entering directory '/home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_35a55.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_35a55.dir/CheckSymbolExists.c.o   -c /home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+/home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:2:10: fatal error: OpenCL_INCLUDE_DIR-NOTFOUND/CL/cl.h: No such file or directory
+ #include <OpenCL_INCLUDE_DIR-NOTFOUND/CL/cl.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+CMakeFiles/cmTC_35a55.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_35a55.dir/CheckSymbolExists.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_35a55.dir/CheckSymbolExists.c.o] Error 1
+make[1]: Leaving directory '/home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_35a55/fast' failed
+make: *** [cmTC_35a55/fast] Error 2
+
+File /home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <OpenCL_INCLUDE_DIR-NOTFOUND/CL/cl.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef CL_VERSION_1_2
+  return ((int*)(&CL_VERSION_1_2))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the CL_VERSION_1_1 exist failed with the following output:
+Change Dir: /home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_1dc10/fast"
+/usr/bin/make -f CMakeFiles/cmTC_1dc10.dir/build.make CMakeFiles/cmTC_1dc10.dir/build
+make[1]: Entering directory '/home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_1dc10.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_1dc10.dir/CheckSymbolExists.c.o   -c /home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+/home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:2:10: fatal error: OpenCL_INCLUDE_DIR-NOTFOUND/CL/cl.h: No such file or directory
+ #include <OpenCL_INCLUDE_DIR-NOTFOUND/CL/cl.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+CMakeFiles/cmTC_1dc10.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_1dc10.dir/CheckSymbolExists.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_1dc10.dir/CheckSymbolExists.c.o] Error 1
+make[1]: Leaving directory '/home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_1dc10/fast' failed
+make: *** [cmTC_1dc10/fast] Error 2
+
+File /home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <OpenCL_INCLUDE_DIR-NOTFOUND/CL/cl.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef CL_VERSION_1_1
+  return ((int*)(&CL_VERSION_1_1))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the CL_VERSION_1_0 exist failed with the following output:
+Change Dir: /home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_082dd/fast"
+/usr/bin/make -f CMakeFiles/cmTC_082dd.dir/build.make CMakeFiles/cmTC_082dd.dir/build
+make[1]: Entering directory '/home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_082dd.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_082dd.dir/CheckSymbolExists.c.o   -c /home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+/home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:2:10: fatal error: OpenCL_INCLUDE_DIR-NOTFOUND/CL/cl.h: No such file or directory
+ #include <OpenCL_INCLUDE_DIR-NOTFOUND/CL/cl.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+CMakeFiles/cmTC_082dd.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_082dd.dir/CheckSymbolExists.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_082dd.dir/CheckSymbolExists.c.o] Error 1
+make[1]: Leaving directory '/home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_082dd/fast' failed
+make: *** [cmTC_082dd/fast] Error 2
+
+File /home/u44923/oil_gas_fpga/apps/CMP/OpenCL/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <OpenCL_INCLUDE_DIR-NOTFOUND/CL/cl.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef CL_VERSION_1_0
+  return ((int*)(&CL_VERSION_1_0))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+

@@ -57,10 +57,10 @@ ELSE()
 ENDIF()
 ################################################################################
 # Set CMAKE's variables
-set(HARDWARE_COMPILE_FLAGS "-fintelfpga")
+set(HARDWARE_COMPILE_FLAGS "-fintelfpga ")
 
 # use cmake -D USER_HARDWARE_FLAGS=<flags> to set extra flags for FPGA backend compilation
-set(HARDWARE_LINK_FLAGS "-fintelfpga -Xshardware -Xsboard=${_FPGA_BOARD} ${USER_HARDWARE_FLAGS}")
+set(HARDWARE_LINK_FLAGS "-fintelfpga -Xsprofile -Xshardware -Xsboard=${_FPGA_BOARD} ${USER_HARDWARE_FLAGS}")
 
 set(EMULATOR_COMPILE_FLAGS "-fintelfpga -DFPGA_EMULATOR")
 set(EMULATOR_LINK_FLAGS "-fintelfpga ")

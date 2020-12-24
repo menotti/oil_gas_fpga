@@ -84,3 +84,8 @@ FPGA_SYCL,Intel(R) FPGA Emulation Device,141499.0
 FPGA_SYCL,Intel(R) FPGA Emulation Device,139446.0
 FPGA_SYCL,Intel(R) FPGA Emulation Device,142732.0
 FPGA_SYCL,Intel(R) FPGA Emulation Device,141129.0
+SYCL,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,10423.0
+SYCL,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,10092.0
+SYCL,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,10102.0
+SYCL,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,10084.0
+SYCL,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,10051.0
