@@ -1,29 +1,9 @@
 version,platform,execution_time_ms
-SYCL,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,58600.0
-SYCL,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,58609.0
-SYCL,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,59390.0
-SYCL,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,62158.0
-SYCL,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,58818.0
-SYCL,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,5540.0
-SYCL,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,5562.0
-SYCL,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,5519.0
-SYCL,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,5456.0
-SYCL,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,5507.0
-OpenCL,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,8793.0
-OpenCL,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,8678.0
-OpenCL,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,9675.0
-OpenCL,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,8891.0
-OpenCL,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,8643.0
 OpenCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,70823.0
 OpenCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,67613.0
 OpenCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,67334.0
 OpenCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,67652.0
 OpenCL,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,70913.0
-OpenCL,GeForce 920M,27066.0
-OpenCL,GeForce 920M,25675.0
-OpenCL,GeForce 920M,25614.0
-OpenCL,GeForce 920M,25807.0
-OpenCL,GeForce 920M,26585.0
 OpenCL,Intel(R) Graphics Gen8 [0x1616],15105.0
 OpenCL,Intel(R) Graphics Gen8 [0x1616],15368.0
 OpenCL,Intel(R) Graphics Gen8 [0x1616],15147.0
@@ -49,11 +29,6 @@ SYCL,Intel(R) Graphics Gen8 [0x1616],17285.0
 SYCL,Intel(R) Graphics Gen8 [0x1616],17617.0
 SYCL,Intel(R) Graphics Gen8 [0x1616],17924.0
 SYCL,Intel(R) Graphics Gen8 [0x1616],17435.0
-FPGA_SYCL,Intel(R) FPGA Emulation Device,175039.0
-FPGA_SYCL,Intel(R) FPGA Emulation Device,175892.0
-FPGA_SYCL,Intel(R) FPGA Emulation Device,179707.0
-FPGA_SYCL,Intel(R) FPGA Emulation Device,178833.0
-FPGA_SYCL,Intel(R) FPGA Emulation Device,177398.0
 OpenCL,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,28689.0
 OpenCL,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,27809.0
 OpenCL,Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz,27826.0
@@ -79,13 +54,3 @@ SYCL,Intel(R) Gen9 HD Graphics NEO,20012.0
 SYCL,Intel(R) Gen9 HD Graphics NEO,19998.0
 SYCL,Intel(R) Gen9 HD Graphics NEO,20138.0
 SYCL,Intel(R) Gen9 HD Graphics NEO,19959.0
-FPGA_SYCL,Intel(R) FPGA Emulation Device,139665.0
-FPGA_SYCL,Intel(R) FPGA Emulation Device,141499.0
-FPGA_SYCL,Intel(R) FPGA Emulation Device,139446.0
-FPGA_SYCL,Intel(R) FPGA Emulation Device,142732.0
-FPGA_SYCL,Intel(R) FPGA Emulation Device,141129.0
-SYCL,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,10423.0
-SYCL,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,10092.0
-SYCL,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,10102.0
-SYCL,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,10084.0
-SYCL,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,10051.0

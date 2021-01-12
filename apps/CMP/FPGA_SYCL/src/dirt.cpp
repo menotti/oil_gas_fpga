@@ -169,6 +169,7 @@ int main(int argc, const char** argv) {
 				ntcdps*ns=10070856
 			}
 		*/
+		sycl::host_selector device_host;
 
 		#if defined(FPGA_EMULATOR)
 		  //sycl::intel::fpga_emulator_selector device_selector;
@@ -184,35 +185,43 @@ int main(int argc, const char** argv) {
 
 		
 		sycl::queue queue(device_selector, exception_handler);
+		sycl::queue host_queue(device_host, exception_handler );
 		sycl::buffer<real, 1> b_c(c, sycl::range<1>(nc));
-		beg = std::chrono::high_resolution_clock::now();
-		// Submit Command group function object to the queue
-		queue.submit([&](sycl::handler& cgh) {
-			// Accessors set as read_write mode
-			auto a_c = b_c.get_access<sycl::access::mode::read_write>(cgh);
-			cgh.single_task<init_c>([=](){
-				//Unroll 5
-				for(int i=0; i < nc; i++) {
-					//Não precisa de memoria_local****
-					a_c[i] = c0 + inc*i;
-				}
-			});
-		});
-		queue.wait_and_throw();
-		end = std::chrono::high_resolution_clock::now();
-		kernel_execution_time += std::chrono::duration_cast<std::chrono::duration<double>>(end - beg).count();
-
-		// Evaluate halfoffset points in x and y coordinates
+                
 		sycl::buffer<real, 1> b_h(h, sycl::range<1>(ttraces));
 		sycl::buffer<real, 1> b_gx(gx, sycl::range<1>(ttraces));
 		sycl::buffer<real, 1> b_gy(gy, sycl::range<1>(ttraces));
 		sycl::buffer<real, 1> b_sx(sx, sycl::range<1>(ttraces));
 		sycl::buffer<real, 1> b_sy(sy, sycl::range<1>(ttraces));
 		sycl::buffer<real, 1> b_scalco(scalco, sycl::range<1>(ttraces));
+        
+		sycl::buffer<real, 1> b_num(num, sycl::range<1>(ns * nc));
+		sycl::buffer<real, 1> b_stt(stt, sycl::range<1>(ns * nc));
+		sycl::buffer<real, 1> b_str(str, sycl::range<1>(ncdps * ns));
+		sycl::buffer<real, 1> b_stk(stk, sycl::range<1>(ncdps * ns));
+		sycl::buffer<int, 1> b_ctr(ctr, sycl::range<1>(ncdps * ns));
+        sycl::buffer<real, 1> b_cdpsmpl(cdpsmpl, sycl::range<1>(ntrs * ns));
+        
+		// Submit Command group function object to the queue
+	  	beg = std::chrono::high_resolution_clock::now();
+	  	// Submit Command group function object to the queue
+		host_queue.submit([&](sycl::handler& cgh) {
+			// Accessors set as read_write mode
+			auto a_c = b_c.get_access<sycl::access::mode::read_write>(cgh);
+			cgh.parallel_for(sycl::range<1>(nc), [=](sycl::id<1> it)  {
+				int i=it.get(0);
+				// Kernel code. Call the complex_mul function here.
+				a_c[i] = c0 + inc*i;
+			});
+		});
+		host_queue.wait_and_throw();
+		end = std::chrono::high_resolution_clock::now();
+		kernel_execution_time += std::chrono::duration_cast<std::chrono::duration<double>>(end - beg).count();
+
+		// Evaluate halfoffset points in x and y coordinates
 	  	beg = std::chrono::high_resolution_clock::now();
 		// Submit Command group function object to the queue
-		// Kernel code. Call the complex_mul function here.
-		queue.submit([&](sycl::handler& cgh) {
+		host_queue.submit([&](sycl::handler& cgh) {
 			// Create accessors
 			auto a_gx      = b_gx.get_access<sycl::access::mode::read>(cgh);
 			auto a_gy      = b_gy.get_access<sycl::access::mode::read>(cgh);
@@ -221,46 +230,25 @@ int main(int argc, const char** argv) {
 			auto a_scalco  = b_scalco.get_access<sycl::access::mode::read>(cgh);
 			auto a_h       = b_h.get_access<sycl::access::mode::read_write>(cgh);
 
-			cgh.single_task<init_half>([=]() {
-				//Não consigo fazer banking aqui
-				real local_s[STATIC_TTRACES];
-				real local_hx[STATIC_TTRACES];
-				real local_hy[STATIC_TTRACES];
+			cgh.parallel_for(sycl::range<1>(ttraces), [=](sycl::id<1> it) {
 				
-				//ttraces = 6000
-				//Unroll ?
-				#pragma unroll 6 
-				[[intelfpga::ivdep]]
-				for(int i=0; i < ttraces; i++) {
-					//Memória local usada aqui
-					local_s[i] = a_scalco[i];
-					if(-EPSILON < local_s[i] && local_s[i] < EPSILON)
-						local_s[i] = 1.0f;
-					else if(local_s[i] < 0)
-						local_s[i] = 1.0f / local_s[i];
-					//Memória local usada aqui
-					local_hx[i] = (a_gx[i] - a_sx[i]) * local_s[i];
-					local_hy[i] = (a_gy[i] - a_sy[i]) * local_s[i];
-				}
-				
-				//ttraces = 6000
-				//Unroll ?
-				#pragma unroll 6
-				[[intelfpga::ivdep]]
-				for(int i=0; i < ttraces; i++) {
-					//Memória local usada aqui
-					a_h[i] = 0.25 * (local_hx[i] * local_hx[i] + local_hy[i] * local_hy[i]) / FACTOR;
-				}
+				int i=it.get(0);
+				// Kernel code. Call the complex_mul function here.
+				real _s = a_scalco[i];
+				if(-EPSILON < _s && _s < EPSILON)
+					_s = 1.0f;
+				else if(_s < 0)
+					_s = 1.0f / _s;
+
+				real hx = (a_gx[i] - a_sx[i]) * _s;
+				real hy = (a_gy[i] - a_sy[i]) * _s;
+
+				a_h[i] = 0.25 * (hx * hx + hy * hy) / FACTOR;
 			});
 		});
-		queue.wait_and_throw();
+		host_queue.wait_and_throw();
 		end = std::chrono::high_resolution_clock::now();
 		kernel_execution_time += std::chrono::duration_cast<std::chrono::duration<double>>(end - beg).count();
-		sycl::buffer<real, 1> b_num(num, sycl::range<1>(ns * nc));
-		sycl::buffer<real, 1> b_stt(stt, sycl::range<1>(ns * nc));
-		sycl::buffer<real, 1> b_str(str, sycl::range<1>(ncdps * ns));
-		sycl::buffer<real, 1> b_stk(stk, sycl::range<1>(ncdps * ns));
-		sycl::buffer<int, 1> b_ctr(ctr, sycl::range<1>(ncdps * ns));
 		
 		
 		int t_id0 = 0;                    // id of first trace
@@ -278,7 +266,6 @@ int main(int argc, const char** argv) {
 			//std::cout << "t_id0 - t_idf: " << t_idf - t_id0 << std::endl;
 			
 			memcpy(cdpsmpl, samples + t_id0*ns, stride*ns*sizeof(real));
-            sycl::buffer<real, 1> b_cdpsmpl(cdpsmpl, sycl::range<1>(ntrs * ns));
             
 		  	beg = std::chrono::high_resolution_clock::now();
 			// Submit Command group function object to the queue
@@ -405,39 +392,32 @@ int main(int argc, const char** argv) {
 			// Get max C for max semblance for each sample on this cdp
 		  	beg = std::chrono::high_resolution_clock::now();
 			// Submit Command group function object to the queue
-			queue.submit([&](sycl::handler& cgh) {
+			host_queue.submit([&](sycl::handler& cgh) {
 				auto a_num     = b_num.get_access<sycl::access::mode::read_write>(cgh);
 				auto a_stt     = b_stt.get_access<sycl::access::mode::read_write>(cgh);
 				auto a_str     = b_str.get_access<sycl::access::mode::write>(cgh);
 				auto a_stk     = b_stk.get_access<sycl::access::mode::write>(cgh);
 				auto a_ctr     = b_ctr.get_access<sycl::access::mode::write>(cgh);
-				cgh.single_task<redux_semblances>([=]( ) {
-					//ns=2502
-					//Unroll ?
-					for(int t0=0; t0 < ns; t0++) {
-						real max_sem = 0.0f, _num;
-						int max_c = -1;
-						
-						//it = (valor inicial) + 5
-						//Unroll 5
-						for(int it=t0*nc; it < (t0+1)*nc ; it++) {
-							_num = a_num[it];
-							if(_num > max_sem) {
-								max_sem = _num;
-								max_c = it;
-							}
-						}
+				cgh.parallel_for<class redux_semblances>(sycl::range<1>(ns), [=](sycl::id<1> it) {
+					int t0=it.get(0);
+					// Kernel code. Call the complex_mul function here.
+					real max_sem = 0.0f, _num;
+					int max_c = -1;
 
-						//Criar variável local
-						a_ctr[cdp_id*ns + t0] = max_c % nc;
-						//Criar variável local
-						a_str[cdp_id*ns + t0] = max_sem;
-						//Criar variável local
-						a_stk[cdp_id*ns + t0] = max_c > -1 ? a_stt[max_c] : 0;
+					for(int it=t0*nc; it < (t0+1)*nc ; it++) {
+						_num = a_num[it];
+						if(_num > max_sem) {
+							max_sem = _num;
+							max_c = it;
+						}
 					}
+
+					a_ctr[cdp_id*ns + t0] = max_c % nc;
+					a_str[cdp_id*ns + t0] = max_sem;
+					a_stk[cdp_id*ns + t0] = max_c > -1 ? a_stt[max_c] : 0;
 				});
 			});
-			queue.wait_and_throw();
+			host_queue.wait();
 			end = std::chrono::high_resolution_clock::now();
 			kernel_execution_time += std::chrono::duration_cast<std::chrono::duration<double>>(end - beg).count();
 
@@ -516,4 +496,3 @@ int main(int argc, const char** argv) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-

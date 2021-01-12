@@ -1,73 +1,4 @@
 execution_time_ms,platform,version
-481.0,Intel(R) Iris(TM) Plus Graphics 640,OpenCL
-347.0,Intel(R) Iris(TM) Plus Graphics 640,OpenCL
-300.0,Intel(R) Iris(TM) Plus Graphics 640,OpenCL
-289.0,Intel(R) Iris(TM) Plus Graphics 640,OpenCL
-289.0,Intel(R) Iris(TM) Plus Graphics 640,OpenCL
-287.0,Intel(R) Iris(TM) Plus Graphics 640,OpenCL
-289.0,Intel(R) Iris(TM) Plus Graphics 640,OpenCL
-283.0,Intel(R) Iris(TM) Plus Graphics 640,OpenCL
-285.0,Intel(R) Iris(TM) Plus Graphics 640,OpenCL
-305.0,Intel(R) Iris(TM) Plus Graphics 640,OpenCL
-2315.0,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,OpenMP
-2405.0,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,OpenMP
-2393.0,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,OpenMP
-2344.0,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,OpenMP
-2273.0,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,OpenMP
-2297.0,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,OpenMP
-2285.0,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,OpenMP
-2443.0,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,OpenMP
-2431.0,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,OpenMP
-2540.0,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,OpenMP
-1135.0,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,SYCL
-800.0,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,SYCL
-816.0,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,SYCL
-962.0,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,SYCL
-972.0,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,SYCL
-953.0,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,SYCL
-932.0,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,SYCL
-825.0,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,SYCL
-810.0,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,SYCL
-818.0,Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz,SYCL
-524.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
-467.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
-451.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
-449.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
-506.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
-432.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
-432.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
-436.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
-434.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
-432.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,SYCL
-247.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
-216.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
-213.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
-216.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
-226.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
-219.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
-214.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
-217.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
-214.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
-223.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenMP
-164.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenCL
-163.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenCL
-165.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenCL
-162.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenCL
-164.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenCL
-167.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenCL
-165.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenCL
-161.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenCL
-162.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenCL
-172.0,Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz,OpenCL
-1636.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenMP
-1418.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenMP
-1402.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenMP
-1374.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenMP
-1306.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenMP
-1407.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenMP
-1771.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenMP
-1578.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenMP
-1792.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenMP
 833.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,SYCL
 573.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,SYCL
 581.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,SYCL
@@ -88,16 +19,6 @@ execution_time_ms,platform,version
 496.0,Intel(R) Graphics Gen8 [0x1616],SYCL
 513.0,Intel(R) Graphics Gen8 [0x1616],SYCL
 549.0,Intel(R) Graphics Gen8 [0x1616],SYCL
-3364.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
-2441.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
-2147.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
-2263.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
-2315.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
-2130.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
-2117.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
-2208.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
-2157.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
-2254.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
 447.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenCL
 425.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenCL
 425.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenCL
@@ -168,23 +89,13 @@ execution_time_ms,platform,version
 646.0,Intel(R) Gen9 HD Graphics NEO,SYCL
 679.0,Intel(R) Gen9 HD Graphics NEO,SYCL
 628.0,Intel(R) Gen9 HD Graphics NEO,SYCL
-1756.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
-1828.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
-1832.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
-1729.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
-1772.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
-1767.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
-1790.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
-1899.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
-1871.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
-1812.0,Intel(R) FPGA Emulation Device,FPGA_SYCL
-278.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,SYCL
-271.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,SYCL
-272.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,SYCL
-272.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,SYCL
-274.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,SYCL
-268.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,SYCL
-272.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,SYCL
-272.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,SYCL
-272.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,SYCL
-273.0,Intel(R) Xeon(R) Gold 6128 CPU @ 3.40GHz,SYCL
+1476.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenMP
+1599.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenMP
+1597.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenMP
+2113.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenMP
+2120.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenMP
+1823.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenMP
+1590.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenMP
+2048.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenMP
+1593.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenMP
+1957.0,Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,OpenMP
