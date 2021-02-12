@@ -204,7 +204,7 @@ int main(int argc, const char** argv) {
         
 		// Submit Command group function object to the queue
 	  	beg = std::chrono::high_resolution_clock::now();
-	  	// Submit Command group function object to the queue
+	  	// Submit Command group function object to the queue_host
 		host_queue.submit([&](sycl::handler& cgh) {
 			// Accessors set as read_write mode
 			auto a_c = b_c.get_access<sycl::access::mode::read_write>(cgh);

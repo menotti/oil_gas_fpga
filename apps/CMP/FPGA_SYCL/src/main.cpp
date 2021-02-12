@@ -44,7 +44,6 @@ class init_half;
 class compute_semblances;
 class redux_semblances;
 ////////////////////////////////////////////////////////////////////////////////
-
 #define MAX_W 16
 
 #define EPSILON 1e-13
@@ -52,6 +51,14 @@ class redux_semblances;
 #define FACTOR 1e6
 
 #define NTHREADS 128
+
+#define BANK_SIZE 32 //it needs be bigger than ns
+
+#define STATIC_NC 5 //it needs be bigger than ns
+
+#define STATIC_TTRACES 7000 //it needs be bigger than ttraces
+
+#define STATIC_NS 2510 //it needs be bigger than ns
 
 namespace sycl = cl::sycl;
 ////////////////////////////////////////////////////////////////////////////////
@@ -162,6 +169,7 @@ int main(int argc, const char** argv) {
 				ntcdps*ns=10070856
 			}
 		*/
+		sycl::host_selector device_host;
 
 		#if defined(FPGA_EMULATOR)
 		  //sycl::intel::fpga_emulator_selector device_selector;
@@ -177,35 +185,43 @@ int main(int argc, const char** argv) {
 
 		
 		sycl::queue queue(device_selector, exception_handler);
+		sycl::queue host_queue(device_host, exception_handler );
 		sycl::buffer<real, 1> b_c(c, sycl::range<1>(nc));
-		beg = std::chrono::high_resolution_clock::now();
-		// Submit Command group function object to the queue
-		queue.submit([&](sycl::handler& cgh) {
-			// Accessors set as read_write mode
-			auto a_c = b_c.get_access<sycl::access::mode::read_write>(cgh);
-			cgh.single_task<init_c>([=](){
-				//Unroll 5
-				for(int i=0; i < nc; i++) {
-					//Não precisa de memoria_local****
-					a_c[i] = c0 + inc*i;
-				}
-			});
-		});
-		queue.wait_and_throw();
-		end = std::chrono::high_resolution_clock::now();
-		kernel_execution_time += std::chrono::duration_cast<std::chrono::duration<double>>(end - beg).count();
-
-		// Evaluate halfoffset points in x and y coordinates
+                
 		sycl::buffer<real, 1> b_h(h, sycl::range<1>(ttraces));
 		sycl::buffer<real, 1> b_gx(gx, sycl::range<1>(ttraces));
 		sycl::buffer<real, 1> b_gy(gy, sycl::range<1>(ttraces));
 		sycl::buffer<real, 1> b_sx(sx, sycl::range<1>(ttraces));
 		sycl::buffer<real, 1> b_sy(sy, sycl::range<1>(ttraces));
 		sycl::buffer<real, 1> b_scalco(scalco, sycl::range<1>(ttraces));
+        
+		sycl::buffer<real, 1> b_num(num, sycl::range<1>(ns * nc));
+		sycl::buffer<real, 1> b_stt(stt, sycl::range<1>(ns * nc));
+		sycl::buffer<real, 1> b_str(str, sycl::range<1>(ncdps * ns));
+		sycl::buffer<real, 1> b_stk(stk, sycl::range<1>(ncdps * ns));
+		sycl::buffer<int, 1> b_ctr(ctr, sycl::range<1>(ncdps * ns));
+        sycl::buffer<real, 1> b_cdpsmpl(cdpsmpl, sycl::range<1>(ntrs * ns));
+        
+		// Submit Command group function object to the queue
+	  	beg = std::chrono::high_resolution_clock::now();
+	  	// Submit Command group function object to the queue
+		host_queue.submit([&](sycl::handler& cgh) {
+			// Accessors set as read_write mode
+			auto a_c = b_c.get_access<sycl::access::mode::read_write>(cgh);
+			cgh.parallel_for(sycl::range<1>(nc), [=](sycl::id<1> it)  {
+				int i=it.get(0);
+				// Kernel code. Call the complex_mul function here.
+				a_c[i] = c0 + inc*i;
+			});
+		});
+		host_queue.wait_and_throw();
+		end = std::chrono::high_resolution_clock::now();
+		kernel_execution_time += std::chrono::duration_cast<std::chrono::duration<double>>(end - beg).count();
+
+		// Evaluate halfoffset points in x and y coordinates
 	  	beg = std::chrono::high_resolution_clock::now();
 		// Submit Command group function object to the queue
-		// Kernel code. Call the complex_mul function here.
-		queue.submit([&](sycl::handler& cgh) {
+		host_queue.submit([&](sycl::handler& cgh) {
 			// Create accessors
 			auto a_gx      = b_gx.get_access<sycl::access::mode::read>(cgh);
 			auto a_gy      = b_gy.get_access<sycl::access::mode::read>(cgh);
@@ -214,35 +230,25 @@ int main(int argc, const char** argv) {
 			auto a_scalco  = b_scalco.get_access<sycl::access::mode::read>(cgh);
 			auto a_h       = b_h.get_access<sycl::access::mode::read_write>(cgh);
 
-			cgh.single_task<init_half>([=]() {
-				//ttraces = 6000
-				//Unroll ?
-				for(int i=0; i < ttraces; i++) {
-					//Criar variável local
-					real _s = a_scalco[i];
-					if(-EPSILON < _s && _s < EPSILON)
-						_s = 1.0f;
-					else if(_s < 0)
-						_s = 1.0f / _s;
+			cgh.parallel_for(sycl::range<1>(ttraces), [=](sycl::id<1> it) {
+				
+				int i=it.get(0);
+				// Kernel code. Call the complex_mul function here.
+				real _s = a_scalco[i];
+				if(-EPSILON < _s && _s < EPSILON)
+					_s = 1.0f;
+				else if(_s < 0)
+					_s = 1.0f / _s;
 
-					//Criar variável local
-					real hx = (a_gx[i] - a_sx[i]) * _s;
-					//Criar variável local
-					real hy = (a_gy[i] - a_sy[i]) * _s;
+				real hx = (a_gx[i] - a_sx[i]) * _s;
+				real hy = (a_gy[i] - a_sy[i]) * _s;
 
-					//Criar variável local
-					a_h[i] = 0.25 * (hx * hx + hy * hy) / FACTOR;
-				}
+				a_h[i] = 0.25 * (hx * hx + hy * hy) / FACTOR;
 			});
 		});
-		queue.wait_and_throw();
+		host_queue.wait_and_throw();
 		end = std::chrono::high_resolution_clock::now();
 		kernel_execution_time += std::chrono::duration_cast<std::chrono::duration<double>>(end - beg).count();
-		sycl::buffer<real, 1> b_num(num, sycl::range<1>(ns * nc));
-		sycl::buffer<real, 1> b_stt(stt, sycl::range<1>(ns * nc));
-		sycl::buffer<real, 1> b_str(str, sycl::range<1>(ncdps * ns));
-		sycl::buffer<real, 1> b_stk(stk, sycl::range<1>(ncdps * ns));
-		sycl::buffer<int, 1> b_ctr(ctr, sycl::range<1>(ncdps * ns));
 		
 		
 		int t_id0 = 0;                    // id of first trace
@@ -260,7 +266,7 @@ int main(int argc, const char** argv) {
 			//std::cout << "t_id0 - t_idf: " << t_idf - t_id0 << std::endl;
 			
 			memcpy(cdpsmpl, samples + t_id0*ns, stride*ns*sizeof(real));
-            sycl::buffer<real, 1> b_cdpsmpl(cdpsmpl, sycl::range<1>(ntrs * ns));
+            
 		  	beg = std::chrono::high_resolution_clock::now();
 			// Submit Command group function object to the queue
 			
@@ -273,80 +279,110 @@ int main(int argc, const char** argv) {
 				auto a_stt     = b_stt.get_access<sycl::access::mode::read_write>(cgh);
 
 				cgh.single_task<compute_semblances>([=](){
-					//Fazer banking aqui
-					//
-					//ns*nc = 12510
+					real local_a_num[STATIC_NS][STATIC_NC];
+					real local_a_stt[STATIC_NS][STATIC_NC];
+					real local_c[STATIC_NC];
+					real local_t0[STATIC_NS];
+                    
+                    //ns = 2502
 					//Unroll ?
-					for(int i=0; i < ns*nc; i++) {
-			
-						real _den = 0.0f, _ac_linear = 0.0f, _ac_squared = 0.0f;
-						real _num[MAX_W],  m = 0.0f;
-						int err = 0;
-
-						int c_id = i % nc;
-						int t0 = i / nc;
-
-						//Criar variável local
-						real _c = a_c[c_id];
+					#pragma unroll 3 
+					[[intelfpga::ivdep]]
+					for(int t0=0; t0 < ns; t0++){
+						//Memória local usada aqui
 						real _t0 = dt * t0;
-						_t0 = _t0 * _t0;
-
-						// start _num with zeros
-						//w = 16
-						//Unroll 16
-						for(int j=0; j < w; j++) _num[j] = 0.0f;
-
-						//Unroll 15
-						for(int t_id=t_id0; t_id < t_idf; t_id++) {
-							// Evaluate t
-							real t = sycl::sqrt(_t0 + _c * a_h[t_id]);
-
-							int it = (int)( t * idt );
-							int ittau = it - tau;
-							real x = t * idt - (real)it;
-
-							if(ittau >= 0 && it + tau + 1 < ns) {
-								int k1 = ittau + (t_id-t_id0)*ns;
-								//Não precisa de memoria_local****
-								real sk1p1 = a_cdpsmpl[k1], sk1;
-								//w = 16
-								//Unroll 16
-								for(int j=0; j < w; j++) {
-									k1++;
-									sk1 = sk1p1;
-									sk1p1 = a_cdpsmpl[k1];
-
-									// linear interpolation optmized for this problem
-									real v = (sk1p1 - sk1) * x + sk1;
-
-									_num[j] += v;
-									_den += v * v;
-									_ac_linear += v;
-								}
-								m += 1;
-							} else { err++; }
-						}
-
-						// Reduction for num
-						//w = 16
-						//Unroll 16
-						for(int j=0; j < w; j++) _ac_squared += _num[j] * _num[j];
-
-						// Evaluate semblances
-						if(_den > EPSILON && m > EPSILON && w > EPSILON && err < 2) {
-							//Criar variável local
-							a_num[i] = _ac_squared / (_den * m);
-							//Criar variável local
-							a_stt[i] = _ac_linear  / (w   * m);
-						}
-						else {
-							//Criar variável local
-							a_num[i] = -1.0f;
-							//Criar variável local
-							a_stt[i] = -1.0f;
-						}
-						
+						local_t0[t0] = _t0 * _t0;
 					}
+					
+					//nc = 5
+					//Unroll ?
+					#pragma unroll 5 
+					[[intelfpga::ivdep]]
+					for(int c_id=0; c_id < nc; c_id++) {	
+						//Memória local usada aqui
+						local_c[c_id] = a_c[c_id];
+					}
+                    
+                    for(int t0=0; t0 < ns; t0++){
+                        for(int c_id=0; c_id < nc; c_id++) {
+
+                            real _den = 0.0f, _ac_linear = 0.0f, _ac_squared = 0.0f;
+                            real _num[MAX_W],  m = 0.0f;
+                            int err = 0;
+
+                            // start _num with zeros
+                            //w = 3
+                            //Unroll 3
+                            #pragma unroll 3 
+                            [[intelfpga::ivdep]]
+                            for(int j=0; j < w; j++) _num[j] = 0.0f;
+
+                            //Unroll 15
+                            for(int t_id=t_id0; t_id < t_idf; t_id++) {
+                                // Evaluate t
+                                real t = sycl::sqrt(local_t0[t0] + local_c[c_id] * a_h[t_id]);
+
+                                int it = (int)( t * idt );
+                                int ittau = it - tau;
+                                real x = t * idt - (real)it;
+
+                                if(ittau >= 0 && it + tau + 1 < ns) {
+                                    int k1 = ittau + (t_id-t_id0)*ns;
+                                    //Não precisa de memoria_local****
+                                    real sk1p1 = a_cdpsmpl[k1], sk1;
+                                    //w = 3
+                                    //Unroll 3
+                                    #pragma unroll 3 
+                                    [[intelfpga::ivdep]]
+                                    for(int j=0; j < w; j++) {
+                                        k1++;
+                                        sk1 = sk1p1;
+                                        sk1p1 = a_cdpsmpl[k1];
+
+                                        // linear interpolation optmized for this problem
+                                        real v = (sk1p1 - sk1) * x + sk1;
+
+                                        _num[j] += v;
+                                        _den += v * v;
+                                        _ac_linear += v;
+                                    }
+                                    m += 1;
+                                } else { err++; }
+                            }
+
+                            // Reduction for num
+                            //w = 3
+                            //Unroll 3
+                            #pragma unroll 3 
+                            [[intelfpga::ivdep]]
+                            for(int j=0; j < w; j++) _ac_squared += _num[j] * _num[j];
+
+                            // Evaluate semblances
+                            if(_den > EPSILON && m > EPSILON && w > EPSILON && err < 2) {
+                                //Memória local usada aqui
+                                local_a_num[t0][c_id] = _ac_squared / (_den * m);
+                                local_a_stt[t0][c_id] = _ac_linear  / (w   * m);
+                            }else{
+                                //Memória local usada aqui
+                                local_a_num[t0][c_id] = -1.0f;
+                                local_a_stt[t0][c_id] = -1.0f;
+                            }
+                        }
+                    }
+					
+                    
+                    for(int t0=0; t0 < ns; t0++){
+                        // Reduction for num
+                        //w = 3
+                        //Unroll 3
+                        #pragma unroll 5 
+                        [[intelfpga::ivdep]]
+                        for(int c_id=0; c_id < nc; c_id++) {
+                            //Memória local usada aqui
+                            a_num[t0*nc+c_id] = local_a_num[t0][c_id];
+                            a_stt[t0*nc+c_id] = local_a_stt[t0][c_id];
+                        }
+                    }
 				});
 			});
 			queue.wait_and_throw();
@@ -356,39 +392,32 @@ int main(int argc, const char** argv) {
 			// Get max C for max semblance for each sample on this cdp
 		  	beg = std::chrono::high_resolution_clock::now();
 			// Submit Command group function object to the queue
-			queue.submit([&](sycl::handler& cgh) {
+			host_queue.submit([&](sycl::handler& cgh) {
 				auto a_num     = b_num.get_access<sycl::access::mode::read_write>(cgh);
 				auto a_stt     = b_stt.get_access<sycl::access::mode::read_write>(cgh);
 				auto a_str     = b_str.get_access<sycl::access::mode::write>(cgh);
 				auto a_stk     = b_stk.get_access<sycl::access::mode::write>(cgh);
 				auto a_ctr     = b_ctr.get_access<sycl::access::mode::write>(cgh);
-				cgh.single_task<redux_semblances>([=]( ) {
-					//ns=2502
-					//Unroll ?
-					for(int t0=0; t0 < ns; t0++) {
-						real max_sem = 0.0f, _num;
-						int max_c = -1;
-						
-						//it = (valor inicial) + 5
-						//Unroll 5
-						for(int it=t0*nc; it < (t0+1)*nc ; it++) {
-							_num = a_num[it];
-							if(_num > max_sem) {
-								max_sem = _num;
-								max_c = it;
-							}
-						}
+				cgh.parallel_for<class redux_semblances>(sycl::range<1>(ns), [=](sycl::id<1> it) {
+					int t0=it.get(0);
+					// Kernel code. Call the complex_mul function here.
+					real max_sem = 0.0f, _num;
+					int max_c = -1;
 
-						//Criar variável local
-						a_ctr[cdp_id*ns + t0] = max_c % nc;
-						//Criar variável local
-						a_str[cdp_id*ns + t0] = max_sem;
-						//Criar variável local
-						a_stk[cdp_id*ns + t0] = max_c > -1 ? a_stt[max_c] : 0;
+					for(int it=t0*nc; it < (t0+1)*nc ; it++) {
+						_num = a_num[it];
+						if(_num > max_sem) {
+							max_sem = _num;
+							max_c = it;
+						}
 					}
+
+					a_ctr[cdp_id*ns + t0] = max_c % nc;
+					a_str[cdp_id*ns + t0] = max_sem;
+					a_stk[cdp_id*ns + t0] = max_c > -1 ? a_stt[max_c] : 0;
 				});
 			});
-			queue.wait_and_throw();
+			host_queue.wait();
 			end = std::chrono::high_resolution_clock::now();
 			kernel_execution_time += std::chrono::duration_cast<std::chrono::duration<double>>(end - beg).count();
 

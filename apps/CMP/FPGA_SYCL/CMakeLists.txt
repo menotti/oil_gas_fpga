@@ -58,13 +58,17 @@ ENDIF()
 
 ################################################################################
 # Set CMAKE's variables
-set(HARDWARE_COMPILE_FLAGS "-fintelfpga")
+#set(HARDWARE_COMPILE_FLAGS "-fintelfpga")
+set(HARDWARE_COMPILE_FLAGS "-fsycl -fsycl-targets=spir64_fpga-unknown-unknown-sycldevice")
 
 # use cmake -D USER_HARDWARE_FLAGS=<flags> to set extra flags for FPGA backend compilation
-set(HARDWARE_LINK_FLAGS "-fintelfpga -Xsprofile -Xshardware -Xsboard=${FPGA_BOARD} ${USER_HARDWARE_FLAGS}")
+#set(HARDWARE_LINK_FLAGS "-fintelfpga -Xsprofile -Xshardware -Xsboard=${FPGA_BOARD} ${USER_HARDWARE_FLAGS}")
+set(HARDWARE_LINK_FLAGS "-fsycl -fsycl-targets=spir64_fpga-unknown-unknown-sycldevice -Xsprofile -Xshardware -Xsboard=${FPGA_BOARD} ${USER_HARDWARE_FLAGS}")
 
-set(EMULATOR_COMPILE_FLAGS "-fintelfpga -lOpenCL -lsycl -DFPGA_EMULATOR")
-set(EMULATOR_LINK_FLAGS "-fintelfpga")
+#set(EMULATOR_COMPILE_FLAGS "-fintelfpga -lOpenCL -DFPGA_EMULATOR -fsycl")
+set(EMULATOR_COMPILE_FLAGS "-fsycl-targets=spir64_fpga-unknown-unknown-sycldevice,spir64-unknown-unknown-sycldevice -DFPGA_EMULATOR")
+#set(EMULATOR_LINK_FLAGS "-fintelfpga")
+set(EMULATOR_LINK_FLAGS "-fsycl-targets=spir64_fpga-unknown-unknown-sycldevice,spir64-unknown-unknown-sycldevice")
 set(EMULATOR_LINK_REPORT "-fintelfpga -fsycl-link -Xshardware")
 ################################################################################
 #GENERATE EXECUTABLE FPGA_EMULATOR<<---------------------->>
